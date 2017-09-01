@@ -1,6 +1,7 @@
 import { ContentBlock, ContentState } from "draft-js";
 // tslint:disable-next-line:no-submodule-imports
 import flatMap = require("lodash/flatMap");
+import { Utils } from "../utils/utils";
 
 export class Chords {
     public static BASE_NOTES = ["A", "B", "C", "D", "E", "F", "G"];
@@ -24,8 +25,9 @@ export class Chords {
         if (!Chords.isContentBlockChordsBlock(contentBlock)) {
             return;
         }
-        callback(0, contentBlock.getLength());
-        return;
+        Utils.findAllTextBlocks(contentBlock.getText()).forEach((range) => {
+            callback(range.startIndex, range.endIndex);
+        });
     }
 
     private static isContentBlockChordsBlock = (contentBlock: ContentBlock) => {
@@ -34,7 +36,6 @@ export class Chords {
             return false;
         }
         const tokens = text.split(" ");
-        console.log(tokens);
         const textContainsChordsOnly = tokens.every(Chords.isChordOrEmpty);
         return textContainsChordsOnly;
     }
@@ -45,6 +46,11 @@ export class Chords {
 
     private static isChordOrEmpty = (value: string) => {
         return value.length === 0 || Chords.isChord(value);
+    }
+
+    private static findAllChords = (text: string) => {
+        return Utils.findAllTextBlocks(text)
+            .filter((range) => Chords.isChord(range.text));
     }
 }
 
