@@ -1,0 +1,82 @@
+{
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "jsx-alignment": true,
+        "jsx-no-lambda": true,
+        "jsx-no-string-ref": true,
+        "jsx-self-close": true,
+        "linebreak-style": [
+            true,
+            "LF"
+        ],
+        "no-console": [
+            true,
+            "log",
+            "warn"
+        ],
+        "no-invalid-this": [
+            true,
+            "check-function-in-method"
+        ],
+        "ban": [
+            [
+                "_",
+                "extend",
+                "use object spread"
+            ],
+            [
+                "_",
+                "isNull",
+                "use plain JS"
+            ],
+            [
+                "_",
+                "isDefined",
+                "use plain JS"
+            ],
+            [
+                "assert",
+                "equal",
+                "use assert.strictEqual instead"
+            ],
+            [
+                "describe",
+                "only",
+                "should not be committed to repo"
+            ],
+            [
+                "it",
+                "only",
+                "should not be committed to repo"
+            ],
+            [
+                "Object",
+                "assign",
+                "use object spread"
+            ],
+            [
+                "Object",
+                "getOwnPropertyNames",
+                "use Object.keys()"
+            ],
+            [
+                "test",
+                "only",
+                "should not be committed to repo"
+            ]
+        ],
+        "no-default-export": true,
+        "no-unnecessary-callback-wrapper": true,
+        "no-unnecessary-initializer": true,
+        "variable-name": [
+            "allow-leading-underscore",
+            "allow-pascal-case",
+            "ban-keywords",
+            "check-format"
+        ]
+    }
+}
