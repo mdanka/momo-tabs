@@ -9,9 +9,11 @@ export interface IGuitarAppState {
 }
 
 export class GuitarApp extends React.Component<{}, IGuitarAppState> {
+    private static LS_KEY_TEMP_SONG = "guitar-app-temp-song";
+
     public constructor(props: {}) {
         super(props);
-        const song = "Hello\nAre you OK?";
+        const song = this.loadSong() || "Hello\nAre you OK?";
         const contentState = ContentState.createFromText(song);
         const chordDecorator = {
             component: Chord,
@@ -33,5 +35,14 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
 
     private onChange = (editorState: EditorState) => {
         this.setState({ editorState });
+        this.saveSong(editorState.getCurrentContent().getPlainText());
+    }
+
+    private saveSong = (song: string) => {
+        localStorage.setItem(GuitarApp.LS_KEY_TEMP_SONG, song);
+    }
+
+    private loadSong = () => {
+        return localStorage.getItem(GuitarApp.LS_KEY_TEMP_SONG);
     }
 }
