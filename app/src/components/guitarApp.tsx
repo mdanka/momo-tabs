@@ -27,8 +27,8 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
 
     public render() {
         return (
-            <div>
-                <Editor editorState={this.state.editorState} onChange={this.onChange} />
+            <div className="score-editor-container">
+                <Editor  editorState={this.state.editorState} onChange={this.onChange} />
             </div>
         );
     }
