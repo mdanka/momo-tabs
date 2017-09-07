@@ -13,7 +13,7 @@ export class Chords {
 
     public static initialize() {
         Chords.CHORDS = flatMap(Chords.NOTES, (note) => {
-            return [note, note + "m"];
+            return [note, note + "7", note + "m", note + "m7", note + "maj7"];
         });
     }
 
