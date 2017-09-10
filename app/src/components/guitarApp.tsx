@@ -2,7 +2,10 @@ import { CompositeDecorator, ContentBlock, ContentState, Editor, EditorState } f
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Chords } from "../chords/chords";
+import { Tabs } from "../chords/tabs";
 import { Chord } from "./chord";
+import { TabBackground } from "./tabBackground";
+import { TabContent } from "./tabContent";
 
 export interface IGuitarAppState {
     editorState: EditorState;
@@ -19,7 +22,19 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
             component: Chord,
             strategy: Chords.chordDecoratorStrategy,
         };
-        const compositeDecorator = new CompositeDecorator([chordDecorator]);
+        const tabBackgroundDecorator = {
+            component: TabBackground,
+            strategy: Tabs.tabBackgroundDecoratorStrategy,
+        };
+        const tabContentDecorator = {
+            component: TabContent,
+            strategy: Tabs.tabContentDecoratorStrategy,
+        };
+        const compositeDecorator = new CompositeDecorator([
+            chordDecorator,
+            tabBackgroundDecorator,
+            tabContentDecorator,
+        ]);
         this.state = {
             editorState: EditorState.createWithContent(contentState, compositeDecorator),
         };
