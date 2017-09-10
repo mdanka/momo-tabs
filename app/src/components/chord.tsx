@@ -13,7 +13,9 @@ export interface IDecoratedComponentProps {
 export class Chord extends React.PureComponent<IDecoratedComponentProps, {}> {
     public render() {
         return (
-            <strong>{this.props.children}</strong>
+            <span className="score-content-chord">
+                {this.props.children}
+            </span>
         );
     }
 }
