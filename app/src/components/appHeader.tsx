@@ -39,7 +39,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         return (
             <div className="app-header">
                 <span className="app-title">
-                    <Link to={GET_NAV_URL[Page.Home]()}>Guitar Tabs</Link>
+                    <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
                 </span>
                 {isLoggedIn && this.renderUser()}
                 {isLoggedIn && this.renderUserMenu()}
