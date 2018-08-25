@@ -21,6 +21,8 @@
         "@blueprintjs/core": "^1.21.0",
         "classnames": "^2.2.5",
         "commonjs": "^0.0.1",
+        "firebase": "^5.4.1",
+        "firebaseui": "^3.4.0",
         "lodash": "^4.17.3",
         "normalize.css": "^5.0.0",
         "query-string": "^4.3.1",
