@@ -1,7 +1,7 @@
 import "es6-shim";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { GuitarApp } from "./components/guitarApp";
+import { GuitarApp } from "./components";
 
 const appElement = document.getElementById("app");
 
