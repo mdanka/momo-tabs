@@ -5,6 +5,7 @@ var path = require('path');
 const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
@@ -104,5 +105,8 @@ module.exports = {
             template: path.resolve(__dirname, "src/index.html"),
             title: "Tabs",
         }),
+        new WebpackBuildNotifierPlugin({
+            title: "Guitar App Build",
+        })
     ],
 }
