@@ -1,16 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { ICurrentUserState, IAppState, selectCurrentUser } from "../store";
+import { IAppState, selectCurrentUser } from "../store";
 import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
 import { FIREBASE_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
 import { Avatar, Menu, MenuItem } from "@material-ui/core";
+import { IUser } from "../commons";
 
 export interface IAppHeaderOwnProps {}
 
 export interface IAppHeaderStateProps {
-    currentUser: ICurrentUserState;
+    currentUser: IUser;
 }
 
 export interface IAppHeaderDispatchProps {}

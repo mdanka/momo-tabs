@@ -1,5 +1,10 @@
+import { ICurrentUser, ISong } from "../commons";
+
 export interface IAppState {
-    currentUser: ICurrentUserState;
+    currentUser: ICurrentUser;
+    songs: ISongsState;
 }
 
-export type ICurrentUserState = firebase.User | undefined;
+export interface ISongsState {
+    [id: string]: ISong | undefined;
+}

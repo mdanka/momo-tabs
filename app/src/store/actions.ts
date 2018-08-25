@@ -1,6 +1,6 @@
 import { TypedAction } from "redoodle";
-import { ICurrentUserState } from "./state";
+import { ICurrentUser } from "../commons";
 
 export const SetCurrentUser = TypedAction.define("GUITAR//SET_CURRENT_USER")<{
-    currentUser: ICurrentUserState;
+    currentUser: ICurrentUser;
 }>();
