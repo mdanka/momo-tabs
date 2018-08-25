@@ -3,14 +3,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { GuitarApp } from "./components";
-import { createAppStore } from "./store";
+import { STORE } from "./store";
 
 const appElement = document.getElementById("app");
-const store = createAppStore();
 
 if (appElement != null) {
     ReactDOM.render(
-        <Provider store={store}>
+        <Provider store={STORE}>
             <GuitarApp />
         </Provider>,
         appElement,

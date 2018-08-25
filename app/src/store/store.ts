@@ -7,8 +7,10 @@ const INITIAL_STATE: IAppState = {
     currentUser: undefined,
 };
 
-export function createAppStore() {
+function createAppStore() {
     const middlewareEnhancer = applyMiddleware(loggingMiddleware()) as StoreEnhancer;
     const store = createStore<IAppState>(appReducer, INITIAL_STATE, middlewareEnhancer);
     return store;
 }
+
+export const STORE = createAppStore();
