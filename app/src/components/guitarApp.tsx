@@ -1,43 +1,10 @@
-import { CompositeDecorator, ContentState, Editor, EditorState } from "draft-js";
 import * as React from "react";
-import { Chords } from "../chords/chords";
-import { Tabs } from "../chords/tabs";
-import { Chord } from "./chord";
-import { TabBackground } from "./tabBackground";
-import { TabContent } from "./tabContent";
 
 export interface IGuitarAppState {
-    editorState: EditorState;
 }
 
 export class GuitarApp extends React.Component<{}, IGuitarAppState> {
-    private static LS_KEY_TEMP_SONG = "guitar-app-temp-song";
-
-    public constructor(props: {}) {
-        super(props);
-        const song = this.loadSong() || "Hello\nAre you OK?";
-        const contentState = ContentState.createFromText(song);
-        const chordDecorator = {
-            component: Chord,
-            strategy: Chords.chordDecoratorStrategy,
-        };
-        const tabBackgroundDecorator = {
-            component: TabBackground,
-            strategy: Tabs.tabBackgroundDecoratorStrategy,
-        };
-        const tabContentDecorator = {
-            component: TabContent,
-            strategy: Tabs.tabContentDecoratorStrategy,
-        };
-        const compositeDecorator = new CompositeDecorator([
-            chordDecorator,
-            tabBackgroundDecorator,
-            tabContentDecorator,
-        ]);
-        this.state = {
-            editorState: EditorState.createWithContent(contentState, compositeDecorator),
-        };
-    }
+    // private static LS_KEY_TEMP_SONG = "guitar-app-temp-song";
 
     public render() {
         return (
@@ -47,22 +14,17 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
                     <span className="song-performer">by <a href="#">Emil.RuleZ!</a></span>
                 </div>
                 <div className="score-editor-container">
-                    <Editor editorState={this.state.editorState} onChange={this.onChange} />
+                    Hello
                 </div>
             </div>
         );
     }
 
-    private onChange = (editorState: EditorState) => {
-        this.setState({ editorState });
-        this.saveSong(editorState.getCurrentContent().getPlainText());
-    }
+    // private saveSong = (song: string) => {
+    //     localStorage.setItem(GuitarApp.LS_KEY_TEMP_SONG, song);
+    // }
 
-    private saveSong = (song: string) => {
-        localStorage.setItem(GuitarApp.LS_KEY_TEMP_SONG, song);
-    }
-
-    private loadSong = () => {
-        return localStorage.getItem(GuitarApp.LS_KEY_TEMP_SONG);
-    }
+    // private loadSong = () => {
+    //     return localStorage.getItem(GuitarApp.LS_KEY_TEMP_SONG);
+    // }
 }
