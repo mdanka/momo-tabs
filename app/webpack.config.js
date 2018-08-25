@@ -102,7 +102,7 @@ module.exports = {
                 collapseWhitespace: true,
             },
             template: path.resolve(__dirname, "src/index.html"),
-            title: "Planet",
+            title: "Tabs",
         }),
     ],
 }

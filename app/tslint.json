@@ -2,7 +2,9 @@
     "defaultSeverity": "warning",
     "extends": [
         "tslint:latest",
-        "tslint-react"
+        "tslint-react",
+        "tslint-config-prettier",
+        "tslint-plugin-prettier"
     ],
     "rules": {
         "jsx-alignment": true,
@@ -72,6 +74,13 @@
         "no-default-export": true,
         "no-unnecessary-callback-wrapper": true,
         "no-unnecessary-initializer": true,
+        "prettier": {
+            "options": [{
+                "printWidth": 120,
+                "tabWidth": 4,
+                "trailingComma": "all"
+            }]
+        },
         "variable-name": [
             "allow-leading-underscore",
             "allow-pascal-case",

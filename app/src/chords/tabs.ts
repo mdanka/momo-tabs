@@ -1,13 +1,11 @@
 import { ContentBlock, ContentState } from "draft-js";
-// tslint:disable-next-line:no-submodule-imports
-import flatMap = require("lodash/flatMap");
 import { Utils } from "../utils/utils";
 
 export class Tabs {
     public static tabBackgroundDecoratorStrategy = (
         contentBlock: ContentBlock,
         callback: (start: number, end: number) => void,
-        contentState: ContentState,
+        _contentState: ContentState,
     ) => {
         if (!Tabs.isContentBlockTabBlock(contentBlock)) {
             return;
@@ -20,7 +18,7 @@ export class Tabs {
     public static tabContentDecoratorStrategy = (
         contentBlock: ContentBlock,
         callback: (start: number, end: number) => void,
-        contentState: ContentState,
+        _contentState: ContentState,
     ) => {
         if (!Tabs.isContentBlockTabBlock(contentBlock)) {
             return;

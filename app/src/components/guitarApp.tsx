@@ -1,6 +1,5 @@
-import { CompositeDecorator, ContentBlock, ContentState, Editor, EditorState } from "draft-js";
+import { CompositeDecorator, ContentState, Editor, EditorState } from "draft-js";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { Chords } from "../chords/chords";
 import { Tabs } from "../chords/tabs";
 import { Chord } from "./chord";

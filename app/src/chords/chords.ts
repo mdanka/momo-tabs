@@ -20,7 +20,7 @@ export class Chords {
     public static chordDecoratorStrategy = (
         contentBlock: ContentBlock,
         callback: (start: number, end: number) => void,
-        contentState: ContentState,
+        _contentState: ContentState,
     ) => {
         if (!Chords.isContentBlockChordsBlock(contentBlock)) {
             return;
@@ -48,10 +48,10 @@ export class Chords {
         return value.length === 0 || Chords.isChord(value);
     }
 
-    private static findAllChords = (text: string) => {
-        return Utils.findAllTextBlocks(text)
-            .filter((range) => Chords.isChord(range.text));
-    }
+    // private static findAllChords = (text: string) => {
+    //     return Utils.findAllTextBlocks(text)
+    //         .filter((range) => Chords.isChord(range.text));
+    // }
 }
 
 Chords.initialize();
