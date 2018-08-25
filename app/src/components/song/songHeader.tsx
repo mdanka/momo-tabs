@@ -20,10 +20,12 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
     public render() {
         return (
             <div className="song-header">
-                <span className="song-header-title">Táplálom</span>
-                <span className="song-header-artist">
-                    by <a href="#">Emil.RuleZ!</a>
-                </span>
+                <div className="song-header-song-info">
+                    <span className="song-header-title">Táplálom</span>
+                    <span className="song-header-artist">
+                        by <a href="#">Emil.RuleZ!</a>
+                    </span>
+                </div>
             </div>
         );
     }

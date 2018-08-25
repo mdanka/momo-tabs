@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
 import { FIREBASE_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
-import { Avatar, Menu, MenuItem } from "@material-ui/core";
+import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { IUser } from "../commons";
 
 export interface IAppHeaderOwnProps {}
@@ -54,22 +54,36 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
             return;
         }
         const { displayName, photoURL } = currentUser;
-        if (photoURL !== null) {
-            return (
-                <span ref={this.userMenuButtonRef}>
-                    <Avatar src={photoURL} />
-                </span>
-            );
+        const avatar = this.renderAvatar(
+            photoURL == null ? undefined : photoURL,
+            displayName == null ? undefined : displayName,
+        );
+        return (
+            <IconButton
+                className="app-header-avatar-button"
+                onClick={this.toggleUserMenu}
+                disableRipple={true}
+                buttonRef={this.userMenuButtonRef}
+            >
+                {avatar}
+            </IconButton>
+        );
+    };
+
+    private renderAvatar = (photoUrl: string | undefined, displayName?: string) => {
+        const classes = "app-header-avatar-image";
+        if (photoUrl !== undefined) {
+            return <Avatar className={classes} src={photoUrl} />;
         }
-        if (displayName !== null) {
+        if (displayName !== undefined) {
             const initials = displayName
                 .split(" ")
                 .filter(nameComponent => nameComponent.length > 0)
                 .map(nameComponent => nameComponent[0])
                 .join("");
-            return <Avatar onClick={this.toggleUserMenu}>{initials}</Avatar>;
+            return <Avatar className={classes}>{initials}</Avatar>;
         }
-        return <Avatar />;
+        return <Avatar className={classes} />;
     };
 
     private renderUserMenu = () => {
