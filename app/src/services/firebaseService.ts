@@ -2,6 +2,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import * as firebaseui from "firebaseui";
 import { STORE, SetCurrentUser } from "../store";
+import { GET_NAV_URL, Page } from "../utils";
 
 class FirebaseService {
     private firebaseApp: firebase.app.App;
@@ -17,7 +18,7 @@ class FirebaseService {
     };
 
     private firebaseAuthUiConfig = {
-        signInSuccessUrl: "/",
+        signInSuccessUrl: GET_NAV_URL[Page.Home](),
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         tosUrl: "/terms-of-service",
         privacyPolicyUrl: "/privacy-policy",
@@ -56,8 +57,13 @@ class FirebaseService {
         return this.authGetCurrentUser() != null;
     };
 
+    public authSignOut = () => {
+        this.firebaseApp.auth().signOut();
+    };
+
     private setUser = (user: firebase.User | null) => {
-        STORE.dispatch(SetCurrentUser.create({ currentUser: user }));
+        const userOrUndefined = user === null ? undefined : user;
+        STORE.dispatch(SetCurrentUser.create({ currentUser: userOrUndefined }));
     };
 }
 

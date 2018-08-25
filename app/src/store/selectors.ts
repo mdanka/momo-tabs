@@ -1,3 +1,3 @@
 import { IAppState } from "./state";
 
-export const currentUserSelector = (state: IAppState) => state.currentUser;
+export const selectCurrentUser = (state: IAppState) => state.currentUser;

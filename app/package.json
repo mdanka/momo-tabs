@@ -18,7 +18,7 @@
         "watch:server": "webpack-dev-server -d --config webpack.config.server.js"
     },
     "dependencies": {
-        "@blueprintjs/core": "^1.21.0",
+        "@blueprintjs/core": "^3.4.0",
         "classnames": "^2.2.5",
         "commonjs": "^0.0.1",
         "es6-shim": "^0.35.3",

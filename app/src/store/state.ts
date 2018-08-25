@@ -2,4 +2,4 @@ export interface IAppState {
     currentUser: ICurrentUserState;
 }
 
-export type ICurrentUserState = firebase.User | undefined | null;
+export type ICurrentUserState = firebase.User | undefined;
