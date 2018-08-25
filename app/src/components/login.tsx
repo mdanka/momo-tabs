@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FIREBASE_AUTH_START } from "../services/firebaseService";
+import { FIREBASE_SERVICE } from "../services";
 
 export interface ILoginProps {};
 
@@ -15,7 +15,7 @@ export class Login extends React.Component<ILoginProps, {}> {
         if (this.ref.current == null) {
             return;
         }
-        FIREBASE_AUTH_START(this.ref.current);
+        FIREBASE_SERVICE.authStart(this.ref.current);
     }
 
     public render() {
