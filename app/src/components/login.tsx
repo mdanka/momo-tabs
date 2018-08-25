@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FIREBASE_SERVICE } from "../services";
 
-export interface ILoginProps {};
+export interface ILoginProps {}
 
 export class Login extends React.Component<ILoginProps, {}> {
     private ref: React.RefObject<HTMLDivElement>;
@@ -9,7 +9,7 @@ export class Login extends React.Component<ILoginProps, {}> {
     constructor(props: ILoginProps) {
         super(props);
         this.ref = React.createRef();
-      }
+    }
 
     public componentDidMount() {
         if (this.ref.current == null) {
@@ -21,8 +21,7 @@ export class Login extends React.Component<ILoginProps, {}> {
     public render() {
         return (
             <div className="login-screen" ref={this.ref}>
-                <div className="login-widget" ref={this.ref}>
-                </div>
+                <div className="login-widget" ref={this.ref} />
             </div>
         );
     }

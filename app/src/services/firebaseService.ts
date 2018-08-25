@@ -12,16 +12,14 @@ class FirebaseService {
         databaseURL: "https://guitar-tabs-app.firebaseio.com",
         projectId: "guitar-tabs-app",
         storageBucket: "guitar-tabs-app.appspot.com",
-        messagingSenderId: "884910130877"
+        messagingSenderId: "884910130877",
     };
 
     private firebaseAuthUiConfig = {
         signInSuccessUrl: "/",
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        ],
-        tosUrl: '/terms-of-service',
-        privacyPolicyUrl: '/privacy-policy',
+        signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+        tosUrl: "/terms-of-service",
+        privacyPolicyUrl: "/privacy-policy",
     };
 
     public constructor() {
@@ -31,23 +29,23 @@ class FirebaseService {
 
     public getApp = () => {
         return this.firebaseApp;
-    }
+    };
 
     public getAuthUi = () => {
         this.firebaseAuthUi;
-    }
+    };
 
     public authStart = (element: string | Element) => {
         this.firebaseAuthUi.start(element, this.firebaseAuthUiConfig);
-    }
+    };
 
     public authGetCurrentUser = () => {
         return this.firebaseApp.auth().currentUser;
-    }
+    };
 
     public authIsLoggedIn = () => {
         return this.authGetCurrentUser() != null;
-    }
+    };
 }
 
 export const FIREBASE_SERVICE = new FirebaseService();

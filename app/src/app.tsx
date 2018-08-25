@@ -6,7 +6,5 @@ import { GuitarApp } from "./components";
 const appElement = document.getElementById("app");
 
 if (appElement != null) {
-    ReactDOM.render((
-        <GuitarApp />
-    ), appElement);
+    ReactDOM.render(<GuitarApp />, appElement);
 }

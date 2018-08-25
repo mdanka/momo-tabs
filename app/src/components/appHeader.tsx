@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface IAppHeaderProps {};
+export interface IAppHeaderProps {}
 
 export class AppHeader extends React.Component<IAppHeaderProps, {}> {
     public render() {
