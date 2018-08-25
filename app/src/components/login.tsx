@@ -20,7 +20,9 @@ export class Login extends React.Component<ILoginProps, {}> {
 
     public render() {
         return (
-            <div ref={this.ref}>
+            <div className="login-screen" ref={this.ref}>
+                <div className="login-widget" ref={this.ref}>
+                </div>
             </div>
         );
     }

@@ -2,6 +2,7 @@ import * as React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
+import { AppHeader } from "./appHeader";
 
 export interface IGuitarAppState {
 }
@@ -10,12 +11,15 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     public render() {
         return (
             <BrowserRouter>
-                <div>
-                    <Switch>
-                        <Route path="/login" render={this.renderRouteAuth} />
-                        {/* <Route path="/meals/:userId" render={this.renderMealsForUser} /> */}
-                        <Route path="/" render={this.renderIndex} />
-                    </Switch>
+                <div className="guitar-app">
+                    <AppHeader />
+                    <div className="app-content">
+                        <Switch>
+                            <Route path="/login" render={this.renderRouteAuth} />
+                            {/* <Route path="/meals/:userId" render={this.renderMealsForUser} /> */}
+                            <Route path="/" render={this.renderIndex} />
+                        </Switch>
+                    </div>
                 </div>
             </BrowserRouter>
         );
@@ -23,7 +27,7 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
 
     private renderIndex = (_locationInfo: RouteComponentProps<any>) => {
         return (
-            <div className="guitar-app">
+            <div>
                 <div className="guitar-app-header">
                     <span className="song-title">Táplálom</span>
                     <span className="song-performer">by <a href="#">Emil.RuleZ!</a></span>
@@ -37,9 +41,7 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
 
     private renderRouteAuth = (_locationInfo: RouteComponentProps<any>) => {
         return (
-            <div className="guitar-app">
-                <Login />
-            </div>
+            <Login />
         );
     };
 }
