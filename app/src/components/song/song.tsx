@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { IAppState, selectSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISong } from "../../commons";
+import { SongHeader } from "./songHeader";
 
 export interface ISongOwnProps {
     id: string;
@@ -20,14 +21,9 @@ export class UnconnectedSong extends React.Component<ISongProps, {}> {
     public render() {
         const { id } = this.props;
         return (
-            <div>
-                <div className="guitar-app-header">
-                    <span className="song-title">Táplálom</span>
-                    <span className="song-performer">
-                        by <a href="#">Emil.RuleZ!</a>
-                    </span>
-                </div>
-                <div className="score-editor-container">Hello {id}</div>
+            <div className="song">
+                <SongHeader id={id} />
+                <div className="song-container">Hello {id}</div>
             </div>
         );
     }

@@ -1,7 +1,7 @@
-import { ICurrentUser, ISong } from "../commons";
+import { IUser, ISong } from "../commons";
 
 export interface IAppState {
-    currentUser: ICurrentUser;
+    currentUser: IUser;
     songs: ISongsState;
 }
 
