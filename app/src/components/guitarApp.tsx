@@ -14,7 +14,7 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
                     <AppHeader />
                     <div className="app-content">
                         <Switch>
-                            <Route path="/login" render={this.renderRouteAuth} />
+                            <Route path="/signin" render={this.renderRouteAuth} />
                             {/* <Route path="/meals/:userId" render={this.renderMealsForUser} /> */}
                             <Route path="/" render={this.renderIndex} />
                         </Switch>

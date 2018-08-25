@@ -5,6 +5,7 @@ import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
 import { FIREBASE_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
+import { Avatar } from "@material-ui/core";
 
 export interface IAppHeaderOwnProps {}
 
@@ -22,16 +23,18 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, {}> {
         const isLoggedIn = currentUser !== undefined;
         return (
             <div className="app-header">
-                <span className="app-title">Guitar Tabs</span>
+                <span className="app-title">
+                    <Link to={GET_NAV_URL[Page.Home]()}>Guitar Tabs</Link>
+                </span>
                 {isLoggedIn && this.renderUser()}
-                {isLoggedIn && this.renderLogout()}
-                {!isLoggedIn && this.renderLogin()}
+                {isLoggedIn && this.renderSignOut()}
+                {!isLoggedIn && this.renderSignIn()}
             </div>
         );
     }
 
-    private renderLogout = () => {
-        return <span onClick={this.handleLogoutClick}>Logout</span>;
+    private renderSignOut = () => {
+        return <span onClick={this.handleSignOutClick}>Sign out</span>;
     };
 
     private renderUser = () => {
@@ -39,14 +42,26 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, {}> {
         if (currentUser === undefined) {
             return;
         }
-        return <span>{currentUser.displayName}</span>;
+        const { displayName, photoURL } = currentUser;
+        if (photoURL !== null) {
+            return <Avatar src={photoURL} />;
+        }
+        if (displayName !== null) {
+            const initials = displayName
+                .split(" ")
+                .filter(nameComponent => nameComponent.length > 0)
+                .map(nameComponent => nameComponent[0])
+                .join("");
+            return <Avatar>{initials}</Avatar>;
+        }
+        return <Avatar />;
     };
 
-    private renderLogin = () => {
-        return <Link to={GET_NAV_URL[Page.Login]()}>Login</Link>;
+    private renderSignIn = () => {
+        return <Link to={GET_NAV_URL[Page.SignIn]()}>Sign in</Link>;
     };
 
-    private handleLogoutClick = () => {
+    private handleSignOutClick = () => {
         FIREBASE_SERVICE.authSignOut();
     };
 }
