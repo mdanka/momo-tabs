@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
-import { Page, GET_NAV_URL } from "../utils";
+import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
 import { Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { IUser } from "../commons";
 import { AnchorButton, Intent } from "@blueprintjs/core";
@@ -147,13 +147,12 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
             const newSongUrl = GET_NAV_URL[Page.Song](id);
             history.push(newSongUrl);
         } else {
-            history.push(GET_NAV_URL[Page.SignIn]());
+            SIGN_IN_AND_RETURN(this.props);
         }
     };
 
     private handleSignInClick = async () => {
-        const { history } = this.props;
-        history.push(GET_NAV_URL[Page.SignIn]());
+        SIGN_IN_AND_RETURN(this.props);
     };
 }
 

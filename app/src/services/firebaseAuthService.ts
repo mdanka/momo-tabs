@@ -8,7 +8,7 @@ export class FirebaseAuthService {
     private firebaseAuth: firebase.auth.Auth;
     private firebaseAuthUi: firebaseui.auth.AuthUI;
 
-    private firebaseAuthUiConfig = {
+    private defaultFirebaseAuthUiConfig = {
         signInSuccessUrl: GET_NAV_URL[Page.Home](),
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         tosUrl: "/terms-of-service",
@@ -28,8 +28,8 @@ export class FirebaseAuthService {
         this.firebaseAuth.onAuthStateChanged(this.setUser);
     }
 
-    public authStart = (element: string | Element) => {
-        this.firebaseAuthUi.start(element, this.firebaseAuthUiConfig);
+    public authStart = (element: string | Element, signInSuccessUrl: string | undefined) => {
+        this.firebaseAuthUi.start(element, this.getFirebaseAuthUiConfig(signInSuccessUrl));
     };
 
     public authGetCurrentUser = () => {
@@ -47,5 +47,14 @@ export class FirebaseAuthService {
     private setUser = (user: firebase.User | null) => {
         const userOrUndefined = user === null ? undefined : user;
         STORE.dispatch(SetCurrentUser.create({ currentUser: userOrUndefined }));
+    };
+
+    private getFirebaseAuthUiConfig = (signInSuccessUrl?: string) => {
+        return signInSuccessUrl === undefined
+            ? this.defaultFirebaseAuthUiConfig
+            : {
+                  ...this.defaultFirebaseAuthUiConfig,
+                  signInSuccessUrl,
+              };
     };
 }

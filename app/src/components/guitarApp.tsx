@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
 import { AppHeader } from "./appHeader";
-import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page } from "../utils";
+import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page, GET_NAV_URL_QUERY_PARAMS } from "../utils";
 import { Song } from "./song";
 import { HomeScreen } from "./homeScreen";
 
@@ -32,8 +32,10 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
         return <HomeScreen />;
     };
 
-    private renderRouteAuth = (_locationInfo: RouteComponentProps<any>) => {
-        return <Login />;
+    private renderRouteAuth = (locationInfo: RouteComponentProps<any>) => {
+        const signInQueryParams = GET_NAV_URL_QUERY_PARAMS[Page.SignIn](locationInfo.location.search);
+        const { redirectUrl } = signInQueryParams;
+        return <Login redirectUrl={redirectUrl} />;
     };
 
     private renderSong = (locationInfo: RouteComponentProps<any>) => {
