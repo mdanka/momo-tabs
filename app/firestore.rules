@@ -1,0 +1,33 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth.uid != null;
+    }
+
+    function isDocumentCreator() {
+      return request.auth.uid == resource.data.creatorUserId;
+    }
+
+    function areSetsEqual(list1, list2) {
+      return list1.hasAll(list2) && list2.hasAll(list1);
+    }
+
+    match /songs/{songId} {
+      // TODO(mdanka): creation time should be restricted to server time
+      function isSongCreateAllowed() {
+        return areSetsEqual(request.writeFields, ["artist", "content", "creationTime", "creatorUserId", "title"])
+          && request.resource.data.creatorUserId == request.auth.uid;  // creating own document
+      }
+
+      function isSongUpdateAllowed() {
+        return !request.writeFields.hasAny(["creationTime", "creatorUserId"])  // not updating these fields
+          && ["artist", "content", "title"].hasAll(request.writeFields);  // only these fields are included
+      }
+
+      allow read;
+      allow create: if isSignedIn() && isSongCreateAllowed();
+      allow update: if isDocumentCreator() && isSongUpdateAllowed();
+      allow delete: if isDocumentCreator();
+    }
+  }
+}
