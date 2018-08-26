@@ -35,8 +35,8 @@ export class UnconnectedSearchWidget extends React.Component<ISearchWidgetProps,
         }
         const { title, artist } = song;
         return (
-            <Link to={GET_NAV_URL[Page.Song](songId)}>
-                <ListItem divider={true} key={songId}>
+            <Link key={songId} to={GET_NAV_URL[Page.Song](songId)}>
+                <ListItem divider={true}>
                     <ListItemText primary={title} secondary={artist} />
                 </ListItem>
             </Link>
