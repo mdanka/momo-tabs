@@ -5,6 +5,7 @@ var path = require('path');
 const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
@@ -17,10 +18,12 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),},
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: "/",
+    },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+        extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
     },
     module: {
         preLoaders: [
@@ -102,7 +105,10 @@ module.exports = {
                 collapseWhitespace: true,
             },
             template: path.resolve(__dirname, "src/index.html"),
-            title: "Planet",
+            title: "Tabs",
         }),
+        new WebpackBuildNotifierPlugin({
+            title: "Guitar App Build",
+        })
     ],
 }

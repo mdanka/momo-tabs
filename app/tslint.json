@@ -1,14 +1,12 @@
 {
     "defaultSeverity": "warning",
-    "extends": [
-        "tslint:latest",
-        "tslint-react"
+    "rulesDirectory": [
+        "tslint",
+        "tslint-react",
+        "tslint-config-prettier",
+        "tslint-plugin-prettier"
     ],
     "rules": {
-        "jsx-alignment": true,
-        "jsx-no-lambda": true,
-        "jsx-no-string-ref": true,
-        "jsx-self-close": true,
         "linebreak-style": [
             true,
             "LF"
@@ -72,11 +70,21 @@
         "no-default-export": true,
         "no-unnecessary-callback-wrapper": true,
         "no-unnecessary-initializer": true,
+        "prettier": {
+            "options": [{
+                "printWidth": 120,
+                "tabWidth": 4,
+                "trailingComma": "all"
+            }]
+        },
         "variable-name": [
             "allow-leading-underscore",
             "allow-pascal-case",
             "ban-keywords",
             "check-format"
-        ]
+        ],
+        "no-empty-interface": false,
+        "object-literal-sort-keys": false,
+        "no-implicit-dependencies": true
     }
 }

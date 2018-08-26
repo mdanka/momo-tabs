@@ -1,0 +1,42 @@
+@import "~normalize.css";
+@import "~firebaseui/dist/firebaseui.css";
+@import "../variables.less";
+
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
+
+.app-header {
+    height: 40px;
+    color: @momoPrimary;
+    background-color: @momoBackgroundPrimary;
+    border-bottom: solid 1px @momoPrimary;
+
+    padding: 10px 20px 10px 20px;
+
+    display: flex;
+    align-items: center;
+    
+    .app-title {
+        font-size: 18px;
+        font-weight: 600;
+        flex-grow: 1;
+    }
+
+    .app-header-create-button .material-icons {
+        font-size: 13px;
+    }
+
+    .app-header-sign-in-button {
+        color: @momoPrimary;
+    }
+
+    .app-header-avatar-button {
+        margin-left: 10px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .app-header-avatar-image {
+        width: 30px;
+        height: 30px;
+    }
+}

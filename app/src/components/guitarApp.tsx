@@ -1,69 +1,53 @@
-import { CompositeDecorator, ContentBlock, ContentState, Editor, EditorState } from "draft-js";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Chords } from "../chords/chords";
-import { Tabs } from "../chords/tabs";
-import { Chord } from "./chord";
-import { TabBackground } from "./tabBackground";
-import { TabContent } from "./tabContent";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
+import { Login } from "./login";
+import { AppHeader } from "./appHeader";
+import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page, GET_NAV_URL_QUERY_PARAMS } from "../utils";
+import { Song } from "./song";
+import { HomeScreen } from "./homeScreen";
 
-export interface IGuitarAppState {
-    editorState: EditorState;
-}
+export interface IGuitarAppState {}
 
 export class GuitarApp extends React.Component<{}, IGuitarAppState> {
-    private static LS_KEY_TEMP_SONG = "guitar-app-temp-song";
-
-    public constructor(props: {}) {
-        super(props);
-        const song = this.loadSong() || "Hello\nAre you OK?";
-        const contentState = ContentState.createFromText(song);
-        const chordDecorator = {
-            component: Chord,
-            strategy: Chords.chordDecoratorStrategy,
-        };
-        const tabBackgroundDecorator = {
-            component: TabBackground,
-            strategy: Tabs.tabBackgroundDecoratorStrategy,
-        };
-        const tabContentDecorator = {
-            component: TabContent,
-            strategy: Tabs.tabContentDecoratorStrategy,
-        };
-        const compositeDecorator = new CompositeDecorator([
-            chordDecorator,
-            tabBackgroundDecorator,
-            tabContentDecorator,
-        ]);
-        this.state = {
-            editorState: EditorState.createWithContent(contentState, compositeDecorator),
-        };
-    }
-
     public render() {
         return (
-            <div className="guitar-app">
-                <div className="guitar-app-header">
-                    <span className="song-title">Táplálom</span>
-                    <span className="song-performer">by <a href="#">Emil.RuleZ!</a></span>
+            <BrowserRouter>
+                <div className="guitar-app">
+                    <AppHeader />
+                    <div className="app-content">
+                        <Switch>
+                            <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
+                            <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
+                            <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
+                            <Route render={this.renderRedirectToHome} />
+                        </Switch>
+                    </div>
                 </div>
-                <div className="score-editor-container">
-                    <Editor editorState={this.state.editorState} onChange={this.onChange} />
-                </div>
-            </div>
+            </BrowserRouter>
         );
     }
 
-    private onChange = (editorState: EditorState) => {
-        this.setState({ editorState });
-        this.saveSong(editorState.getCurrentContent().getPlainText());
-    }
+    private renderHome = (_locationInfo: RouteComponentProps<any>) => {
+        return <HomeScreen />;
+    };
 
-    private saveSong = (song: string) => {
-        localStorage.setItem(GuitarApp.LS_KEY_TEMP_SONG, song);
-    }
+    private renderRouteAuth = (locationInfo: RouteComponentProps<any>) => {
+        const signInQueryParams = GET_NAV_URL_QUERY_PARAMS[Page.SignIn](locationInfo.location.search);
+        const { redirectUrl } = signInQueryParams;
+        return <Login redirectUrl={redirectUrl} />;
+    };
 
-    private loadSong = () => {
-        return localStorage.getItem(GuitarApp.LS_KEY_TEMP_SONG);
-    }
+    private renderSong = (locationInfo: RouteComponentProps<any>) => {
+        const match = GET_NAV_URL_MATCH[Page.Song](locationInfo.location.pathname);
+        if (match == null) {
+            return null;
+        }
+        const { id } = match.params;
+        return <Song id={id} />;
+    };
+
+    private renderRedirectToHome = (_locationInfo: RouteComponentProps<any>) => {
+        return <Redirect to={GET_NAV_URL[Page.Home]()} />;
+    };
 }

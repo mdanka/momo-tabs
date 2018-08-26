@@ -1,12 +1,17 @@
 import "es6-shim";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { GuitarApp } from "./components/guitarApp";
+import { Provider } from "react-redux";
+import { GuitarApp } from "./components";
+import { STORE } from "./store";
 
 const appElement = document.getElementById("app");
 
 if (appElement != null) {
-    ReactDOM.render((
-        <GuitarApp />
-    ), appElement);
+    ReactDOM.render(
+        <Provider store={STORE}>
+            <GuitarApp />
+        </Provider>,
+        appElement,
+    );
 }
