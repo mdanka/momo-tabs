@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
+import { EditableText } from "@blueprintjs/core";
 
 export interface ISongHeaderOwnProps {
     id: string;
@@ -19,7 +20,7 @@ export type ISongHeaderProps = ISongHeaderOwnProps & ISongHeaderStateProps & ISo
 
 export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}> {
     public render() {
-        const { song } = this.props;
+        const { song, canEditSong } = this.props;
         if (song === undefined) {
             return null;
         }
@@ -27,9 +28,14 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
         return (
             <div className="song-header">
                 <div className="song-header-song-info">
-                    <span className="song-header-title">{title}</span>
+                    <EditableText
+                        className="song-header-title"
+                        disabled={!canEditSong}
+                        placeholder="Title"
+                        value={title}
+                    />
                     <span className="song-header-artist">
-                        by <a href="#">{artist}</a>
+                        by <EditableText disabled={!canEditSong} placeholder="Artist" value={artist} />
                     </span>
                 </div>
             </div>
