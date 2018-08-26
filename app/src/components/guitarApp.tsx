@@ -5,6 +5,7 @@ import { Login } from "./login";
 import { AppHeader } from "./appHeader";
 import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page } from "../utils";
 import { Song } from "./song";
+import { HomeScreen } from "./homeScreen";
 
 export interface IGuitarAppState {}
 
@@ -28,7 +29,7 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     }
 
     private renderHome = (_locationInfo: RouteComponentProps<any>) => {
-        return <div>Home</div>;
+        return <HomeScreen />;
     };
 
     private renderRouteAuth = (_locationInfo: RouteComponentProps<any>) => {
