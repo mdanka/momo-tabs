@@ -1,5 +1,6 @@
 import { IAppState, ISongsState } from "./state";
 import createCachedSelector from "re-reselect";
+import { IUser, ISongApi } from "../commons";
 
 export const selectCurrentUser = (state: IAppState) => state.currentUser;
 
@@ -10,5 +11,14 @@ export const selectSong = createCachedSelector(
     (_state: IAppState, id: string) => id,
     (songs: ISongsState, id: string) => {
         return songs[id];
+    },
+)((_state: IAppState, id: string) => id);
+
+export const selectCanEditSong = createCachedSelector(
+    selectCurrentUser,
+    selectSong,
+    (_state: IAppState, id: string) => id,
+    (currentUser: IUser | undefined, song: ISongApi | undefined, _id: string) => {
+        return currentUser !== undefined && song !== undefined && currentUser.uid === song.creatorUserId;
     },
 )((_state: IAppState, id: string) => id);

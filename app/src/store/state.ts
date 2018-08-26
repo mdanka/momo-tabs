@@ -1,7 +1,7 @@
 import { IUser, ISongApi } from "../commons";
 
 export interface IAppState {
-    currentUser: IUser;
+    currentUser: IUser | undefined;
     songs: ISongsState;
 }
 

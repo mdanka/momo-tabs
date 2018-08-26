@@ -11,7 +11,7 @@ import { IUser } from "../commons";
 export interface IAppHeaderOwnProps {}
 
 export interface IAppHeaderStateProps {
-    currentUser: IUser;
+    currentUser: IUser | undefined;
 }
 
 export interface IAppHeaderDispatchProps {}

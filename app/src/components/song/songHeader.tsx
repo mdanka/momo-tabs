@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IAppState, selectSong } from "../../store";
+import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 
@@ -10,6 +10,7 @@ export interface ISongHeaderOwnProps {
 
 export interface ISongHeaderStateProps {
     song: ISongApi | undefined;
+    canEditSong: boolean;
 }
 
 export interface ISongHeaderDispatchProps {}
@@ -40,6 +41,7 @@ function mapStateToProps(state: IAppState, ownProps: ISongHeaderOwnProps): ISong
     const { id } = ownProps;
     return {
         song: selectSong(state, id),
+        canEditSong: selectCanEditSong(state, id),
     };
 }
 

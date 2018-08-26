@@ -1,4 +1,4 @@
-export type IUser = firebase.User | undefined;
+export type IUser = firebase.User;
 
 export interface ISongApi {
     title: string;
