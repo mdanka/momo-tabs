@@ -16,6 +16,10 @@ service cloud.firestore {
       return request.resource.data[field] == resource.data[field];
     }
 
+    function isFieldMissingOrSame(field) {
+      return request.resource.data[field] == null || isFieldSame(field);
+    }
+
     match /songs/{songId} {
       // TODO(mdanka): creation time should be restricted to server time
       function isSongCreateAllowed() {
@@ -25,8 +29,8 @@ service cloud.firestore {
 
       function isSongUpdateAllowed() {
         return ["creationTime", "creatorUserId", "artist", "content", "title"].hasAll(request.writeFields)  // only these fields are included
-          && isFieldSame("creationTime")
-          && isFieldSame("creatorUserId");
+          && isFieldMissingOrSame("creationTime")
+          && isFieldMissingOrSame("creatorUserId");
       }
 
       allow read;
