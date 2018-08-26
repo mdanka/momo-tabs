@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IAppState, selectCurrentUser } from "../store";
 import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
-import { FIREBASE_SERVICE } from "../services";
+import { FIREBASE_AUTH_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
 import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import { IUser } from "../commons";
@@ -100,7 +100,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     };
 
     private handleSignOutClick = () => {
-        FIREBASE_SERVICE.authSignOut();
+        FIREBASE_AUTH_SERVICE.authSignOut();
     };
 
     private closeUserMenu = () => {
