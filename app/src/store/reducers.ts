@@ -1,5 +1,5 @@
 import { setWith, TypedReducer } from "redoodle";
-import { SetCurrentUser, SetSongs, SetEditedSong } from "./actions";
+import { SetCurrentUser, SetSongs } from "./actions";
 import { IAppState } from "./state";
 
 export const appReducer = TypedReducer.builder<IAppState>()
@@ -11,11 +11,6 @@ export const appReducer = TypedReducer.builder<IAppState>()
     .withHandler(SetSongs.TYPE, (state, payload) => {
         return setWith(state, {
             songs: payload.songs,
-        });
-    })
-    .withHandler(SetEditedSong.TYPE, (state, payload) => {
-        return setWith(state, {
-            editedSong: payload.editedSong,
         });
     })
     .build();

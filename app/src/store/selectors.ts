@@ -4,8 +4,6 @@ import { IUser, ISongApi } from "../commons";
 
 export const selectCurrentUser = (state: IAppState) => state.currentUser;
 
-export const selectEditedSong = (state: IAppState) => state.editedSong;
-
 export const selectSongs = (state: IAppState) => state.songs;
 
 export const selectSong = createCachedSelector(
