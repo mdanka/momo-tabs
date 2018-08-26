@@ -2,14 +2,14 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IAppState, selectSong } from "../../store";
 import { Dispatch } from "redux";
-import { ISong } from "../../commons";
+import { ISongApi } from "../../commons";
 
 export interface ISongHeaderOwnProps {
     id: string;
 }
 
 export interface ISongHeaderStateProps {
-    song: ISong | undefined;
+    song: ISongApi | undefined;
 }
 
 export interface ISongHeaderDispatchProps {}

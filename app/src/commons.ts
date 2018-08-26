@@ -1,12 +1,9 @@
 export type IUser = firebase.User | undefined;
 
-export interface ISong {
+export interface ISongApi {
     title: string;
     artist: string;
     content: string;
-}
-
-export interface ISongApi extends ISong {
     creatorUserId: string;
-    creationTime: Date;
+    creationTime: firebase.firestore.Timestamp;
 }

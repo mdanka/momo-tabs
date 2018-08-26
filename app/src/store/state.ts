@@ -1,4 +1,4 @@
-import { IUser, ISong } from "../commons";
+import { IUser, ISongApi } from "../commons";
 
 export interface IAppState {
     currentUser: IUser;
@@ -6,5 +6,5 @@ export interface IAppState {
 }
 
 export interface ISongsState {
-    [id: string]: ISong | undefined;
+    [id: string]: ISongApi | undefined;
 }

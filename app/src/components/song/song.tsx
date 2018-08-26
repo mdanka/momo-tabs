@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IAppState, selectSong } from "../../store";
 import { Dispatch } from "redux";
-import { ISong } from "../../commons";
+import { ISongApi } from "../../commons";
 import { SongHeader } from "./songHeader";
 
 export interface ISongOwnProps {
@@ -10,7 +10,7 @@ export interface ISongOwnProps {
 }
 
 export interface ISongStateProps {
-    song: ISong | undefined;
+    song: ISongApi | undefined;
 }
 
 export interface ISongDispatchProps {}
