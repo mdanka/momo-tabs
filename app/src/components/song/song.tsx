@@ -22,7 +22,7 @@ export type ISongProps = ISongOwnProps & ISongStateProps & ISongDispatchProps;
 
 export class UnconnectedSong extends React.Component<ISongProps, {}> {
     public render() {
-        const { id, song } = this.props;
+        const { id, song, canEditSong } = this.props;
         if (song === undefined) {
             return null;
         }
@@ -32,6 +32,7 @@ export class UnconnectedSong extends React.Component<ISongProps, {}> {
                 <SongHeader id={id} />
                 <EditableText
                     className="song-container"
+                    disabled={!canEditSong}
                     onChange={this.onContentChange}
                     value={content}
                     placeholder="Tabs"
