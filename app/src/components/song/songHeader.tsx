@@ -1,18 +1,23 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IAppState, selectSong, selectCanEditSong } from "../../store";
+import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
-import { EditableText } from "@blueprintjs/core";
+import { EditableText, AnchorButton } from "@blueprintjs/core";
 import { updateSong } from "./songUtils";
+import { IconNames } from "@blueprintjs/icons";
+import { DATA_SERVICE } from "../../services";
+import { RouteComponentProps, withRouter } from "react-router";
+import { GET_NAV_URL, Page } from "../../utils";
 
-export interface ISongHeaderOwnProps {
+export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
     id: string;
 }
 
 export interface ISongHeaderStateProps {
     song: ISongApi | undefined;
     canEditSong: boolean;
+    canDeleteSong: boolean;
 }
 
 export interface ISongHeaderDispatchProps {}
@@ -46,9 +51,15 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
                         />
                     </span>
                 </div>
+                <div className="song-header-actions">{this.renderDeleteButton()}</div>
             </div>
         );
     }
+
+    private renderDeleteButton = () => {
+        const { canDeleteSong } = this.props;
+        return canDeleteSong && <AnchorButton icon={IconNames.TRASH} minimal={true} onClick={this.handleDeleteClick} />;
+    };
 
     private onArtistChange = (artist: string) => {
         updateSong(this.props, { artist });
@@ -57,6 +68,12 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
     private onTitleChange = (title: string) => {
         updateSong(this.props, { title });
     };
+
+    private handleDeleteClick = async () => {
+        const { id, history } = this.props;
+        await DATA_SERVICE.deleteSong(id);
+        history.push(GET_NAV_URL[Page.Home]());
+    };
 }
 
 function mapStateToProps(state: IAppState, ownProps: ISongHeaderOwnProps): ISongHeaderStateProps {
@@ -64,6 +81,7 @@ function mapStateToProps(state: IAppState, ownProps: ISongHeaderOwnProps): ISong
     return {
         song: selectSong(state, id),
         canEditSong: selectCanEditSong(state, id),
+        canDeleteSong: selectCanDeleteSong(state, id),
     };
 }
 
@@ -71,7 +89,9 @@ function mapDispatchToProps(_dispatch: Dispatch, _ownProps: ISongHeaderOwnProps)
     return {};
 }
 
-export const SongHeader = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(UnconnectedSongHeader);
+export const SongHeader = withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(UnconnectedSongHeader),
+);

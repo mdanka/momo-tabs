@@ -16,6 +16,10 @@ export const selectSong = createCachedSelector(
     },
 )((_state: IAppState, id: string) => id);
 
+export const selectCanCreateSong = createSelector(selectCurrentUser, (currentUser: IUser | undefined) => {
+    return AUTHORIZATION.canCreateSong(currentUser);
+});
+
 export const selectCanEditSong = createCachedSelector(
     selectCurrentUser,
     selectSong,
@@ -25,6 +29,11 @@ export const selectCanEditSong = createCachedSelector(
     },
 )((_state: IAppState, id: string) => id);
 
-export const selectCanCreateSong = createSelector(selectCurrentUser, (currentUser: IUser | undefined) => {
-    return AUTHORIZATION.canCreateSong(currentUser);
-});
+export const selectCanDeleteSong = createCachedSelector(
+    selectCurrentUser,
+    selectSong,
+    (_state: IAppState, id: string) => id,
+    (currentUser: IUser | undefined, song: ISongApi | undefined, _id: string) => {
+        return AUTHORIZATION.canDeleteSong(currentUser, song);
+    },
+)((_state: IAppState, id: string) => id);
