@@ -3,12 +3,11 @@ import { connect } from "react-redux";
 import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
-import { EditableText, AnchorButton } from "@blueprintjs/core";
-import { IconNames } from "@blueprintjs/icons";
+import { EditableText } from "@blueprintjs/core";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
 import { GET_NAV_URL, Page, updateSong, getSongWithPlaceholders } from "../../utils";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
 
 export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
     id: string;
@@ -70,7 +69,13 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
 
     private renderDeleteButton = () => {
         const { canDeleteSong } = this.props;
-        return canDeleteSong && <AnchorButton icon={IconNames.TRASH} minimal={true} onClick={this.handleDeleteClick} />;
+        return (
+            canDeleteSong && (
+                <IconButton onClick={this.handleDeleteClick}>
+                    <Icon>delete</Icon>
+                </IconButton>
+            )
+        );
     };
 
     private renderDeleteConfirmationDialog = () => {
