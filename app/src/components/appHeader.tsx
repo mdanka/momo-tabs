@@ -129,6 +129,8 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
             const id = await DATA_SERVICE.createSong();
             const newSongUrl = GET_NAV_URL[Page.Song](id);
             history.push(newSongUrl);
+        } else {
+            history.push(GET_NAV_URL[Page.SignIn]());
         }
     };
 }
