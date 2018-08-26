@@ -1,5 +1,5 @@
-import { ISongApi } from "../../commons";
-import { DATA_SERVICE } from "../../services";
+import { ISongApi } from "../commons";
+import { DATA_SERVICE } from "../services";
 
 export const updateSong = (props: { id: string; song: ISongApi | undefined }, updates: Partial<ISongApi>) => {
     const { id, song } = props;

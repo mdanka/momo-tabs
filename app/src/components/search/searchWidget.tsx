@@ -5,8 +5,7 @@ import { Dispatch } from "redux";
 import { List, ListItemText, ListItem } from "@material-ui/core";
 import { Page } from "../../utils";
 import { Link } from "react-router-dom";
-import { GET_NAV_URL } from "../../utils";
-import { getSongWithPlaceholders } from "../song";
+import { GET_NAV_URL, getSongWithPlaceholders } from "../../utils";
 
 export interface ISearchWidgetOwnProps {}
 

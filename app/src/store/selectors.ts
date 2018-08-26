@@ -2,7 +2,7 @@ import { IAppState, ISongsState } from "./state";
 import createCachedSelector from "re-reselect";
 import { createSelector } from "reselect";
 import { IUser, ISongApi } from "../commons";
-import { AUTHORIZATION } from "../utils/authorizationUtils";
+import { AUTHORIZATION } from "../utils";
 
 export const selectCurrentUser = (state: IAppState) => state.currentUser;
 

@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { SongHeader } from "./songHeader";
 import { EditableText } from "@blueprintjs/core";
-import { updateSong } from "./songUtils";
+import { updateSong } from "../../utils";
 
 export interface ISongOwnProps {
     id: string;

@@ -4,11 +4,10 @@ import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from ".
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { EditableText, AnchorButton } from "@blueprintjs/core";
-import { updateSong, getSongWithPlaceholders } from "./songUtils";
 import { IconNames } from "@blueprintjs/icons";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
-import { GET_NAV_URL, Page } from "../../utils";
+import { GET_NAV_URL, Page, updateSong, getSongWithPlaceholders } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
 
 export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
