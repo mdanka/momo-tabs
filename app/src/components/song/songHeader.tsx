@@ -9,6 +9,7 @@ import { IconNames } from "@blueprintjs/icons";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
 import { GET_NAV_URL, Page } from "../../utils";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@material-ui/core";
 
 export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
     id: string;
@@ -24,7 +25,18 @@ export interface ISongHeaderDispatchProps {}
 
 export type ISongHeaderProps = ISongHeaderOwnProps & ISongHeaderStateProps & ISongHeaderDispatchProps;
 
-export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}> {
+export interface ISongHeaderLocalState {
+    isDeletionDialogOpen: boolean;
+}
+
+export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISongHeaderLocalState> {
+    public constructor(props: ISongHeaderProps) {
+        super(props);
+        this.state = {
+            isDeletionDialogOpen: false,
+        };
+    }
+
     public render() {
         const { song, canEditSong } = this.props;
         if (song === undefined) {
@@ -52,6 +64,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
                     </span>
                 </div>
                 <div className="song-header-actions">{this.renderDeleteButton()}</div>
+                {this.renderDeleteConfirmationDialog()}
             </div>
         );
     }
@@ -59,6 +72,33 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
     private renderDeleteButton = () => {
         const { canDeleteSong } = this.props;
         return canDeleteSong && <AnchorButton icon={IconNames.TRASH} minimal={true} onClick={this.handleDeleteClick} />;
+    };
+
+    private renderDeleteConfirmationDialog = () => {
+        const { song } = this.props;
+        if (song === undefined) {
+            return;
+        }
+        const { isDeletionDialogOpen } = this.state;
+        const { title, artist } = song;
+        const fullTitle = title === "" ? "Untitled" : title;
+        const fullArtist = artist === "" ? "No artist" : artist;
+        return (
+            <Dialog maxWidth="xs" onClose={this.handleDeleteCancelled} open={isDeletionDialogOpen}>
+                <DialogTitle>
+                    Are you sure you want to delete {fullTitle} by {fullArtist}?
+                </DialogTitle>
+                <DialogContent>Once you delete this song, it cannot be recovered.</DialogContent>
+                <DialogActions>
+                    <Button onClick={this.handleDeleteCancelled} color="primary">
+                        Don't delete
+                    </Button>
+                    <Button onClick={this.handleDeleteConfirmed} color="primary">
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        );
     };
 
     private onArtistChange = (artist: string) => {
@@ -69,10 +109,23 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
         updateSong(this.props, { title });
     };
 
-    private handleDeleteClick = async () => {
+    private handleDeleteClick = () => {
+        this.toggleDeletionDialog();
+    };
+
+    private handleDeleteCancelled = () => {
+        this.toggleDeletionDialog();
+    };
+
+    private handleDeleteConfirmed = async () => {
         const { id, history } = this.props;
-        await DATA_SERVICE.deleteSong(id);
+        DATA_SERVICE.deleteSong(id);
         history.push(GET_NAV_URL[Page.Home]());
+    };
+
+    private toggleDeletionDialog = () => {
+        const { isDeletionDialogOpen } = this.state;
+        this.setState({ isDeletionDialogOpen: !isDeletionDialogOpen });
     };
 }
 
