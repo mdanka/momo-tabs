@@ -4,7 +4,7 @@ import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
-import { DATA_SERVICE } from "../../services";
+import { updateSong } from "./songUtils";
 
 export interface ISongHeaderOwnProps {
     id: string;
@@ -51,20 +51,11 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}>
     }
 
     private onArtistChange = (artist: string) => {
-        this.updateSong({ artist });
+        updateSong(this.props, { artist });
     };
 
     private onTitleChange = (title: string) => {
-        this.updateSong({ title });
-    };
-
-    private updateSong = (updates: Partial<ISongApi>) => {
-        const { id, song } = this.props;
-        if (song === undefined) {
-            return;
-        }
-        const newSong = { ...song, ...updates };
-        DATA_SERVICE.saveSong(id, newSong);
+        updateSong(this.props, { title });
     };
 }
 

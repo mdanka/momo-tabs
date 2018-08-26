@@ -4,6 +4,8 @@ import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { SongHeader } from "./songHeader";
+import { EditableText } from "@blueprintjs/core";
+import { updateSong } from "./songUtils";
 
 export interface ISongOwnProps {
     id: string;
@@ -28,10 +30,20 @@ export class UnconnectedSong extends React.Component<ISongProps, {}> {
         return (
             <div className="song">
                 <SongHeader id={id} />
-                <div className="song-container">{content}</div>
+                <EditableText
+                    className="song-container"
+                    onChange={this.onContentChange}
+                    value={content}
+                    placeholder="Tabs"
+                    multiline={true}
+                />
             </div>
         );
     }
+
+    private onContentChange = (content: string) => {
+        updateSong(this.props, { content });
+    };
 }
 
 function mapStateToProps(state: IAppState, ownProps: ISongOwnProps): ISongStateProps {
