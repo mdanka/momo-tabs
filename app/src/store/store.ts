@@ -6,6 +6,7 @@ import { IAppState } from "./state";
 const INITIAL_STATE: IAppState = {
     currentUser: undefined,
     songs: {},
+    editedSong: undefined,
 };
 
 function createAppStore() {
