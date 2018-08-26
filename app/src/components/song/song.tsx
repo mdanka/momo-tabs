@@ -19,11 +19,15 @@ export type ISongProps = ISongOwnProps & ISongStateProps & ISongDispatchProps;
 
 export class UnconnectedSong extends React.Component<ISongProps, {}> {
     public render() {
-        const { id } = this.props;
+        const { id, song } = this.props;
+        if (song === undefined) {
+            return null;
+        }
+        const { content } = song;
         return (
             <div className="song">
                 <SongHeader id={id} />
-                <div className="song-container">Hello {id}</div>
+                <div className="song-container">{content}</div>
             </div>
         );
     }

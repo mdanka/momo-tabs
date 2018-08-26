@@ -18,12 +18,17 @@ export type ISongHeaderProps = ISongHeaderOwnProps & ISongHeaderStateProps & ISo
 
 export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, {}> {
     public render() {
+        const { song } = this.props;
+        if (song === undefined) {
+            return null;
+        }
+        const { title, artist } = song;
         return (
             <div className="song-header">
                 <div className="song-header-song-info">
-                    <span className="song-header-title">Táplálom</span>
+                    <span className="song-header-title">{title}</span>
                     <span className="song-header-artist">
-                        by <a href="#">Emil.RuleZ!</a>
+                        by <a href="#">{artist}</a>
                     </span>
                 </div>
             </div>
