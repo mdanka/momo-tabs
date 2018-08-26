@@ -1,5 +1,3 @@
-import * as firebase from "firebase/app";
-import "firebase/firestore";
 import { STORE, SetSongs, ISongsState } from "../store";
 import { ISongApi } from "../commons";
 

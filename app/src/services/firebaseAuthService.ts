@@ -28,10 +28,6 @@ export class FirebaseAuthService {
         this.firebaseAuth.onAuthStateChanged(this.setUser);
     }
 
-    public getAuthUi = () => {
-        this.firebaseAuthUi;
-    };
-
     public authStart = (element: string | Element) => {
         this.firebaseAuthUi.start(element, this.firebaseAuthUiConfig);
     };
