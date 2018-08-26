@@ -1,13 +1,14 @@
 @import "~normalize.css";
 @import "~firebaseui/dist/firebaseui.css";
+@import "../variables.less";
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
 
 .app-header {
     height: 40px;
-    color: #c10d0d;
-    background-color: fade(#c10d0d, 10%);
-    border-bottom: solid 1px #c10d0d;
+    color: @momoPrimary;
+    background-color: @momoBackgroundPrimary;
+    border-bottom: solid 1px @momoPrimary;
 
     padding: 10px 20px 10px 20px;
 
@@ -18,6 +19,14 @@
         font-size: 18px;
         font-weight: 600;
         flex-grow: 1;
+    }
+
+    .app-header-create-button .material-icons {
+        font-size: 13px;
+    }
+
+    .app-header-sign-in-button {
+        color: @momoPrimary;
     }
 
     .app-header-avatar-button {

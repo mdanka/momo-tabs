@@ -6,10 +6,8 @@ import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
 import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
-import { Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
+import { Button, Icon, Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { IUser } from "../commons";
-import { AnchorButton, Intent } from "@blueprintjs/core";
-import { IconNames } from "@blueprintjs/icons";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
 
@@ -55,13 +53,10 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private renderCreateButton = () => {
         return (
-            <AnchorButton
-                className="app-header-create-button"
-                text="New"
-                icon={IconNames.PLUS}
-                minimal={true}
-                onClick={this.handleCreateClick}
-            />
+            <Button size="small" className="app-header-create-button" onClick={this.handleCreateClick}>
+                <Icon>add</Icon>
+                New
+            </Button>
         );
     };
 
@@ -116,14 +111,9 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private renderSignIn = () => {
         return (
-            <AnchorButton
-                className="app-header-sign-in-button"
-                intent={Intent.PRIMARY}
-                text="Sign in"
-                icon={IconNames.LOG_IN}
-                minimal={true}
-                onClick={this.handleSignInClick}
-            />
+            <Button size="small" color="primary" className="app-header-sign-in-button" onClick={this.handleSignInClick}>
+                Sign in
+            </Button>
         );
     };
 
