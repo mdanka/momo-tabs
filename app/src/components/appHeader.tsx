@@ -8,7 +8,7 @@ import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
 import { Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { IUser } from "../commons";
-import { AnchorButton } from "@blueprintjs/core";
+import { AnchorButton, Intent } from "@blueprintjs/core";
 import { IconNames } from "@blueprintjs/icons";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
@@ -54,7 +54,15 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     }
 
     private renderCreateButton = () => {
-        return <AnchorButton text="New" icon={IconNames.PLUS} minimal={true} onClick={this.handleCreateClick} />;
+        return (
+            <AnchorButton
+                className="app-header-create-button"
+                text="New"
+                icon={IconNames.PLUS}
+                minimal={true}
+                onClick={this.handleCreateClick}
+            />
+        );
     };
 
     private renderUser = () => {
@@ -107,7 +115,16 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     };
 
     private renderSignIn = () => {
-        return <Link to={GET_NAV_URL[Page.SignIn]()}>Sign in</Link>;
+        return (
+            <AnchorButton
+                className="app-header-sign-in-button"
+                intent={Intent.PRIMARY}
+                text="Sign in"
+                icon={IconNames.LOG_IN}
+                minimal={true}
+                onClick={this.handleSignInClick}
+            />
+        );
     };
 
     private handleSignOutClick = () => {
@@ -132,6 +149,11 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         } else {
             history.push(GET_NAV_URL[Page.SignIn]());
         }
+    };
+
+    private handleSignInClick = async () => {
+        const { history } = this.props;
+        history.push(GET_NAV_URL[Page.SignIn]());
     };
 }
 
