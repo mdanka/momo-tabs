@@ -6,6 +6,7 @@ import { List, ListItemText, ListItem } from "@material-ui/core";
 import { Page } from "../../utils";
 import { Link } from "react-router-dom";
 import { GET_NAV_URL } from "../../utils";
+import { getSongWithPlaceholders } from "../song";
 
 export interface ISearchWidgetOwnProps {}
 
@@ -33,11 +34,11 @@ export class UnconnectedSearchWidget extends React.Component<ISearchWidgetProps,
         if (song === undefined) {
             return null;
         }
-        const { title, artist } = song;
+        const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
         return (
             <Link key={songId} to={GET_NAV_URL[Page.Song](songId)}>
                 <ListItem button divider={true}>
-                    <ListItemText primary={title} secondary={artist} />
+                    <ListItemText primary={fullTitle} secondary={fullArtist} />
                 </ListItem>
             </Link>
         );

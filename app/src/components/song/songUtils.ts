@@ -9,3 +9,11 @@ export const updateSong = (props: { id: string; song: ISongApi | undefined }, up
     const newSong = { ...song, ...updates };
     DATA_SERVICE.saveSong(id, newSong);
 };
+
+export const getSongWithPlaceholders = (song: { title: string; artist: string }) => {
+    const { title, artist } = song;
+    return {
+        title: title === "" ? "Untitled" : title,
+        artist: artist === "" ? "Unknown artist" : artist,
+    };
+};

@@ -4,7 +4,7 @@ import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from ".
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { EditableText, AnchorButton } from "@blueprintjs/core";
-import { updateSong } from "./songUtils";
+import { updateSong, getSongWithPlaceholders } from "./songUtils";
 import { IconNames } from "@blueprintjs/icons";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
@@ -80,9 +80,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
             return;
         }
         const { isDeletionDialogOpen } = this.state;
-        const { title, artist } = song;
-        const fullTitle = title === "" ? "Untitled" : title;
-        const fullArtist = artist === "" ? "No artist" : artist;
+        const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
         return (
             <Dialog maxWidth="xs" onClose={this.handleDeleteCancelled} open={isDeletionDialogOpen}>
                 <DialogTitle>
