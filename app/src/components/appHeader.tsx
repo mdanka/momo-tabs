@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
 import { FIREBASE_AUTH_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
-import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
+import { Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { IUser } from "../commons";
 
 export interface IAppHeaderOwnProps {}
@@ -90,7 +90,9 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         const { isUserMenuOpen } = this.state;
         return (
             <Menu open={isUserMenuOpen} onClose={this.closeUserMenu} anchorEl={this.userMenuButtonRef.current}>
-                <MenuItem onClick={this.handleSignOutClick}>Sign Out</MenuItem>
+                <MenuItem onClick={this.handleSignOutClick}>
+                    <ListItemText primary="Sign Out" />
+                </MenuItem>
             </Menu>
         );
     };
