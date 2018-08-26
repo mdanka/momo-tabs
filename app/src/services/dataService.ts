@@ -22,4 +22,11 @@ export class DataService {
                 STORE.dispatch(SetSongs.create({ songs }));
             });
     };
+
+    public saveSong = (id: string, song: ISongApi) => {
+        this.firestore
+            .collection(DataService.COLLECTION_SONGS)
+            .doc(id)
+            .update(song);
+    };
 }
