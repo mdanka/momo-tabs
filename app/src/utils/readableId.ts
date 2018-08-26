@@ -17,9 +17,9 @@ export class ReadableId {
         let id = "";
         let numberRemaining = number;
         while (numberRemaining > 0) {
-            const numberModulus = number % ReadableId.ENCODING_BASE;
-            id = ReadableId.ALPHABET[numberModulus] + id;
-            numberRemaining = Math.floor(number / ReadableId.ENCODING_BASE);
+            const numberModulus = numberRemaining % ReadableId.ENCODING_BASE;
+            id = ReadableId.ALPHABET[numberModulus].concat(id);
+            numberRemaining = Math.floor(numberRemaining / ReadableId.ENCODING_BASE);
         }
         const paddedId = ReadableId.padId(id);
         return paddedId;
@@ -28,7 +28,7 @@ export class ReadableId {
     private static padId = (id: string) => {
         let paddedId = id;
         while (paddedId.length < ReadableId.LENGTH) {
-            paddedId = ReadableId.ALPHABET[0] + paddedId;
+            paddedId = ReadableId.ALPHABET[0].concat(paddedId);
         }
         return paddedId;
     };

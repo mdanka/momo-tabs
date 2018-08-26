@@ -1,17 +1,21 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IAppState, selectCurrentUser } from "../store";
+import { IAppState, selectCurrentUser, selectCanCreateSong } from "../store";
 import { Dispatch } from "redux";
-import { Link } from "react-router-dom";
-import { FIREBASE_AUTH_SERVICE } from "../services";
+import { RouteComponentProps } from "react-router";
+import { Link, withRouter } from "react-router-dom";
+import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
 import { Page, GET_NAV_URL } from "../utils";
 import { Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { IUser } from "../commons";
+import { AnchorButton } from "@blueprintjs/core";
+import { IconNames } from "@blueprintjs/icons";
 
-export interface IAppHeaderOwnProps {}
+export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
 
 export interface IAppHeaderStateProps {
     currentUser: IUser | undefined;
+    canCreateSong: boolean;
 }
 
 export interface IAppHeaderDispatchProps {}
@@ -41,12 +45,17 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
                 <span className="app-title">
                     <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
                 </span>
+                {this.renderCreateButton()}
                 {isLoggedIn && this.renderUser()}
                 {isLoggedIn && this.renderUserMenu()}
                 {!isLoggedIn && this.renderSignIn()}
             </div>
         );
     }
+
+    private renderCreateButton = () => {
+        return <AnchorButton text="New" icon={IconNames.PLUS} minimal={true} onClick={this.handleCreateClick} />;
+    };
 
     private renderUser = () => {
         const { currentUser } = this.props;
@@ -113,11 +122,21 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         const { isUserMenuOpen } = this.state;
         this.setState({ isUserMenuOpen: !isUserMenuOpen });
     };
+
+    private handleCreateClick = async () => {
+        const { canCreateSong, history } = this.props;
+        if (canCreateSong) {
+            const id = await DATA_SERVICE.createSong();
+            const newSongUrl = GET_NAV_URL[Page.Song](id);
+            history.push(newSongUrl);
+        }
+    };
 }
 
 function mapStateToProps(state: IAppState, _ownProps: IAppHeaderOwnProps): IAppHeaderStateProps {
     return {
         currentUser: selectCurrentUser(state),
+        canCreateSong: selectCanCreateSong(state),
     };
 }
 
@@ -125,7 +144,9 @@ function mapDispatchToProps(_dispatch: Dispatch, _ownProps: IAppHeaderOwnProps):
     return {};
 }
 
-export const AppHeader = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(UnconnectedAppHeader);
+export const AppHeader = withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(UnconnectedAppHeader),
+);

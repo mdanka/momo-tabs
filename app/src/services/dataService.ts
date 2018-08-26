@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import { STORE, SetSongs, ISongsState } from "../store";
 import { ISongApi } from "../commons";
 import { ReadableId } from "../utils";
@@ -57,14 +57,15 @@ export class DataService {
             creationTime: firebase.firestore.FieldValue.serverTimestamp(),
         };
         const id = await this.generateId();
-        return this.firestore
+        await this.firestore
             .collection(DataService.COLLECTION_SONGS)
             .doc(id)
             .set(data);
+        return id;
     };
 
     private generateId = async () => {
-        const maxNumberOfTries = 1000;
+        const maxNumberOfTries = 10000;
         let numberOfTriesDone = 0;
         while (numberOfTriesDone < maxNumberOfTries) {
             const id = ReadableId.generate();

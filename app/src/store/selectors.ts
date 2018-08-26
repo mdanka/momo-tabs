@@ -1,6 +1,8 @@
 import { IAppState, ISongsState } from "./state";
 import createCachedSelector from "re-reselect";
+import { createSelector } from "reselect";
 import { IUser, ISongApi } from "../commons";
+import { AUTHORIZATION } from "../utils/authorizationUtils";
 
 export const selectCurrentUser = (state: IAppState) => state.currentUser;
 
@@ -19,6 +21,10 @@ export const selectCanEditSong = createCachedSelector(
     selectSong,
     (_state: IAppState, id: string) => id,
     (currentUser: IUser | undefined, song: ISongApi | undefined, _id: string) => {
-        return currentUser !== undefined && song !== undefined && currentUser.uid === song.creatorUserId;
+        return AUTHORIZATION.canEditSong(currentUser, song);
     },
 )((_state: IAppState, id: string) => id);
+
+export const selectCanCreateSong = createSelector(selectCurrentUser, (currentUser: IUser | undefined) => {
+    return AUTHORIZATION.canCreateSong(currentUser);
+});

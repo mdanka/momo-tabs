@@ -23,7 +23,7 @@ service cloud.firestore {
     match /songs/{songId} {
       // TODO(mdanka): creation time should be restricted to server time
       function isSongCreateAllowed() {
-        return areSetsEqual(request.writeFields, ["artist", "content", "creationTime", "creatorUserId", "title"])
+        return areSetsEqual(request.resource.data.keys(), ["artist", "content", "creationTime", "creatorUserId", "title"])
           && request.resource.data.creatorUserId == request.auth.uid;  // creating own document
       }
 
