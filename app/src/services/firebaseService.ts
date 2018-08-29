@@ -6,7 +6,7 @@ export class FirebaseService {
 
     private firebaseAppConfig = {
         apiKey: "AIzaSyDfSfW5ZWGIBPqMYNioXDmAER0MIrDjF6Q",
-        authDomain: "auth.momotabs.com",
+        authDomain: "momotabs.com",
         databaseURL: "https://guitar-tabs-app.firebaseio.com",
         projectId: "guitar-tabs-app",
         storageBucket: "guitar-tabs-app.appspot.com",
