@@ -41,7 +41,7 @@ export class FirebaseAuthService {
     };
 
     public authSignOut = () => {
-        this.firebaseAuth.signOut();
+        return this.firebaseAuth.signOut();
     };
 
     private setUser = (user: firebase.User | null) => {

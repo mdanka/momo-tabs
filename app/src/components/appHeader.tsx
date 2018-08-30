@@ -6,7 +6,8 @@ import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
 import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
-import { Button, Icon, Avatar, IconButton, Menu, MenuItem, ListItemText } from "@material-ui/core";
+import { Button, Icon, Avatar, IconButton, Menu, MenuItem, ListItemText, Snackbar } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import { IUser } from "../commons";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
@@ -20,6 +21,7 @@ export interface IAppHeaderDispatchProps {}
 
 export interface IAppHeaderLocalState {
     isUserMenuOpen: boolean;
+    isSignedOutMessageOpen: boolean;
 }
 
 export type IAppHeaderProps = IAppHeaderOwnProps & IAppHeaderStateProps & IAppHeaderDispatchProps;
@@ -31,6 +33,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         super(props);
         this.state = {
             isUserMenuOpen: false,
+            isSignedOutMessageOpen: false,
         };
         this.userMenuButtonRef = React.createRef();
     }
@@ -47,6 +50,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
                 {isLoggedIn && this.renderUser()}
                 {isLoggedIn && this.renderUserMenu()}
                 {!isLoggedIn && this.renderSignIn()}
+                {this.renderSignedOutMessage()}
             </div>
         );
     }
@@ -117,8 +121,26 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         );
     };
 
-    private handleSignOutClick = () => {
-        FIREBASE_AUTH_SERVICE.authSignOut();
+    private renderSignedOutMessage = () => {
+        const { isSignedOutMessageOpen } = this.state;
+        return (
+            <Snackbar
+                autoHideDuration={3000}
+                message={<span>You have successfully signed out</span>}
+                onClose={this.closeSignedOutMessage}
+                open={isSignedOutMessageOpen}
+                action={[
+                    <IconButton key="close" aria-label="Close" color="inherit" onClick={this.closeSignedOutMessage}>
+                        <CloseIcon />
+                    </IconButton>,
+                ]}
+            />
+        );
+    };
+
+    private handleSignOutClick = async () => {
+        await FIREBASE_AUTH_SERVICE.authSignOut();
+        this.openSignedOutMessage();
     };
 
     private closeUserMenu = () => {
@@ -128,6 +150,14 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     private toggleUserMenu = () => {
         const { isUserMenuOpen } = this.state;
         this.setState({ isUserMenuOpen: !isUserMenuOpen });
+    };
+
+    private openSignedOutMessage = () => {
+        this.setState({ isSignedOutMessageOpen: true });
+    };
+
+    private closeSignedOutMessage = () => {
+        this.setState({ isSignedOutMessageOpen: false });
     };
 
     private handleCreateClick = async () => {
