@@ -6,7 +6,7 @@ import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
-import { GET_NAV_URL, Page, updateSong, getSongWithPlaceholders } from "../../utils";
+import { GET_NAV_URL, Page, getSongWithPlaceholders } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
 
 export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
@@ -104,11 +104,13 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     };
 
     private onArtistChange = (artist: string) => {
-        updateSong(this.props, { artist });
+        const { id } = this.props;
+        DATA_SERVICE.updateSong(id, { artist });
     };
 
     private onTitleChange = (title: string) => {
-        updateSong(this.props, { title });
+        const { id } = this.props;
+        DATA_SERVICE.updateSong(id, { title });
     };
 
     private handleDeleteClick = () => {

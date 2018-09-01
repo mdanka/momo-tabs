@@ -45,6 +45,7 @@
         "redux-logger": "^3.0.6",
         "reselect": "^3.0.1",
         "slate": "^0.40.2",
+        "slate-plain-serializer": "^0.5.1",
         "slate-react": "^0.18.4",
         "url-join": "^1.1.0",
         "whatwg-fetch": "^2.0.2"
@@ -63,6 +64,8 @@
         "@types/react-router": "^4.0.30",
         "@types/react-router-dom": "^4.3.0",
         "@types/redux": "^3.6.0",
+        "@types/slate": "^0.33.4",
+        "@types/slate-react": "^0.12.3",
         "@types/url-join": "^0.8.2",
         "@types/whatwg-fetch": "^0.0.33",
         "autoprefixer": "^6.6.0",

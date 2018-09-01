@@ -7,3 +7,5 @@ export interface ISongApi {
     creatorUserId: string;
     creationTime: firebase.firestore.Timestamp;
 }
+
+export type ISongUpdateApi = Partial<Pick<ISongApi, "title" | "artist" | "content">>;
