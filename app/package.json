@@ -63,6 +63,8 @@
         "@types/react-router": "^4.0.30",
         "@types/react-router-dom": "^4.3.0",
         "@types/redux": "^3.6.0",
+        "@types/slate": "^0.33.4",
+        "@types/slate-react": "^0.12.3",
         "@types/url-join": "^0.8.2",
         "@types/whatwg-fetch": "^0.0.33",
         "autoprefixer": "^6.6.0",

@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app";
 import { STORE, SetSongs, ISongsState } from "../store";
-import { ISongApi } from "../commons";
+import { ISongApi, ISongUpdateApi } from "../commons";
 import { ReadableId } from "../utils";
 import { FIREBASE_AUTH_SERVICE } from "./services";
 
@@ -26,11 +26,11 @@ export class DataService {
             });
     };
 
-    public saveSong = (id: string, song: ISongApi) => {
+    public updateSong = (id: string, songUpdate: ISongUpdateApi) => {
         return this.firestore
             .collection(DataService.COLLECTION_SONGS)
             .doc(id)
-            .update(song);
+            .update(songUpdate);
     };
 
     public deleteSong = (id: string) => {
