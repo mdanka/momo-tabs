@@ -45,6 +45,7 @@
         "redux-logger": "^3.0.6",
         "reselect": "^3.0.1",
         "slate": "^0.40.2",
+        "slate-plain-serializer": "^0.5.1",
         "slate-react": "^0.18.4",
         "url-join": "^1.1.0",
         "whatwg-fetch": "^2.0.2"

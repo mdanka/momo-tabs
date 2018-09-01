@@ -4,7 +4,8 @@ import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { Editor } from "slate-react";
 import { Value, Change } from "slate";
-// import { DATA_SERVICE } from "../../services";
+import PlainSerializer from "slate-plain-serializer";
+import { DATA_SERVICE } from "../../services";
 
 export interface ISongEditorOwnProps {
     id: string;
@@ -28,7 +29,7 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
         super(props);
         const { content } = props;
         this.state = {
-            value: stringToValue(content),
+            value: PlainSerializer.deserialize(content),
         };
     }
 
@@ -51,36 +52,14 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
     private onChange = (change: Change) => {
         const { value } = change;
         this.setState({ value });
+        const content = PlainSerializer.serialize(value);
+        this.updateSongContent(content);
     };
 
-    // private updateSongContent = (content: string) => {
-    //     const { id } = this.props;
-    //     DATA_SERVICE.updateSong(id, { content });
-    // };
-}
-
-function stringToValue(content: string) {
-    return Value.fromJSON({
-        document: {
-            nodes: [
-                {
-                    object: "block",
-                    type: "paragraph",
-                    nodes: [
-                        {
-                            object: "text",
-                            leaves: [
-                                {
-                                    object: "leaf",
-                                    text: content,
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
-        },
-    });
+    private updateSongContent = (content: string) => {
+        const { id } = this.props;
+        DATA_SERVICE.updateSong(id, { content });
+    };
 }
 
 function mapStateToProps(state: IAppState, ownProps: ISongEditorOwnProps): ISongEditorStateProps {
