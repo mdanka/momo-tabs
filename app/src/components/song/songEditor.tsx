@@ -12,32 +12,50 @@ export interface ISongEditorOwnProps {
 }
 
 export interface ISongEditorStateProps {
-    content: string;
+    content: string | undefined;
     isEditable: boolean;
 }
 
 export interface ISongEditorDispatchProps {}
 
 interface ISongEditorLocalState {
-    value: Value;
+    value: Value | undefined;
 }
 
 export type ISongEditorProps = ISongEditorOwnProps & ISongEditorStateProps & ISongEditorDispatchProps;
+
+function contentToValue(content: string | undefined) {
+    if (content === undefined) {
+        return undefined;
+    }
+    return PlainSerializer.deserialize(content);
+}
 
 export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISongEditorLocalState> {
     public constructor(props: ISongEditorProps) {
         super(props);
         const { content } = props;
         this.state = {
-            value: PlainSerializer.deserialize(content),
+            value: contentToValue(content),
         };
     }
 
-    public componentDidMount() {}
+    public componentDidUpdate(prevProps: ISongEditorProps) {
+        const { id: prevId, content: prevContent } = prevProps;
+        const { id, content } = this.props;
+        if (id !== prevId || prevContent === undefined) {
+            this.setState({
+                value: contentToValue(content),
+            });
+        }
+    }
 
     public render() {
         const { isEditable } = this.props;
         const { value } = this.state;
+        if (value === undefined) {
+            return null;
+        }
         return (
             <Editor
                 className="song-editor"
@@ -65,7 +83,7 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
 function mapStateToProps(state: IAppState, ownProps: ISongEditorOwnProps): ISongEditorStateProps {
     const { id } = ownProps;
     const song = selectSong(state, id);
-    const { content } = song === undefined ? { content: "" } : song;
+    const { content } = song === undefined ? { content: undefined } : song;
     return {
         content,
         isEditable: selectCanEditSong(state, id),
