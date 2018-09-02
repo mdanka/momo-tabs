@@ -2,10 +2,11 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
-import { Editor } from "slate-react";
+import { Editor, Plugin } from "slate-react";
 import { Value, Change } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { DATA_SERVICE } from "../../services";
+import { TabPlugin } from "./plugins";
 
 export interface ISongEditorOwnProps {
     id: string;
@@ -32,12 +33,15 @@ function contentToValue(content: string | undefined) {
 }
 
 export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISongEditorLocalState> {
+    private plugins: Plugin[] = [];
+
     public constructor(props: ISongEditorProps) {
         super(props);
         const { content } = props;
         this.state = {
             value: contentToValue(content),
         };
+        this.plugins.push(TabPlugin());
     }
 
     public componentDidUpdate(prevProps: ISongEditorProps) {
@@ -63,6 +67,7 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
                 onChange={this.onChange}
                 value={value}
                 placeholder="Tabs"
+                plugins={this.plugins}
             />
         );
     }
