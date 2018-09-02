@@ -1,5 +1,7 @@
+// Based on @types/slate-plain-serializer
+
 declare module "slate-plain-serializer" {
-    import { BlockProperties, MarkProperties, Value } from 'slate';
+    import { BlockProperties, MarkProperties, Value } from "slate";
 
     export interface DeserializeOptions {
         toJson?: boolean;
