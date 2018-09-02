@@ -29,9 +29,8 @@ export function TabPlugin(options?: ITabPluginOptions): Plugin {
     };
 
     const regexRangeToSlateRange = (key: string) => (regexRange: RegexUtils.IRegexMatchRange): RangeJSON => {
-        // TODO(mdanka): Range typing is off
         const { startIndex, endIndex } = regexRange;
-        return ({
+        return {
             anchor: {
                 key,
                 offset: startIndex,
@@ -40,18 +39,17 @@ export function TabPlugin(options?: ITabPluginOptions): Plugin {
                 key,
                 offset: endIndex,
             },
-        } as any) as RangeJSON;
+        };
     };
 
     const slateRangeToDecoration = (markType: string) => (range: RangeJSON): DecorationJSON => {
-        // TODO(mdanka): Mark typing is off
-        return ({
+        return {
             ...range,
             mark: {
                 data: {},
                 type: markType,
             },
-        } as any) as DecorationJSON;
+        };
     };
 
     const regexRangeToDecoration = (key: string, markType: string) => (

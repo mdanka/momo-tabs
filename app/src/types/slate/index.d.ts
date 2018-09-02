@@ -424,7 +424,9 @@ declare module "slate" {
         path: Path | null;
     }
     export interface PointJSON {
-        key: string | null;
+        key?: string;
+        offset?: number;
+        path?: Path;
     }
     export interface Point extends DeepImmutable<PointProperties> {}
     export class Point extends Immutable.Record({
@@ -497,10 +499,11 @@ declare module "slate" {
 
     export interface MarkProperties {
         data: Data<string, any>;
-        type?: string;
+        type: string;
     }
     export interface MarkJSON {
-        data: DataJSON<string, any>;
+        data?: DataJSON<string, any>;
+        type: string;
     }
     export interface Mark extends DeepImmutable<MarkProperties> {}
     export class Mark extends Immutable.Record({
