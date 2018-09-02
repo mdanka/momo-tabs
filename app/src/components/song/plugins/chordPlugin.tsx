@@ -3,30 +3,33 @@ import { Node, Decoration, Block, RangeJSON, DecorationJSON } from "slate";
 import { Plugin, RenderMarkProps } from "slate-react";
 import { RegexUtils } from "../../../utils";
 
-export type ITabPluginOptions = Partial<ITabPluginFullOptions>;
+export type IChordPluginOptions = Partial<IChordPluginFullOptions>;
 
-interface ITabPluginFullOptions {
-    tabLineMarkType: string;
-    tabValueMarkType: string;
-    minHyphenCount: number;
+interface IChordPluginFullOptions {
+    chordMarkType: string;
 }
 
-const DEFAULT_OPTIONS: ITabPluginFullOptions = {
-    tabLineMarkType: "tab-line",
-    tabValueMarkType: "tab-value",
-    minHyphenCount: 6,
+const DEFAULT_OPTIONS: IChordPluginFullOptions = {
+    chordMarkType: "chord",
 };
 
 const MARK_CLASS_NAMES = {
-    [DEFAULT_OPTIONS.tabLineMarkType]: "slate-tab-plugin-tab-line",
-    [DEFAULT_OPTIONS.tabValueMarkType]: "slate-tab-plugin-tab-value",
+    [DEFAULT_OPTIONS.chordMarkType]: "slate-chord-plugin-chord",
 };
 
-export function TabPlugin(options?: ITabPluginOptions): Plugin {
-    const optionsWithDefaults: ITabPluginFullOptions = {
+export function ChordPlugin(options?: IChordPluginOptions): Plugin {
+    const optionsWithDefaults: IChordPluginFullOptions = {
         ...DEFAULT_OPTIONS,
         ...options,
     };
+
+    // const BASE_NOTES = ["A", "B", "C", "D", "E", "F", "G"];
+    // const ACCIDENTALS = ["#", "b"];
+    const NOTES = ["Ab", "A", "A#", "Bb", "B", "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#"];
+    const CHORDS: string[] = [];
+    NOTES.forEach(note => {
+        CHORDS.push(note, note + "7", note + "m", note + "m7", note + "maj7");
+    });
 
     const regexRangeToSlateRange = (key: string) => (regexRange: RegexUtils.IRegexMatchRange): RangeJSON => {
         const { startIndex, endIndex } = regexRange;
@@ -60,32 +63,35 @@ export function TabPlugin(options?: ITabPluginOptions): Plugin {
         return Decoration.fromJSON(decorationJson);
     };
 
-    function isTabBlock(block: Block) {
+    function isChordBlock(block: Block) {
         const textNodes = block.getTexts().toArray();
         const text = textNodes.map(t => t.text).join("\n");
         if (text.length === 0) {
             return false;
         }
-        const hyphenCount = text.split("-").length - 1;
-        return hyphenCount >= optionsWithDefaults.minHyphenCount;
+        const tokens = text.split(" ");
+        const textContainsChordsOnly = tokens.every(isChordOrEmpty);
+        return textContainsChordsOnly;
     }
 
-    function findLines(text: string) {
-        const regexString = "[-]+";
-        return RegexUtils.findAllRegexRanges(regexString, text);
+    function findChords(text: string) {
+        return RegexUtils.findAllTextBlocks(text);
     }
 
-    function findValues(text: string) {
-        const regexString = "[^-]+";
-        return RegexUtils.findAllRegexRanges(regexString, text);
+    function isChord(value: string) {
+        return CHORDS.indexOf(value) !== -1;
+    }
+
+    function isChordOrEmpty(value: string) {
+        return value.length === 0 || isChord(value);
     }
 
     return {
         renderMark: (props: RenderMarkProps) => {
             const { mark, children, attributes } = props;
             const { type } = mark;
-            const { tabLineMarkType, tabValueMarkType } = optionsWithDefaults;
-            if (type !== tabLineMarkType && type !== tabValueMarkType) {
+            const { chordMarkType } = optionsWithDefaults;
+            if (type !== chordMarkType) {
                 return;
             }
             return (
@@ -95,21 +101,20 @@ export function TabPlugin(options?: ITabPluginOptions): Plugin {
             );
         },
         decorateNode: (node: Node) => {
-            if (!Block.isBlock(node) || node.type !== "line" || !isTabBlock(node)) {
+            if (!Block.isBlock(node) || node.type !== "line" || !isChordBlock(node)) {
                 return;
             }
-            const { tabLineMarkType, tabValueMarkType } = optionsWithDefaults;
+            const { chordMarkType } = optionsWithDefaults;
             const textNodes = node.getTexts().toArray();
             const decorations: Decoration[] = [];
             textNodes.forEach(textNode => {
                 const { key, text } = textNode;
                 if (key === undefined) {
-                    console.error("[TabPlugin] Text node key shouldn't be undefined");
+                    console.error("[ChordPlugin] Text node key shouldn't be undefined");
                     return [];
                 }
-                const lineDecorations = findLines(text).map(regexRangeToDecoration(key, tabLineMarkType));
-                const valueDecorations = findValues(text).map(regexRangeToDecoration(key, tabValueMarkType));
-                decorations.push(...lineDecorations, ...valueDecorations);
+                const chordDecorations = findChords(text).map(regexRangeToDecoration(key, chordMarkType));
+                decorations.push(...chordDecorations);
             });
             return decorations;
         },

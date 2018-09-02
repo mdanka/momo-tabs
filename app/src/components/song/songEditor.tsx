@@ -6,7 +6,7 @@ import { Editor, Plugin } from "slate-react";
 import { Value, Change } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { DATA_SERVICE } from "../../services";
-import { TabPlugin } from "./plugins";
+import { TabPlugin, ChordPlugin } from "./plugins";
 
 export interface ISongEditorOwnProps {
     id: string;
@@ -41,7 +41,7 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
         this.state = {
             value: contentToValue(content),
         };
-        this.plugins.push(TabPlugin());
+        this.plugins.push(TabPlugin(), ChordPlugin());
     }
 
     public componentDidUpdate(prevProps: ISongEditorProps) {
