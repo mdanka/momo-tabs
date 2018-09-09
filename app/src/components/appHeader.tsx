@@ -6,9 +6,20 @@ import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
 import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
-import { Button, Icon, Avatar, IconButton, Menu, MenuItem, ListItemText, Snackbar } from "@material-ui/core";
+import {
+    Button,
+    Icon,
+    Avatar,
+    IconButton,
+    Menu,
+    MenuItem,
+    ListItemText,
+    Snackbar,
+    MuiThemeProvider,
+} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { IUser } from "../commons";
+import { DARK_THEME } from "../utils";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
 
@@ -43,14 +54,16 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         const isLoggedIn = currentUser !== undefined;
         return (
             <div className="app-header">
-                <span className="app-title">
-                    <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
-                </span>
-                {this.renderCreateButton()}
-                {isLoggedIn && this.renderUser()}
-                {isLoggedIn && this.renderUserMenu()}
-                {!isLoggedIn && this.renderSignIn()}
-                {this.renderSignedOutMessage()}
+                <MuiThemeProvider theme={DARK_THEME}>
+                    <span className="app-title">
+                        <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
+                    </span>
+                    {this.renderCreateButton()}
+                    {isLoggedIn && this.renderUser()}
+                    {isLoggedIn && this.renderUserMenu()}
+                    {!isLoggedIn && this.renderSignIn()}
+                    {this.renderSignedOutMessage()}
+                </MuiThemeProvider>
             </div>
         );
     }
