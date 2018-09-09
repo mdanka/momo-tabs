@@ -5,3 +5,4 @@ export * from "./homeScreen";
 export * from "./login";
 export * from "./search";
 export * from "./song";
+export * from "./staticContent";

@@ -6,18 +6,24 @@ export enum Page {
     Home = "home",
     SignIn = "signin",
     Song = "song",
+    TermsOfService = "terms-of-service",
+    PrivacyPolicy = "privacy-policy",
 }
 
 export const GET_NAV_URL = {
     [Page.Home]: () => "/",
     [Page.SignIn]: (redirectUrl?: string) => `/signin${redirectUrl === undefined ? "" : `?redirectUrl=${redirectUrl}`}`,
     [Page.Song]: (id: string) => `/songs/${id}`,
+    [Page.TermsOfService]: () => `/terms-of-service`,
+    [Page.PrivacyPolicy]: () => `/privacy-policy`,
 };
 
 export const GET_NAV_URL_TEMPLATE = {
     [Page.Home]: GET_NAV_URL[Page.Home](),
     [Page.SignIn]: GET_NAV_URL[Page.SignIn](),
     [Page.Song]: `/songs/:id`,
+    [Page.TermsOfService]: GET_NAV_URL[Page.TermsOfService](),
+    [Page.PrivacyPolicy]: GET_NAV_URL[Page.PrivacyPolicy](),
 };
 
 interface ISongRouteComponentParams {

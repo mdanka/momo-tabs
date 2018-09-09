@@ -6,6 +6,7 @@ import { AppHeader } from "./appHeader";
 import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page, GET_NAV_URL_QUERY_PARAMS } from "../utils";
 import { Song } from "./song";
 import { HomeScreen } from "./homeScreen";
+import { StaticContent } from "./staticContent";
 
 export interface IGuitarAppState {}
 
@@ -20,6 +21,16 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
                             <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
                             <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
                             <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
+                            <Route
+                                exact
+                                path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
+                                render={this.renderTermsOfService}
+                            />
+                            <Route
+                                exact
+                                path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
+                                render={this.renderPrivacyPolicy}
+                            />
                             <Route render={this.renderRedirectToHome} />
                         </Switch>
                     </div>
@@ -30,6 +41,14 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
 
     private renderHome = (_locationInfo: RouteComponentProps<any>) => {
         return <HomeScreen />;
+    };
+
+    private renderTermsOfService = (_locationInfo: RouteComponentProps<any>) => {
+        return <StaticContent type="terms of service" />;
+    };
+
+    private renderPrivacyPolicy = (_locationInfo: RouteComponentProps<any>) => {
+        return <StaticContent type="privacy policy" />;
     };
 
     private renderRouteAuth = (locationInfo: RouteComponentProps<any>) => {
