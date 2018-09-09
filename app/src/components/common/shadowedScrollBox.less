@@ -1,0 +1,122 @@
+.linearShadowTop {
+    top: 0;
+    left: 0;
+    background: linear-gradient(rgba(0,0,0,0.3) 10%, rgba(255, 255, 255, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    width: inherit;
+    height: 4px;
+  }
+  
+  .linearShadowBottom {
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.3) 90%) 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    width: inherit;
+    height: 4px;
+  }
+
+.shadowed-scroll-box {
+    position: relative;
+}
+
+.shadowed-scroll-box-scroll-container {
+    overflow: auto;
+}
+
+.shadowed-scroll-box-shadow {
+}
+
+.shadowed-scroll-box-invisible {
+    display: none;
+}
+
+.shadowed-scroll-box-left-linear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.3) 10%, rgba(255, 255, 255, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 3px 100%;
+}
+
+.shadowed-scroll-box-right-linear {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.3) 10%, rgba(255, 255, 255, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 3px 100%;
+}
+
+.shadowed-scroll-box-top-linear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 10%, rgba(255, 255, 255, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}
+
+.shadowed-scroll-box-bottom-linear {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 10%, rgba(255, 255, 255, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}
+
+.shadowed-scroll-box-left-radial {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: radial-gradient(farthest-side at 0% 50%, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-size: 3px 100%;
+}
+
+.shadowed-scroll-box-right-radial {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 3px 100%;
+}
+
+.shadowed-scroll-box-top-radial {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: radial-gradient(farthest-side at 50% 0%, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)) 100% 0;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}
+
+.shadowed-scroll-box-bottom-radial {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .3), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}

@@ -7,6 +7,7 @@ import { Value, Change } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { DATA_SERVICE } from "../../services";
 import { TabPlugin, ChordPlugin } from "./plugins";
+import { ShadowedScrollBox } from "../common";
 
 export interface ISongEditorOwnProps {
     id: string;
@@ -64,14 +65,16 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
             return null;
         }
         return (
-            <Editor
-                className="song-editor"
-                readOnly={!isEditable}
-                onChange={this.onChange}
-                value={value}
-                placeholder="Tabs"
-                plugins={this.plugins}
-            />
+            <ShadowedScrollBox type="radial">
+                <Editor
+                    className="song-editor"
+                    readOnly={!isEditable}
+                    onChange={this.onChange}
+                    value={value}
+                    placeholder="Tabs"
+                    plugins={this.plugins}
+                />
+            </ShadowedScrollBox>
         );
     }
 
