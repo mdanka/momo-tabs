@@ -31,7 +31,7 @@ function contentToValue(content: string | undefined) {
     if (content === undefined) {
         return undefined;
     }
-    const contentWithDefault = content === "" ? INITIAL_CONTENT : content;
+    const contentWithDefault = content.trim() === "" ? INITIAL_CONTENT : content;
     return PlainSerializer.deserialize(contentWithDefault);
 }
 
