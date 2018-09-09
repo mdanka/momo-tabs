@@ -4,9 +4,9 @@
 
 .app-header {
     height: 40px;
+
     color: @momoPrimary;
-    background-color: @momoBackgroundPrimary;
-    border-bottom: solid 1px @momoPrimary;
+    background-color: #24292e;
 
     padding: 10px 20px 10px 20px;
 
@@ -15,12 +15,17 @@
     
     .app-title {
         font-size: 18px;
-        font-weight: 600;
         flex-grow: 1;
+
+        text-shadow: 0px 1px 1px rgba(255,255,255,0.1);
     }
 
-    .app-header-create-button .material-icons {
-        font-size: 13px;
+    .app-header-create-button {
+        color: white;
+
+        .material-icons {
+            font-size: 13px;
+        }
     }
 
     .app-header-sign-in-button {
