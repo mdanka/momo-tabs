@@ -25,11 +25,14 @@ interface ISongEditorLocalState {
 
 export type ISongEditorProps = ISongEditorOwnProps & ISongEditorStateProps & ISongEditorDispatchProps;
 
+const INITIAL_CONTENT = "Tabs";
+
 function contentToValue(content: string | undefined) {
     if (content === undefined) {
         return undefined;
     }
-    return PlainSerializer.deserialize(content);
+    const contentWithDefault = content === "" ? INITIAL_CONTENT : content;
+    return PlainSerializer.deserialize(contentWithDefault);
 }
 
 export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISongEditorLocalState> {
