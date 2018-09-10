@@ -30,14 +30,16 @@ export class DataService {
         return this.firestore
             .collection(DataService.COLLECTION_SONGS)
             .doc(id)
-            .update(songUpdate);
+            .update(songUpdate)
+            .catch((reason: any) => console.error(`[DataService] Failed to update song. ${reason}`));
     };
 
     public deleteSong = (id: string) => {
         return this.firestore
             .collection(DataService.COLLECTION_SONGS)
             .doc(id)
-            .delete();
+            .delete()
+            .catch((reason: any) => console.error(`[DataService] Failed to delete song. ${reason}`));
     };
 
     public createSong = async () => {
@@ -60,7 +62,8 @@ export class DataService {
         await this.firestore
             .collection(DataService.COLLECTION_SONGS)
             .doc(id)
-            .set(data);
+            .set(data)
+            .catch((reason: any) => console.error(`[DataService] Failed to create song. ${reason}`));
         return id;
     };
 
