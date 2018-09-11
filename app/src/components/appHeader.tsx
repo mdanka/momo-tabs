@@ -58,6 +58,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
                     <span className="app-title">
                         <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
                     </span>
+                    {this.renderContactButton()}
                     {this.renderCreateButton()}
                     {isLoggedIn && this.renderUser()}
                     {isLoggedIn && this.renderUserMenu()}
@@ -74,6 +75,18 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
                 <Icon>add</Icon>
                 New
             </Button>
+        );
+    };
+
+    private renderContactButton = () => {
+        return (
+            <IconButton
+                className="app-header-contact-button"
+                href="mailto:momotabsapp@gmail.com?subject=Momo Tabs feedback"
+                disableRipple={true}
+            >
+                <Icon>email</Icon>
+            </IconButton>
         );
     };
 
@@ -184,7 +197,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         }
     };
 
-    private handleSignInClick = async () => {
+    private handleSignInClick = () => {
         SIGN_IN_AND_RETURN(this.props);
     };
 }
