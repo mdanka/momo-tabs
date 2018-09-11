@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { IUser } from "../commons";
-import { DARK_THEME, LIGHT_THEME, IS_MOBILE } from "../utils";
+import { DARK_THEME, IS_MOBILE } from "../utils";
 import { MobileEditBlocker } from "./common";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
