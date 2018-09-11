@@ -19,7 +19,8 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { IUser } from "../commons";
-import { DARK_THEME } from "../utils";
+import { DARK_THEME, LIGHT_THEME, IS_MOBILE } from "../utils";
+import { MobileEditBlocker } from "./common";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
 
@@ -71,10 +72,12 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private renderCreateButton = () => {
         return (
-            <Button size="small" className="app-header-create-button" onClick={this.handleCreateClick}>
-                <Icon>add</Icon>
-                New
-            </Button>
+            <MobileEditBlocker isEnabled={true} isLightThemeForced={true}>
+                <Button size="small" className="app-header-create-button" onClick={this.handleCreateClick}>
+                    <Icon>add</Icon>
+                    New
+                </Button>
+            </MobileEditBlocker>
         );
     };
 
@@ -187,6 +190,9 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     };
 
     private handleCreateClick = async () => {
+        if (IS_MOBILE) {
+            return;
+        }
         const { canCreateSong, history } = this.props;
         if (canCreateSong) {
             const id = await DATA_SERVICE.createSong();

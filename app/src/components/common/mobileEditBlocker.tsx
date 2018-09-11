@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Snackbar } from "@material-ui/core";
-import { IS_MOBILE } from "../../utils";
+import { Snackbar, MuiThemeProvider } from "@material-ui/core";
+import { IS_MOBILE, LIGHT_THEME } from "../../utils";
 
 export interface IMobileEditBlockerProps {
     isEnabled: boolean;
+    isLightThemeForced?: boolean;
 }
 
 export interface IMobileEditBlockerState {
@@ -19,26 +20,35 @@ export class MobileEditBlocker extends React.PureComponent<IMobileEditBlockerPro
     }
 
     public render() {
-        const { isEnabled } = this.props;
+        const { isEnabled, isLightThemeForced } = this.props;
         if (!isEnabled || !IS_MOBILE) {
             return this.props.children;
         }
         const { isWarningOpen } = this.state;
+        const snackbar = (
+            <Snackbar
+                autoHideDuration={3000}
+                message={<span>Song editing is not supported on mobile devices. Please use a desktop computer.</span>}
+                onClose={this.closeWarning}
+                open={isWarningOpen}
+            />
+        );
+        const snackbarWithTheme = isLightThemeForced ? (
+            <MuiThemeProvider theme={LIGHT_THEME}>{snackbar}</MuiThemeProvider>
+        ) : (
+            snackbar
+        );
         return (
             <span>
                 <span onClick={this.handleClick}>{this.props.children}</span>
-                <Snackbar
-                    autoHideDuration={3000}
-                    message={<span>Editing is not supported on mobile devices. Please use a desktop computer.</span>}
-                    onClose={this.closeWarning}
-                    open={isWarningOpen}
-                />
+                {snackbarWithTheme}
             </span>
         );
     }
 
     private handleClick = (event: React.MouseEvent<any>) => {
         event.preventDefault();
+        event.stopPropagation();
         this.openWarning();
     };
 

@@ -5,3 +5,9 @@ export const DARK_THEME = createMuiTheme({
         type: "dark",
     },
 });
+
+export const LIGHT_THEME = createMuiTheme({
+    palette: {
+        type: "light",
+    },
+});
