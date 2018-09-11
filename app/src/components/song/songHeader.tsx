@@ -48,16 +48,16 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
                         className="song-header-title"
                         disabled={!canEditSong}
                         placeholder="Title"
-                        value={title}
-                        onChange={this.onTitleChange}
+                        defaultValue={title}
+                        onConfirm={this.onTitleChange}
                     />
                     <span className="song-header-artist">
                         by{" "}
                         <EditableText
                             disabled={!canEditSong}
                             placeholder="Artist"
-                            value={artist}
-                            onChange={this.onArtistChange}
+                            defaultValue={artist}
+                            onConfirm={this.onArtistChange}
                         />
                     </span>
                 </div>
