@@ -6,8 +6,9 @@ import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
 import { DATA_SERVICE } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
-import { GET_NAV_URL, Page, getSongWithPlaceholders } from "../../utils";
+import { GET_NAV_URL, Page, getSongWithPlaceholders, IS_MOBILE } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
+import { MobileEditBlocker } from "../common";
 
 export interface ISongHeaderOwnProps extends RouteComponentProps<any> {
     id: string;
@@ -44,21 +45,25 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
         return (
             <div className="song-header">
                 <div className="song-header-song-info">
-                    <EditableText
-                        className="song-header-title"
-                        disabled={!canEditSong}
-                        placeholder="Title"
-                        defaultValue={title}
-                        onConfirm={this.onTitleChange}
-                    />
+                    <MobileEditBlocker isEnabled={canEditSong}>
+                        <EditableText
+                            className="song-header-title"
+                            disabled={!canEditSong || IS_MOBILE}
+                            placeholder="Title"
+                            defaultValue={title}
+                            onConfirm={this.onTitleChange}
+                        />
+                    </MobileEditBlocker>
                     <span className="song-header-artist">
                         by{" "}
-                        <EditableText
-                            disabled={!canEditSong}
-                            placeholder="Artist"
-                            defaultValue={artist}
-                            onConfirm={this.onArtistChange}
-                        />
+                        <MobileEditBlocker isEnabled={canEditSong}>
+                            <EditableText
+                                disabled={!canEditSong || IS_MOBILE}
+                                placeholder="Artist"
+                                defaultValue={artist}
+                                onConfirm={this.onArtistChange}
+                            />
+                        </MobileEditBlocker>
                     </span>
                 </div>
                 <div className="song-header-actions">{this.renderDeleteButton()}</div>
