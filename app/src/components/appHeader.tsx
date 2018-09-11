@@ -128,7 +128,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private renderSignIn = () => {
         return (
-            <Button size="small" color="primary" className="app-header-sign-in-button" onClick={this.handleSignInClick}>
+            <Button size="small" className="app-header-sign-in-button" onClick={this.handleSignInClick}>
                 Sign in
             </Button>
         );
