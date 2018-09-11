@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Node, Decoration, Block, RangeJSON, DecorationJSON } from "slate";
-import { Plugin, RenderMarkProps } from "slate-react";
+import { Plugin, RenderMarkProps, RenderNodeProps } from "slate-react";
 import { RegexUtils } from "../../../utils";
 
 export type IChordPluginOptions = Partial<IChordPluginFullOptions>;
@@ -16,6 +16,8 @@ const DEFAULT_OPTIONS: IChordPluginFullOptions = {
 const MARK_CLASS_NAMES = {
     [DEFAULT_OPTIONS.chordMarkType]: "slate-chord-plugin-chord",
 };
+
+const BLOCK_CLASS_NAME = "slate-chord-plugin-chord-block";
 
 export function ChordPlugin(options?: IChordPluginOptions): Plugin {
     const optionsWithDefaults: IChordPluginFullOptions = {
@@ -98,6 +100,17 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
                 <span {...attributes} className={MARK_CLASS_NAMES[type]}>
                     {children}
                 </span>
+            );
+        },
+        renderNode: (props: RenderNodeProps) => {
+            const { node, children, attributes } = props;
+            if (!Block.isBlock(node) || node.type !== "line" || !isChordBlock(node)) {
+                return;
+            }
+            return (
+                <div {...attributes} className={BLOCK_CLASS_NAME}>
+                    {children}
+                </div>
             );
         },
         decorateNode: (node: Node) => {
