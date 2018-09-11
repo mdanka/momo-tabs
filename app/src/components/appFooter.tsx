@@ -2,13 +2,12 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IAppState } from "../store";
 import { Dispatch } from "redux";
-import { RouteComponentProps } from "react-router";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Page, GET_NAV_URL } from "../utils";
 import { MuiThemeProvider } from "@material-ui/core";
 import { DARK_THEME } from "../utils";
 
-export interface IAppFooterOwnProps extends RouteComponentProps<any> {}
+export interface IAppFooterOwnProps {}
 
 export interface IAppFooterStateProps {}
 
@@ -54,9 +53,7 @@ function mapDispatchToProps(_dispatch: Dispatch, _ownProps: IAppFooterOwnProps):
     return {};
 }
 
-export const AppFooter = withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps,
-    )(UnconnectedAppFooter),
-);
+export const AppFooter = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(UnconnectedAppFooter);
