@@ -7,7 +7,8 @@ import { Value, Change } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { DATA_SERVICE } from "../../services";
 import { TabPlugin, ChordPlugin } from "./plugins";
-import { ShadowedScrollBox } from "../common";
+import { MobileEditBlocker, ShadowedScrollBox } from "../common";
+import { IS_MOBILE } from "../../utils";
 
 export interface ISongEditorOwnProps {
     id: string;
@@ -65,16 +66,18 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
             return null;
         }
         return (
-            <ShadowedScrollBox type="radial">
-                <Editor
-                    className="song-editor"
-                    readOnly={!isEditable}
-                    onChange={this.onChange}
-                    value={value}
-                    placeholder="Tabs"
-                    plugins={this.plugins}
-                />
-            </ShadowedScrollBox>
+            <MobileEditBlocker isEnabled={isEditable}>
+                <ShadowedScrollBox type="radial">
+                    <Editor
+                        className="song-editor"
+                        readOnly={!isEditable || IS_MOBILE}
+                        onChange={this.onChange}
+                        value={value}
+                        placeholder="Tabs"
+                        plugins={this.plugins}
+                    />
+                </ShadowedScrollBox>
+            </MobileEditBlocker>
         );
     }
 
