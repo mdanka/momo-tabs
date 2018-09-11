@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { IUser } from "../commons";
-import { DARK_THEME, IS_MOBILE } from "../utils";
+import { DARK_THEME, IS_MOBILE, CONTACT_HREF } from "../utils";
 import { MobileEditBlocker } from "./common";
 
 export interface IAppHeaderOwnProps extends RouteComponentProps<any> {}
@@ -83,11 +83,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private renderContactButton = () => {
         return (
-            <IconButton
-                className="app-header-contact-button"
-                href="mailto:momotabsapp@gmail.com?subject=Momo Tabs feedback"
-                disableRipple={true}
-            >
+            <IconButton className="app-header-contact-button" href={CONTACT_HREF} disableRipple={true}>
                 <Icon>email</Icon>
             </IconButton>
         );
