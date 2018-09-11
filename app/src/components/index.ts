@@ -1,3 +1,4 @@
+export * from "./appFooter";
 export * from "./appHeader";
 export * from "./common";
 export * from "./guitarApp";

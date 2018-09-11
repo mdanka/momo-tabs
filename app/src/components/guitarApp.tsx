@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
 import { AppHeader } from "./appHeader";
+import { AppFooter } from "./appFooter";
 import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page, GET_NAV_URL_QUERY_PARAMS } from "../utils";
 import { Song } from "./song";
 import { HomeScreen } from "./homeScreen";
@@ -34,6 +35,7 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
                             <Route render={this.renderRedirectToHome} />
                         </Switch>
                     </div>
+                    <AppFooter />
                 </div>
             </BrowserRouter>
         );
