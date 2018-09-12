@@ -71,8 +71,8 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
         if (text.length === 0) {
             return false;
         }
-        const tokens = text.split(" ");
-        const textContainsChordsOnly = tokens.every(isChordOrEmpty);
+        const tokens = text.split(" ").filter(token => token.length !== 0);
+        const textContainsChordsOnly = tokens.length > 0 && tokens.every(isChord);
         return textContainsChordsOnly;
     }
 
@@ -82,10 +82,6 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
 
     function isChord(value: string) {
         return CHORDS.indexOf(value) !== -1;
-    }
-
-    function isChordOrEmpty(value: string) {
-        return value.length === 0 || isChord(value);
     }
 
     return {
