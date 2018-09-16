@@ -82,6 +82,10 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
     }
 
     private onChange = (change: Change) => {
+        const { isEditable } = this.props;
+        if (!isEditable) {
+            return;
+        }
         const { value } = change;
         this.setState({ value });
         const content = PlainSerializer.serialize(value);
