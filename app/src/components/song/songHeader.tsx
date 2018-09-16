@@ -37,7 +37,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     }
 
     public render() {
-        const { song, canEditSong } = this.props;
+        const { id, song, canEditSong } = this.props;
         if (song === undefined) {
             return null;
         }
@@ -47,6 +47,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
                 <div className="song-header-song-info">
                     <MobileEditBlocker isEnabled={canEditSong}>
                         <EditableText
+                            key={id}
                             className="song-header-title"
                             disabled={!canEditSong || IS_MOBILE}
                             placeholder="Title"
@@ -58,6 +59,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
                         by{" "}
                         <MobileEditBlocker isEnabled={canEditSong}>
                             <EditableText
+                                key={id}
                                 disabled={!canEditSong || IS_MOBILE}
                                 placeholder="Artist"
                                 defaultValue={artist}
