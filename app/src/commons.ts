@@ -9,3 +9,7 @@ export interface ISongApi {
 }
 
 export type ISongUpdateApi = Partial<Pick<ISongApi, "title" | "artist" | "content">>;
+
+export interface ISong extends ISongApi {
+    id: string;
+}

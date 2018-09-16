@@ -1,12 +1,36 @@
 import { IAppState, ISongsState } from "./state";
 import createCachedSelector from "re-reselect";
 import { createSelector } from "reselect";
-import { IUser, ISongApi } from "../commons";
+import { IUser, ISongApi, ISong } from "../commons";
 import { AUTHORIZATION } from "../utils";
 
 export const selectCurrentUser = (state: IAppState) => state.currentUser;
 
 export const selectSongs = (state: IAppState) => state.songs;
+
+export const selectSongsList = createSelector(
+    selectSongs,
+    (songs: ISongsState): ISong[] => {
+        return Object.keys(songs)
+            .map(songId => {
+                const song = songs[songId];
+                return song === undefined ? undefined : { id: songId, ...song };
+            })
+            .filter(song => song !== undefined) as ISong[];
+    },
+);
+
+export const selectSongsOrderedByCreationTimeDesc = createSelector(selectSongsList, (songs: ISong[]) => {
+    return songs.sort((a: ISong, b: ISong) => {
+        if (a.creationTime > b.creationTime) {
+            return -1;
+        } else if (a.creationTime < b.creationTime) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+});
 
 export const selectSong = createCachedSelector(
     selectSongs,

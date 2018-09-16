@@ -1,16 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { IAppState, selectSongs, ISongsState } from "../../store";
+import { IAppState, selectSongsOrderedByCreationTimeDesc } from "../../store";
 import { Dispatch } from "redux";
 import { List, ListItemText, ListItem } from "@material-ui/core";
 import { Page } from "../../utils";
 import { Link } from "react-router-dom";
 import { GET_NAV_URL, getSongWithPlaceholders } from "../../utils";
+import { ISong } from "../../commons";
 
 export interface ISearchWidgetOwnProps {}
 
 export interface ISearchWidgetStateProps {
-    songs: ISongsState;
+    songs: ISong[];
 }
 
 export interface ISearchWidgetDispatchProps {}
@@ -22,20 +23,16 @@ export class UnconnectedSearchWidget extends React.Component<ISearchWidgetProps,
         const { songs } = this.props;
         return (
             <div className="search-widget">
-                <List>{Object.keys(songs).map(this.renderSong)}</List>
+                <List>{songs.map(this.renderSong)}</List>
             </div>
         );
     }
 
-    private renderSong = (songId: string) => {
-        const { songs } = this.props;
-        const song = songs[songId];
-        if (song === undefined) {
-            return null;
-        }
+    private renderSong = (song: ISong) => {
+        const { id } = song;
         const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
         return (
-            <Link key={songId} to={GET_NAV_URL[Page.Song](songId)}>
+            <Link key={id} to={GET_NAV_URL[Page.Song](id)}>
                 <ListItem button divider={true}>
                     <ListItemText primary={fullTitle} secondary={fullArtist} />
                 </ListItem>
@@ -46,7 +43,7 @@ export class UnconnectedSearchWidget extends React.Component<ISearchWidgetProps,
 
 function mapStateToProps(state: IAppState, _ownProps: ISearchWidgetOwnProps): ISearchWidgetStateProps {
     return {
-        songs: selectSongs(state),
+        songs: selectSongsOrderedByCreationTimeDesc(state),
     };
 }
 
