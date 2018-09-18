@@ -2,7 +2,7 @@ import * as React from "react";
 import { Node, Decoration, Block, RangeJSON, DecorationJSON } from "slate";
 import { Plugin, RenderMarkProps, RenderNodeProps } from "slate-react";
 import { RegexUtils } from "../../../utils";
-import { ALL_CHORDS } from "./chordList";
+import { ALL_CHORDS } from "./chordListModified";
 
 export type IChordPluginOptions = Partial<IChordPluginFullOptions>;
 
