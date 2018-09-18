@@ -2,6 +2,7 @@ import * as React from "react";
 import { Node, Decoration, Block, RangeJSON, DecorationJSON } from "slate";
 import { Plugin, RenderMarkProps, RenderNodeProps } from "slate-react";
 import { RegexUtils } from "../../../utils";
+import { ALL_CHORDS } from "./chordList";
 
 export type IChordPluginOptions = Partial<IChordPluginFullOptions>;
 
@@ -24,14 +25,6 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
         ...DEFAULT_OPTIONS,
         ...options,
     };
-
-    // const BASE_NOTES = ["A", "B", "C", "D", "E", "F", "G"];
-    // const ACCIDENTALS = ["#", "b"];
-    const NOTES = ["Ab", "A", "A#", "Bb", "B", "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#"];
-    const CHORDS: string[] = [];
-    NOTES.forEach(note => {
-        CHORDS.push(note, `${note}5`, `${note}7`, `${note}m`, `${note}m7`, `${note}maj7`);
-    });
 
     const regexRangeToSlateRange = (key: string) => (regexRange: RegexUtils.IRegexMatchRange): RangeJSON => {
         const { startIndex, endIndex } = regexRange;
@@ -81,7 +74,7 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
     }
 
     function isChord(value: string) {
-        return CHORDS.indexOf(value) !== -1;
+        return ALL_CHORDS.indexOf(value) !== -1;
     }
 
     return {
