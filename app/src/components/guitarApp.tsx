@@ -4,43 +4,53 @@ import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
 import { AppHeader } from "./appHeader";
 import { AppFooter } from "./appFooter";
-import { GET_NAV_URL, GET_NAV_URL_TEMPLATE, GET_NAV_URL_MATCH, Page, GET_NAV_URL_QUERY_PARAMS } from "../utils";
+import {
+    GET_NAV_URL,
+    GET_NAV_URL_TEMPLATE,
+    GET_NAV_URL_MATCH,
+    Page,
+    GET_NAV_URL_QUERY_PARAMS,
+    GET_PAGE_TITLE,
+} from "../utils";
 import { Song } from "./song";
 import { HomeScreen } from "./homeScreen";
 import { StaticContent } from "./staticContent";
 import { ScrollToTop } from "./common";
+import DocumentTitle = require("react-document-title");
 
 export interface IGuitarAppState {}
 
 export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     public render() {
         return (
-            <BrowserRouter>
-                <ScrollToTop>
-                    <div className="guitar-app">
-                        <AppHeader />
-                        <div className="app-content">
-                            <Switch>
-                                <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
-                                <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
-                                <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
-                                <Route
-                                    exact
-                                    path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
-                                    render={this.renderTermsOfService}
-                                />
-                                <Route
-                                    exact
-                                    path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
-                                    render={this.renderPrivacyPolicy}
-                                />
-                                <Route render={this.renderRedirectToHome} />
-                            </Switch>
+            <DocumentTitle title={GET_PAGE_TITLE()}>
+                <BrowserRouter>
+                    <ScrollToTop>
+                        <div className="guitar-app">
+                            <AppHeader />
+                            <div className="app-content">
+                                <Switch>
+                                    <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
+                                    <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
+                                    <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
+                                    <Route
+                                        exact
+                                        path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
+                                        render={this.renderTermsOfService}
+                                    />
+                                    <Route
+                                        exact
+                                        path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
+                                        render={this.renderPrivacyPolicy}
+                                    />
+                                    <Route render={this.renderRedirectToHome} />
+                                </Switch>
+                            </div>
+                            <AppFooter />
                         </div>
-                        <AppFooter />
-                    </div>
-                </ScrollToTop>
-            </BrowserRouter>
+                    </ScrollToTop>
+                </BrowserRouter>
+            </DocumentTitle>
         );
     }
 

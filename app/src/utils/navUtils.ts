@@ -51,3 +51,12 @@ export const SIGN_IN_AND_RETURN = (reactRouterProps: RouteComponentProps<any>) =
     const currentPath = history.location.pathname;
     history.push(GET_NAV_URL[Page.SignIn](currentPath));
 };
+
+const PAGE_TITLE_BASE = "Momo Tabs";
+
+export function GET_PAGE_TITLE(suffix?: string) {
+    if (suffix === undefined) {
+        return PAGE_TITLE_BASE;
+    }
+    return `${PAGE_TITLE_BASE} | ${suffix}`;
+}
