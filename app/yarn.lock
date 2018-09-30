@@ -4160,9 +4160,9 @@ modelo@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/modelo/-/modelo-4.2.3.tgz#b278588a4db87fc1e5107ae3a277c0876f38d894"
 
-momo-chords@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/momo-chords/-/momo-chords-0.1.5.tgz#3dee25dcb53f10db1cc0b09dd4356b13478bc563"
+momo-chords@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/momo-chords/-/momo-chords-0.2.0.tgz#46f2c6e9ebfd021c99c39a6033f643f22c4c1ce8"
   dependencies:
     commonjs "^0.0.1"
     es6-shim "^0.35.3"
