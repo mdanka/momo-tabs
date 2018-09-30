@@ -670,7 +670,7 @@ async@^1.3.0, async@^1.4.0, async@^1.5.0, async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.0.0, async@^2.0.1, async@^2.3.0, async@^2.4.0:
+async@^2.0.0, async@^2.0.1, async@^2.3.0, async@^2.4.0, async@^2.5.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   dependencies:
@@ -3788,7 +3788,7 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@~0.2.2, loader-utils@~0.2.5:
+loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@~0.2.5:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -3797,7 +3797,7 @@ loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.2:
+loader-utils@^1.0.2, loader-utils@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -4159,6 +4159,13 @@ mobile-detect@^1.4.3:
 modelo@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/modelo/-/modelo-4.2.3.tgz#b278588a4db87fc1e5107ae3a277c0876f38d894"
+
+momo-chords@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/momo-chords/-/momo-chords-0.1.5.tgz#3dee25dcb53f10db1cc0b09dd4356b13478bc563"
+  dependencies:
+    commonjs "^0.0.1"
+    es6-shim "^0.35.3"
 
 morgan@^1.8.2:
   version "1.9.0"
@@ -6109,13 +6116,12 @@ source-list-map@^0.1.7, source-list-map@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
-source-map-loader@^0.1.5:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-0.1.6.tgz#c09903da6d73b9e53b7ed8ee5245597051e98e91"
+source-map-loader@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/source-map-loader/-/source-map-loader-0.2.4.tgz#c18b0dc6e23bf66f6792437557c569a11e072271"
   dependencies:
-    async "^0.9.0"
-    loader-utils "~0.2.2"
-    source-map "~0.1.33"
+    async "^2.5.0"
+    loader-utils "^1.1.0"
 
 source-map@0.5.x, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1, source-map@~0.5.3:
   version "0.5.7"
@@ -6130,12 +6136,6 @@ source-map@^0.4.4, source-map@~0.4.1:
 source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
-
-source-map@~0.1.33:
-  version "0.1.43"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.1.43.tgz#c24bc146ca517c1471f5dacbe2571b2b7f9e3346"
-  dependencies:
-    amdefine ">=0.0.4"
 
 spdx-correct@^3.0.0:
   version "3.0.0"

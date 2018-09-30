@@ -2,7 +2,7 @@ import * as React from "react";
 import { Node, Decoration, Block, RangeJSON, DecorationJSON } from "slate";
 import { Plugin, RenderMarkProps, RenderNodeProps } from "slate-react";
 import { RegexUtils } from "../../../utils";
-import { ALL_CHORDS } from "./chordListModified";
+import { Chords } from "momo-chords";
 
 export type IChordPluginOptions = Partial<IChordPluginFullOptions>;
 
@@ -25,6 +25,8 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
         ...DEFAULT_OPTIONS,
         ...options,
     };
+
+    const chords = new Chords();
 
     const regexRangeToSlateRange = (key: string) => (regexRange: RegexUtils.IRegexMatchRange): RangeJSON => {
         const { startIndex, endIndex } = regexRange;
@@ -65,16 +67,12 @@ export function ChordPlugin(options?: IChordPluginOptions): Plugin {
             return false;
         }
         const tokens = text.split(" ").filter(token => token.length !== 0);
-        const textContainsChordsOnly = tokens.length > 0 && tokens.every(isChord);
+        const textContainsChordsOnly = tokens.length > 0 && tokens.every(chords.isChord);
         return textContainsChordsOnly;
     }
 
     function findChords(text: string) {
         return RegexUtils.findAllTextBlocks(text);
-    }
-
-    function isChord(value: string) {
-        return ALL_CHORDS.indexOf(value) !== -1;
     }
 
     return {
