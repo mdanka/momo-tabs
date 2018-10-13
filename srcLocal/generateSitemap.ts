@@ -41,8 +41,7 @@ async function writeSitemapFiles() {
 }
 
 function getSitemapIndex() {
-    return `
-    <?xml version="1.0" encoding="UTF-8"?>
+    return `<?xml version="1.0" encoding="UTF-8"?>
     <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <sitemap>
        <loc>${SITEMAPS_URL_LOCATION}${SITEMAP_STATIC_FILE_NAME}</loc>
@@ -54,8 +53,7 @@ function getSitemapIndex() {
 }
 
 function getSitemapStatic() {
-    return `
-    <?xml version="1.0" encoding="UTF-8"?>
+    return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://momotabs.com</loc>
@@ -72,8 +70,7 @@ function getSitemapStatic() {
 
 async function getSitemapSongs() {
     const sitemapSongBlocks = await getSongSitemapBlocks();
-    return `
-    <?xml version="1.0" encoding="UTF-8"?>
+    return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${sitemapSongBlocks.join("")}
     </urlset>`;
