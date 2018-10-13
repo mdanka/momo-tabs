@@ -30,7 +30,7 @@
         "immutable": "^3.8.2",
         "lodash": "^4.17.3",
         "mobile-detect": "^1.4.3",
-        "momo-chords": "^0.2.0",
+        "momo-chords": "^0.4.3",
         "normalize.css": "^5.0.0",
         "query-string": "^6.1.0",
         "re-reselect": "^2.1.0",
