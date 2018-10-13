@@ -3,6 +3,10 @@ build
 dist
 .idea
 
+.npmrc
+.vscode/
+.firebase/
+
 tags*
 
 ### Python ###
