@@ -6,6 +6,7 @@ const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
@@ -83,7 +84,7 @@ module.exports = {
                 query: {
                     name: "[name]-[hash].[ext]",
                 },
-            },
+            }
         ],
     },
     postcss: () => {
@@ -109,6 +110,7 @@ module.exports = {
         }),
         new WebpackBuildNotifierPlugin({
             title: "Guitar App Build",
-        })
+        }),
+        new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, "src/static/robots.txt" ])
     ],
 }
