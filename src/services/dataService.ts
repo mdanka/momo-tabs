@@ -26,6 +26,16 @@ export class DataService {
             });
     };
 
+    public getAllSongIds = () => {
+        return this.firestore
+            .collection(DataService.COLLECTION_SONGS)
+            .get()
+            .then(querySnapshot => {
+                return querySnapshot.docs.map(doc => doc.id);
+            })
+            .catch((reason: any) => console.error(`[DataService] Failed to get all song IDs. ${reason}`));
+    };
+
     public updateSong = (id: string, songUpdate: ISongUpdateApi) => {
         return this.firestore
             .collection(DataService.COLLECTION_SONGS)
