@@ -65,6 +65,9 @@ function getSitemapStatic() {
     <url>
         <loc>https://momotabs.com/privacy-policy</loc>
     </url>
+    <url>
+        <loc>https://momotabs.com/signin</loc>
+    </url>
     </urlset>`;
 }
 
