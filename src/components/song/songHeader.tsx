@@ -78,7 +78,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
         const { canDeleteSong } = this.props;
         return (
             canDeleteSong && (
-                <IconButton onClick={this.handleDeleteClick}>
+                <IconButton onClick={this.handleDeleteClick} tabIndex={-1}>
                     <Icon>delete</Icon>
                 </IconButton>
             )
