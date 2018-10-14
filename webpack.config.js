@@ -106,10 +106,10 @@ module.exports = {
                 collapseWhitespace: true,
             },
             template: path.resolve(__dirname, "src/index.html"),
-            title: "Tabs",
+            title: "Momo Tabs - Guitar Tabs and Chord Sheets",
         }),
         new WebpackBuildNotifierPlugin({
-            title: "Guitar App Build",
+            title: "Momo Tabs Build",
         }),
         new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, "src/static/robots.txt" ])
     ],

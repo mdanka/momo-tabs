@@ -53,10 +53,11 @@ export const SIGN_IN_AND_RETURN = (reactRouterProps: RouteComponentProps<any>) =
 };
 
 const PAGE_TITLE_BASE = "Momo Tabs";
+const PAGE_TITLE_ENDING = " - Guitar Tabs and Chord Sheets";
 
-export function GET_PAGE_TITLE(suffix?: string) {
-    if (suffix === undefined) {
-        return PAGE_TITLE_BASE;
+export function GET_PAGE_TITLE(title?: string) {
+    if (title === undefined) {
+        return `${PAGE_TITLE_BASE}${PAGE_TITLE_ENDING}`;
     }
-    return `${PAGE_TITLE_BASE} | ${suffix}`;
+    return `${title}${PAGE_TITLE_ENDING}`;
 }
