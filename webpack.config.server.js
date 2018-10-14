@@ -5,6 +5,7 @@ const url = require("url");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require("webpack");
 
 const baseWebpackConfig = require("./webpack.config");
@@ -50,7 +51,7 @@ module.exports = Object.assign({}, baseWebpackConfig, {
     }),
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        ...baseWebpackConfig.plugins.filter((plugin) => !(plugin instanceof ExtractTextPlugin)),
+        ...baseWebpackConfig.plugins.filter((plugin) => !(plugin instanceof ExtractTextPlugin || plugin instanceof CopyWebpackPlugin)),
     ],
     devServer: {
         contentBase: path.join(__dirname, "build", "src"),

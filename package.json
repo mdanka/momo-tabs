@@ -7,7 +7,7 @@
         "build": "npm-run-all clean -s createBuildDir -s runLocal -s bundle:prod",
         "buildDev": "npm-run-all createBuildDir -s bundle:dev ",
         "clean": "rimraf dist",
-        "dev": "npm-run-all createBuildDir -p watch:server",
+        "dev": "npm-run-all createBuildDir -s watch:server",
         "lint": "tslint -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "lint-fix": "tslint --fix -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "watch": "npm-run-all createBuildDir -p watch:bundle",
