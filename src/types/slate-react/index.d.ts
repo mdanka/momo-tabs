@@ -1,7 +1,7 @@
 // Based on @types/slate-react
 
 declare module "slate-react" {
-    import { Decoration, Mark, Node, Block, Change, Schema, Value, Stack } from "slate";
+    import { Decoration, Document, Mark, Node, Block, Change, Schema, Value, Stack } from "slate";
     import * as Immutable from "immutable";
     import * as React from "react";
 
@@ -101,6 +101,8 @@ declare module "slate-react" {
     export function findNode(element: Element, value: Value): Node;
     export function findRange(selection: Selection, value: Value): Range;
     export function getEventRange(event: Event, value: Value): Range;
-    export function getEventTransfer(event: Event): { type: SlateType; node: Node };
+    export function getEventTransfer(
+        event: Event,
+    ): { type: SlateType; node: Node | null; text: string | null; fragment: Document | null };
     export function setEventTransfer(event: Event, type: SlateType, data: any): void;
 }

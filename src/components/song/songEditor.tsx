@@ -6,7 +6,7 @@ import { Editor, Plugin } from "slate-react";
 import { Value, Change } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { DATA_SERVICE } from "../../services";
-import { TabPlugin, ChordPlugin } from "./plugins";
+import { TabPlugin, ChordPlugin, ProcessOnPastePlugin } from "./plugins";
 import { MobileEditBlocker, ShadowedScrollBox } from "../common";
 import { IS_MOBILE } from "../../utils";
 
@@ -46,7 +46,8 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
         this.state = {
             value: contentToValue(content),
         };
-        this.plugins.push(TabPlugin(), ChordPlugin());
+        const lineTrimmer = (line: string) => line.replace(/(\s|\\r)+$/g, "");
+        this.plugins.push(TabPlugin(), ChordPlugin(), ProcessOnPastePlugin([lineTrimmer]));
     }
 
     public componentDidUpdate(prevProps: ISongEditorProps) {
