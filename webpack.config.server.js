@@ -10,6 +10,7 @@ const baseUrl = "/";
 const webpackDevServerPort = "8545";
 
 module.exports = Object.assign({}, baseWebpackConfig, {
+    mode: "development",
     entry: [
         ...baseWebpackConfig.entry.app,
         "webpack/hot/dev-server",
