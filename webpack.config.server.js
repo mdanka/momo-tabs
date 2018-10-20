@@ -1,9 +1,6 @@
 "use strict";
 
 const path = require("path");
-const url = require("url");
-
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require("webpack");
 
@@ -16,7 +13,6 @@ module.exports = Object.assign({}, baseWebpackConfig, {
     entry: [
         ...baseWebpackConfig.entry.app,
         "webpack/hot/dev-server",
-        // `${require.resolve("webpack-dev-server/client/")}?http://localhost:${webpackDevServerPort}`,
     ],
     output: Object.assign({}, baseWebpackConfig.output, {
         publicPath: `http://localhost:${webpackDevServerPort}${baseUrl}`,
