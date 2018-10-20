@@ -4,7 +4,7 @@
     "main": "index.js",
     "author": "Miklos Danka",
     "scripts": {
-        "build": "npm-run-all clean -s createBuildDir -s generateSitemap -s bundle:prod",
+        "build": "npm-run-all clean -s createBuildDir -s bundle:prod",
         "buildDev": "npm-run-all createBuildDir -s bundle:dev ",
         "clean": "rimraf dist",
         "dev": "npm-run-all createBuildDir -s watch:server",
