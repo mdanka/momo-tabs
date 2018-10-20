@@ -4,7 +4,7 @@
     "main": "index.js",
     "author": "Miklos Danka",
     "scripts": {
-        "build": "npm-run-all clean -s createBuildDir -s runLocal -s bundle:prod",
+        "build": "npm-run-all clean -s createBuildDir -s generateSitemap -s bundle:prod",
         "buildDev": "npm-run-all createBuildDir -s bundle:dev ",
         "clean": "rimraf dist",
         "dev": "npm-run-all createBuildDir -s watch:server",
@@ -16,7 +16,7 @@
         "createBuildDir": "mkdirp dist",
         "watch:bundle": "webpack -d -w",
         "watch:server": "webpack-dev-server -d --config webpack.config.server.js",
-        "runLocal": "yarn run ts-node ./srcLocal/generateSitemap.ts",
+        "generateSitemap": "yarn run ts-node ./srcLocal/generateSitemap.ts",
         "verify": "yarn run es-check es5 './dist/bundle.js'"
     },
     "dependencies": {
