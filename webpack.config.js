@@ -2,8 +2,6 @@
 
 var path = require('path');
 
-const autoprefixer = require("autoprefixer");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -11,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
+    mode: "production",
     entry: {
         app: [
             path.resolve(__dirname, "src/app.tsx"),
@@ -24,83 +23,74 @@ module.exports = {
     },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
+        extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
     },
     module: {
-        preLoaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: "source-map-loader",
                 exclude: /node_modules/,
+                enforce: "pre",
             },
-        ],
-        loaders: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                use: [
+                    { loader : 'ts-loader' }
+                ],
                 exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract(
-                    "style",
-                    [
-                        "css?sourceMap",
-                        "postcss",
-                    ],
-                    {
-                        publicPath: "", // Don't add public path to url()
-                    }
-                ),
+                use: [{
+                    loader: 'style-loader' // creates style nodes from JS strings
+                }, {
+                    loader: 'css-loader' // translates CSS into CommonJS
+                }, {
+                    loader: 'resolve-url-loader'
+                }],
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract(
-                    "style",
-                    [
-                        "css?sourceMap",
-                        "postcss",
-                        "less?sourceMap",
-                    ],
-                    {
-                        publicPath: "", // Don't add public path to url()
+                use: [{
+                    loader: 'style-loader' // creates style nodes from JS strings
+                }, {
+                    loader: 'css-loader' // translates CSS into CommonJS
+                }, {
+                    loader: 'resolve-url-loader'
+                }, {
+                    loader: 'less-loader', // compiles LESS to CSS
+                    options: {
+                        sourceMap: true,
+                        sourceMapContents: false
                     }
-                ),
+                }],
             },
             {
                 test: staticFileRegex,
                 include: [
                     path.resolve(__dirname, "node_modules"),
                 ],
-                loader: "file-loader",
-                query: {
-                    name: "[path][name].[ext]",
-                },
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[path][name].[ext]",
+                    },
+                }],
             },
             {
                 test: staticFileRegex,
                 include: path.resolve(__dirname, "src"),
-                loader: "file-loader",
-                query: {
-                    name: "[name]-[hash].[ext]",
-                },
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[name]-[hash].[ext]",
+                    },
+                }],
             }
         ],
     },
-    postcss: () => {
-        return [
-            autoprefixer({
-                browsers: [
-                    "> 1%",
-                    "last 2 versions",
-                    "Firefox ESR",
-                    "Opera 12.1",
-                ],
-            }),
-        ];
-    },
     plugins: [
-        new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             minify: {
                 collapseWhitespace: true,
