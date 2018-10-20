@@ -76,6 +76,7 @@
         "firebase-tools": "^4.2.0",
         "fs-extra": "^7.0.0",
         "html-webpack-plugin": "^3.2.0",
+        "less": "^3.8.1",
         "less-loader": "^4.1.0",
         "mkdirp": "^0.5.1",
         "npm-run-all": "^3.1.2",
