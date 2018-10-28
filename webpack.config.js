@@ -12,7 +12,7 @@ module.exports = {
     mode: "production",
     entry: {
         app: [
-            path.resolve(__dirname, "src/app.tsx"),
+            path.resolve(__dirname, "src/clientApp.tsx"),
             path.resolve(__dirname, "src/app.less"),
         ],
     },
