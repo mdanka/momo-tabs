@@ -30,6 +30,8 @@
         "commonjs": "^0.0.1",
         "es6-shim": "^0.35.3",
         "firebase": "^5.4.1",
+        "firebase-admin": "^6.1.0",
+        "firebase-functions": "^2.1.0",
         "firebaseui": "^3.4.0",
         "immutable": "^3.8.2",
         "mobile-detect": "^1.4.3",
@@ -97,6 +99,7 @@
         "webpack": "^4.21.0",
         "webpack-build-notifier": "^0.1.30",
         "webpack-cli": "^3.1.2",
-        "webpack-dev-server": "^3.1.9"
+        "webpack-dev-server": "^3.1.9",
+        "webpack-node-externals": "^1.7.2"
     }
 }

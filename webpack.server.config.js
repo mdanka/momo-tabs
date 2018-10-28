@@ -2,6 +2,7 @@
 
 const path = require("path");
 const baseWebpackConfig = require("./webpack.config");
+var nodeExternals = require('webpack-node-externals');
 
 module.exports = Object.assign({}, baseWebpackConfig, {
     target: 'node',
@@ -16,4 +17,5 @@ module.exports = Object.assign({}, baseWebpackConfig, {
         libraryTarget: 'commonjs2',
         publicPath: "/",
     },
+    externals: [nodeExternals()]
 });
