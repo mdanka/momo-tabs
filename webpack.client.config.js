@@ -5,26 +5,23 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const path = require("path");
 const baseWebpackConfig = require("./webpack.config");
-var nodeExternals = require('webpack-node-externals');
 
 module.exports = Object.assign({}, baseWebpackConfig, {
-    target: 'node',
-    externals: [nodeExternals()],
     entry: {
         app: [
-            path.resolve(__dirname, "src/serverApp.tsx"),
+            path.resolve(__dirname, "src/clientApp.tsx"),
+            path.resolve(__dirname, "src/app.less"),
         ],
     },
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'functions'),
-        libraryTarget: 'commonjs2',
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
         publicPath: "/",
     },
     plugins: [
         new WebpackBuildNotifierPlugin({
-            title: "Momo Tabs Build - Server",
+            title: "Momo Tabs Build - Client",
         }),
-        new CopyWebpackPlugin([ "package.json" ])
+        new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, "src/static/robots.txt" ])
     ],
 });

@@ -2,25 +2,10 @@
 
 var path = require('path');
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
     mode: "production",
-    entry: {
-        app: [
-            path.resolve(__dirname, "src/clientApp.tsx"),
-            path.resolve(__dirname, "src/app.less"),
-        ],
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: "/",
-    },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
@@ -90,17 +75,4 @@ module.exports = {
             }
         ],
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            minify: {
-                collapseWhitespace: true,
-            },
-            template: path.resolve(__dirname, "src/index.html"),
-            title: "Momo Tabs - Guitar Tabs and Chord Sheets",
-        }),
-        new WebpackBuildNotifierPlugin({
-            title: "Momo Tabs Build",
-        }),
-        new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, "src/static/robots.txt" ])
-    ],
 }
