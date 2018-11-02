@@ -18,7 +18,28 @@ import * as fs from "fs-extra";
 //     </html>`);
 // });
 
+interface IHtmlTemplateProperties {
+    TEMPLATE_VAR_APP_CONTENT: string;
+    TEMPLATE_VAR_INITIAL_STATE: string;
+}
+
+function fillInTemplateValue(template: string, key: string, value: string) {
+    return template.replace(new RegExp(key, "g"), value);
+}
+
+function templatizeHtml(properties: IHtmlTemplateProperties) {
+    const htmlTemplate = fs.readFileSync("./index.template.html", { encoding: "utf8" });
+    let html = htmlTemplate;
+    html = fillInTemplateValue(html, "TEMPLATE_VAR_APP_CONTENT", properties.TEMPLATE_VAR_APP_CONTENT);
+    html = fillInTemplateValue(html, "TEMPLATE_VAR_INITIAL_STATE", properties.TEMPLATE_VAR_INITIAL_STATE);
+    return html;
+}
+
 exports.app = functions.https.onRequest(async (_req: functions.Request, res: functions.Response) => {
-    const indexHtml = fs.readFileSync("./index.template.html", { encoding: "utf8" });
+    const properties: IHtmlTemplateProperties = {
+        TEMPLATE_VAR_APP_CONTENT: "hello",
+        TEMPLATE_VAR_INITIAL_STATE: "tourist",
+    };
+    const indexHtml = templatizeHtml(properties);
     res.status(200).send(indexHtml);
 });
