@@ -25,6 +25,6 @@ module.exports = Object.assign({}, baseWebpackConfig, {
         new WebpackBuildNotifierPlugin({
             title: "Momo Tabs Build - Server",
         }),
-        new CopyWebpackPlugin([ "package.json" ])
+        new CopyWebpackPlugin([ "package.json", "./src/*.html" ])
     ],
 });
