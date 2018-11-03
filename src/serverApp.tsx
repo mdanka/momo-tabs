@@ -11,7 +11,7 @@ import * as functions from "firebase-functions";
 import * as fs from "fs-extra";
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import { IAppState, createAppStore } from "./store";
+import { IAppState, createAppStore, stateToString } from "./store";
 import { Store } from "redoodle";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { App } from "./app";
@@ -56,7 +56,7 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
         </JssProvider>,
     );
 
-    const initialStateString = JSON.stringify(initialState);
+    const initialStateString = stateToString(initialState);
     const cssMaterialUi = sheetsRegistry.toString();
     const cssMain = loadCss();
     const properties: IHtmlTemplateProperties = {

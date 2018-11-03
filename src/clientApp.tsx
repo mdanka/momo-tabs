@@ -1,7 +1,7 @@
 import "es6-shim";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createAppStore, IAppState } from "./store";
+import { createAppStore, IAppState, IWindowWithInitialState, deserializeAppState } from "./store";
 import { App } from "./app";
 import { BrowserRouter } from "react-router-dom";
 import { initializeAndGetClientSideServices } from "./services";
@@ -33,7 +33,8 @@ export class ClientApp extends React.Component<IClientAppProps, {}> {
 }
 
 const appElement = document.getElementById("app");
-const store = createAppStore();
+const initialState = deserializeAppState((window as IWindowWithInitialState).__initialState);
+const store = createAppStore(initialState);
 initializeAndGetClientSideServices(store);
 
 // Styling - added to match the DOM structure for hdyration
