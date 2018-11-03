@@ -1,14 +1,14 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { SetCurrentUser, IAppState } from "../store";
-import { GET_NAV_URL, Page } from "../utils";
+import { GET_NAV_URL, Page, isServer } from "../utils";
 import { Store } from "redoodle";
 
 /**
  * FirebaseUI doesn't support server-side rendering,
  * so we have to avoid importing it.
  */
-const firebaseui = (global as any).IS_SERVER_SIDE === undefined ? require("firebaseui") : undefined;
+const firebaseui = isServer() ? undefined : require("firebaseui");
 
 export class FirebaseAuthUiService {
     private firebaseAuthUi: any;

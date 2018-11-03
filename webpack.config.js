@@ -1,6 +1,7 @@
 "use strict";
 
 var path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
@@ -27,29 +28,38 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [{
-                    loader: 'style-loader' // creates style nodes from JS strings
-                }, {
-                    loader: 'css-loader' // translates CSS into CommonJS
-                }, {
-                    loader: 'resolve-url-loader'
-                }],
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader' // translates CSS into CommonJS
+                    },
+                    {
+                        loader: 'resolve-url-loader'
+                    }
+                ],
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: 'style-loader' // creates style nodes from JS strings
-                }, {
-                    loader: 'css-loader' // translates CSS into CommonJS
-                }, {
-                    loader: 'resolve-url-loader'
-                }, {
-                    loader: 'less-loader', // compiles LESS to CSS
-                    options: {
-                        sourceMap: true,
-                        sourceMapContents: false
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader', // translates CSS into CommonJS
+                    },
+                    {
+                        loader: 'resolve-url-loader'
+                    },
+                    {
+                        loader: 'less-loader', // compiles LESS to CSS
+                        options: {
+                            sourceMap: true,
+                            sourceMapContents: false
+                        }
                     }
-                }],
+                ],
             },
             {
                 test: staticFileRegex,
@@ -75,4 +85,22 @@ module.exports = {
             }
         ],
     },
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             styles: {
+    //                 name: 'styles',
+    //                 test: /\.(css|less|scss)$/,
+    //                 chunks: 'all',
+    //                 enforce: true
+    //             }
+    //         }
+    //     }
+    // },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[name].css"
+        })
+    ]
 }

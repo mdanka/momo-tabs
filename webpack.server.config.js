@@ -2,6 +2,7 @@
 
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require("webpack");
 
 const path = require("path");
 const baseWebpackConfig = require("./webpack.config");
@@ -13,6 +14,7 @@ module.exports = Object.assign({}, baseWebpackConfig, {
     entry: {
         app: [
             path.resolve(__dirname, "src/serverApp.tsx"),
+            // path.resolve(__dirname, "src/app.less"),
         ],
     },
     output: {
@@ -22,9 +24,13 @@ module.exports = Object.assign({}, baseWebpackConfig, {
         publicPath: "/",
     },
     plugins: [
+        ...baseWebpackConfig.plugins,
         new WebpackBuildNotifierPlugin({
             title: "Momo Tabs Build - Server",
         }),
-        new CopyWebpackPlugin([ "package.json", "./src/*.html" ])
+        new CopyWebpackPlugin([ "package.json", "./src/index.template.html" ]),
+        new webpack.DefinePlugin({
+              __SERVER__: true
+        })
     ],
 });
