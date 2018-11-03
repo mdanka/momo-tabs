@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FIREBASE_AUTH_SERVICE } from "../services";
+import { GLOBAL_SERVICES } from "../services";
 
 export interface ILoginProps {
     redirectUrl: string | undefined;
@@ -18,7 +18,9 @@ export class Login extends React.Component<ILoginProps, {}> {
         if (this.ref.current == null) {
             return;
         }
-        FIREBASE_AUTH_SERVICE.authStart(this.ref.current, redirectUrl);
+        if (GLOBAL_SERVICES !== undefined) {
+            GLOBAL_SERVICES.firebaseAuthUiService.authStart(this.ref.current, redirectUrl);
+        }
     }
 
     public render() {

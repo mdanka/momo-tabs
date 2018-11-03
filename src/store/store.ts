@@ -8,10 +8,9 @@ const INITIAL_STATE: IAppState = {
     songs: {},
 };
 
-function createAppStore() {
+export function createAppStore(initialStateMaybe?: IAppState) {
+    const initialState = initialStateMaybe === undefined ? INITIAL_STATE : initialStateMaybe;
     const middlewareEnhancer = applyMiddleware(loggingMiddleware()) as StoreEnhancer;
-    const store = createStore<IAppState>(appReducer, INITIAL_STATE, middlewareEnhancer);
+    const store = createStore<IAppState>(appReducer, initialState, middlewareEnhancer);
     return store;
 }
-
-export const STORE = createAppStore();
