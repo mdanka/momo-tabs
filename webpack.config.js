@@ -86,21 +86,6 @@ module.exports = {
             }
         ],
     },
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             styles: {
-    //                 name: 'styles',
-    //                 test: /\.(css|less|scss)$/,
-    //                 chunks: 'all',
-    //                 enforce: true
-    //             }
-    //         }
-    //     }
-    // },
-    // optimization: {
-    //     runtimeChunk: "single",
-    // },
     plugins: [
         new MiniCssExtractPlugin({
             filename: "app.css"
