@@ -16,10 +16,10 @@ interface IClientAppProps {
 export class ClientApp extends React.Component<IClientAppProps, {}> {
     public componentDidMount() {
         // Remove the server-side injected CSS
-        const jssStyles = document.getElementById("material-ui-jss-server-side");
-        if (jssStyles && jssStyles.parentNode) {
-            jssStyles.parentNode.removeChild(jssStyles);
-        }
+        // const jssStyles = document.getElementById("material-ui-jss-server-side");
+        // if (jssStyles && jssStyles.parentNode) {
+        //     jssStyles.parentNode.removeChild(jssStyles);
+        // }
     }
 
     public render() {
@@ -39,7 +39,7 @@ initializeAndGetClientSideServices(store);
 
 // Styling - added to match the DOM structure for hdyration
 const theme = createMuiTheme({});
-const generateClassName = createGenerateClassName();
+const generateClassName = createGenerateClassName({ dangerouslyUseGlobalCSS: false, productionPrefix: "momotabs" });
 
 if (appElement != null) {
     ReactDOM.hydrate(

@@ -2,12 +2,12 @@
 
 var path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
-    // TODO(mdanka): set to production
-    mode: "development",
+    mode: "production",
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
@@ -98,9 +98,15 @@ module.exports = {
     //         }
     //     }
     // },
+    // optimization: {
+    //     runtimeChunk: "single",
+    // },
     plugins: [
         new MiniCssExtractPlugin({
             filename: "app.css"
-        })
+        }),
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
+        }),
     ]
 }

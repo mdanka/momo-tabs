@@ -46,7 +46,7 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
     const sheetsRegistry = new SheetsRegistry();
     const sheetsManager = new Map<StylesCreator, Map<Theme, any>>();
     const theme = createMuiTheme({});
-    const generateClassName = createGenerateClassName();
+    const generateClassName = createGenerateClassName({ dangerouslyUseGlobalCSS: false, productionPrefix: "momotabs" });
 
     const appContent = ReactDOMServer.renderToString(
         <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
