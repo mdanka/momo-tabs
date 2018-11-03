@@ -67,6 +67,7 @@ export function getHtml(template: IHtmlTemplateProperties) {
     <script>
       window.__initialState = ${initialState}
     </script>
+    <script type="text/javascript" src="/app.js"></script>
     </html>
     `;
 }
