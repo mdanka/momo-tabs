@@ -12,13 +12,15 @@ module.exports = Object.assign({}, baseWebpackConfig, {
     target: 'node',
     externals: [nodeExternals()],
     entry: {
-        app: [
+        index: [
             path.resolve(__dirname, "src/serverApp.tsx"),
-            // path.resolve(__dirname, "src/app.less"),
+        ],
+        styles: [
+            path.resolve(__dirname, "src/app.less"),
         ],
     },
     output: {
-        filename: 'index.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'functions'),
         libraryTarget: 'commonjs2',
         publicPath: "/",

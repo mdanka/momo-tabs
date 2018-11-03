@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
@@ -99,7 +99,7 @@ module.exports = {
     // },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].css"
+            filename: "app.css"
         })
     ]
 }
