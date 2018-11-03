@@ -20,31 +20,13 @@ import { SheetsRegistry } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider, createMuiTheme, createGenerateClassName, Theme } from "@material-ui/core/styles";
 import { StylesCreator } from "@material-ui/core/styles/withStyles";
-
-interface IHtmlTemplateProperties {
-    TEMPLATE_VAR_APP_CONTENT: string;
-    TEMPLATE_VAR_INITIAL_STATE: string;
-    TEMPLATE_VAR_STYLE_TAGS: string;
-}
+import { getHtml, IHtmlTemplateProperties } from "./indexHtml";
 
 const FIREBASE_SERVICES = initializeAndGetServerSideServices();
-
-function fillInTemplateValue(template: string, key: string, value: string) {
-    return template.replace(new RegExp(key, "g"), value);
-}
 
 function loadCss() {
     return fs.readFileSync("./app.css", { encoding: "utf8" });
     // return "";
-}
-
-function templatizeHtml(properties: IHtmlTemplateProperties) {
-    const htmlTemplate = fs.readFileSync("./index.template.html", { encoding: "utf8" });
-    let html = htmlTemplate;
-    html = fillInTemplateValue(html, "TEMPLATE_VAR_APP_CONTENT", properties.TEMPLATE_VAR_APP_CONTENT);
-    html = fillInTemplateValue(html, "TEMPLATE_VAR_INITIAL_STATE", properties.TEMPLATE_VAR_INITIAL_STATE);
-    html = fillInTemplateValue(html, "TEMPLATE_VAR_STYLE_TAGS", properties.TEMPLATE_VAR_STYLE_TAGS);
-    return html;
 }
 
 async function fetchInitialState() {
@@ -77,13 +59,13 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
     const initialStateString = JSON.stringify(initialState);
     const cssMaterialUi = sheetsRegistry.toString();
     const cssMain = loadCss();
-    const cssContent = `${cssMain}\n${cssMaterialUi}`;
     const properties: IHtmlTemplateProperties = {
-        TEMPLATE_VAR_APP_CONTENT: appContent,
-        TEMPLATE_VAR_INITIAL_STATE: initialStateString,
-        TEMPLATE_VAR_STYLE_TAGS: cssContent,
+        appContent: appContent,
+        initialState: initialStateString,
+        mainStyle: cssMain,
+        materialUiStyle: cssMaterialUi,
     };
-    const indexHtml = templatizeHtml(properties);
+    const indexHtml = getHtml(properties);
     res.status(200).send(indexHtml);
 });
 

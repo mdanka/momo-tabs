@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
+    // TODO(mdanka): set to production
     mode: "development",
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.

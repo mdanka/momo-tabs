@@ -30,7 +30,7 @@ module.exports = Object.assign({}, baseWebpackConfig, {
         new WebpackBuildNotifierPlugin({
             title: "Momo Tabs Build - Server",
         }),
-        new CopyWebpackPlugin([ "package.json", "./src/index.template.html" ]),
+        new CopyWebpackPlugin([ "package.json" ]),
         new webpack.DefinePlugin({
               __SERVER__: true
         })
