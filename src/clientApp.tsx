@@ -6,6 +6,8 @@ import { App } from "./app";
 import { BrowserRouter } from "react-router-dom";
 import { initializeAndGetClientSideServices } from "./services";
 import { Store } from "redoodle";
+import JssProvider from "react-jss/lib/JssProvider";
+import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from "@material-ui/core/styles";
 
 interface IClientAppProps {
     store: Store<IAppState>;
@@ -34,6 +36,17 @@ const appElement = document.getElementById("app");
 const store = createAppStore();
 initializeAndGetClientSideServices(store);
 
+// Styling - added to match the DOM structure for hdyration
+const theme = createMuiTheme({});
+const generateClassName = createGenerateClassName();
+
 if (appElement != null) {
-    ReactDOM.render(<ClientApp store={store} />, appElement);
+    ReactDOM.hydrate(
+        <JssProvider generateClassName={generateClassName}>
+            <MuiThemeProvider theme={theme}>
+                <ClientApp store={store} />
+            </MuiThemeProvider>
+        </JssProvider>,
+        appElement,
+    );
 }
