@@ -1,26 +1,13 @@
 "use strict";
 
 var path = require('path');
-
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 const staticFileRegex = /\.(woff|svg|ttf|eot|gif|jpeg|jpg|png)([\?]?.*)$/;
 
 module.exports = {
     mode: "production",
-    entry: {
-        app: [
-            path.resolve(__dirname, "src/app.tsx"),
-            path.resolve(__dirname, "src/app.less"),
-        ],
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: "/",
-    },
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension.
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
@@ -42,29 +29,38 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [{
-                    loader: 'style-loader' // creates style nodes from JS strings
-                }, {
-                    loader: 'css-loader' // translates CSS into CommonJS
-                }, {
-                    loader: 'resolve-url-loader'
-                }],
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader' // translates CSS into CommonJS
+                    },
+                    {
+                        loader: 'resolve-url-loader'
+                    }
+                ],
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: 'style-loader' // creates style nodes from JS strings
-                }, {
-                    loader: 'css-loader' // translates CSS into CommonJS
-                }, {
-                    loader: 'resolve-url-loader'
-                }, {
-                    loader: 'less-loader', // compiles LESS to CSS
-                    options: {
-                        sourceMap: true,
-                        sourceMapContents: false
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
+                        loader: 'css-loader', // translates CSS into CommonJS
+                    },
+                    {
+                        loader: 'resolve-url-loader'
+                    },
+                    {
+                        loader: 'less-loader', // compiles LESS to CSS
+                        options: {
+                            sourceMap: true,
+                            sourceMapContents: false
+                        }
                     }
-                }],
+                ],
             },
             {
                 test: staticFileRegex,
@@ -91,16 +87,11 @@ module.exports = {
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            minify: {
-                collapseWhitespace: true,
-            },
-            template: path.resolve(__dirname, "src/index.html"),
-            title: "Momo Tabs - Guitar Tabs and Chord Sheets",
+        new MiniCssExtractPlugin({
+            filename: "app.css"
         }),
-        new WebpackBuildNotifierPlugin({
-            title: "Momo Tabs Build",
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
         }),
-        new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, "src/static/robots.txt" ])
-    ],
+    ]
 }

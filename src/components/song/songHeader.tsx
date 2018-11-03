@@ -4,7 +4,7 @@ import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from ".
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
-import { DATA_SERVICE } from "../../services";
+import { GLOBAL_SERVICES } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
 import { GET_NAV_URL, Page, getSongWithPlaceholders, IS_MOBILE } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
@@ -111,13 +111,19 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     };
 
     private onArtistChange = (artist: string) => {
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
         const { id } = this.props;
-        DATA_SERVICE.updateSong(id, { artist });
+        GLOBAL_SERVICES.dataService.updateSong(id, { artist });
     };
 
     private onTitleChange = (title: string) => {
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
         const { id } = this.props;
-        DATA_SERVICE.updateSong(id, { title });
+        GLOBAL_SERVICES.dataService.updateSong(id, { title });
     };
 
     private handleDeleteClick = () => {
@@ -129,8 +135,11 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     };
 
     private handleDeleteConfirmed = async () => {
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
         const { id, history } = this.props;
-        DATA_SERVICE.deleteSong(id);
+        GLOBAL_SERVICES.dataService.deleteSong(id);
         history.push(GET_NAV_URL[Page.Home]());
     };
 

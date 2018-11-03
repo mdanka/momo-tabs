@@ -4,7 +4,7 @@ import { IAppState, selectCurrentUser, selectCanCreateSong } from "../store";
 import { Dispatch } from "redux";
 import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
-import { FIREBASE_AUTH_SERVICE, DATA_SERVICE } from "../services";
+import { GLOBAL_SERVICES } from "../services";
 import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
 import {
     Button,
@@ -164,7 +164,10 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     };
 
     private handleSignOutClick = async () => {
-        await FIREBASE_AUTH_SERVICE.authSignOut();
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
+        await GLOBAL_SERVICES.firebaseAuthService.authSignOut();
         this.openSignedOutMessage();
     };
 
@@ -186,12 +189,15 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
     };
 
     private handleCreateClick = async () => {
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
         if (IS_MOBILE) {
             return;
         }
         const { canCreateSong, history } = this.props;
         if (canCreateSong) {
-            const id = await DATA_SERVICE.createSong();
+            const id = await GLOBAL_SERVICES.dataService.createSong();
             const newSongUrl = GET_NAV_URL[Page.Song](id);
             history.push(newSongUrl);
         } else {

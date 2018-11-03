@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
 import { AppHeader } from "./appHeader";
@@ -24,32 +24,30 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     public render() {
         return (
             <DocumentTitle title={GET_PAGE_TITLE()}>
-                <BrowserRouter>
-                    <ScrollToTop>
-                        <div className="guitar-app">
-                            <AppHeader />
-                            <div className="app-content">
-                                <Switch>
-                                    <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
-                                    <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
-                                    <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
-                                    <Route
-                                        exact
-                                        path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
-                                        render={this.renderTermsOfService}
-                                    />
-                                    <Route
-                                        exact
-                                        path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
-                                        render={this.renderPrivacyPolicy}
-                                    />
-                                    <Route render={this.renderRedirectToHome} />
-                                </Switch>
-                            </div>
-                            <AppFooter />
+                <ScrollToTop>
+                    <div className="guitar-app">
+                        <AppHeader />
+                        <div className="app-content">
+                            <Switch>
+                                <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
+                                <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
+                                <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
+                                <Route
+                                    exact
+                                    path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
+                                    render={this.renderTermsOfService}
+                                />
+                                <Route
+                                    exact
+                                    path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
+                                    render={this.renderPrivacyPolicy}
+                                />
+                                <Route render={this.renderRedirectToHome} />
+                            </Switch>
                         </div>
-                    </ScrollToTop>
-                </BrowserRouter>
+                        <AppFooter />
+                    </div>
+                </ScrollToTop>
             </DocumentTitle>
         );
     }

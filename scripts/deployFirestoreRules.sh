@@ -1,1 +1,1 @@
-./node_modules/firebase-tools/bin/firebase deploy --only firestore:rules
+./node_modules/.bin/firebase deploy --only firestore:rules

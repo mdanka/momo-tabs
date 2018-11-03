@@ -1,29 +1,41 @@
 import * as firebase from "firebase/app";
-import { STORE, SetSongs, ISongsState } from "../store";
+import { SetSongs, ISongsState, IAppState } from "../store";
 import { ISongApi, ISongUpdateApi } from "../commons";
 import { ReadableId } from "../utils";
-import { FIREBASE_AUTH_SERVICE } from "./services";
+import { Store } from "redoodle";
+import { FirebaseAuthService } from "./firebaseAuthService";
 
 export class DataService {
     private static COLLECTION_SONGS = "songs";
 
-    private firestore: firebase.firestore.Firestore;
-
-    public constructor(firestore: firebase.firestore.Firestore) {
-        this.firestore = firestore;
-        this.subscribeToSongs();
+    public constructor(
+        private firestore: firebase.firestore.Firestore,
+        private firebaseAuthService: FirebaseAuthService,
+        store: Store<IAppState> | undefined,
+    ) {
+        this.subscribeToSongs(store);
     }
 
-    public subscribeToSongs = () => {
+    public subscribeToSongs = (store: Store<IAppState> | undefined) => {
+        if (store === undefined) {
+            return;
+        }
         this.firestore
             .collection(DataService.COLLECTION_SONGS)
-            .onSnapshot((querySnaphot: firebase.firestore.QuerySnapshot) => {
-                const songs: ISongsState = {};
-                querySnaphot.forEach(doc => {
-                    songs[doc.id] = doc.data() as ISongApi;
-                });
-                STORE.dispatch(SetSongs.create({ songs }));
+            .onSnapshot((querySnapshot: firebase.firestore.QuerySnapshot) => {
+                const songs = this.querySnapshotToSongs(querySnapshot);
+                store.dispatch(SetSongs.create({ songs }));
             });
+    };
+
+    public getAllSongs = async () => {
+        try {
+            const querySnapshot = await this.firestore.collection(DataService.COLLECTION_SONGS).get();
+            return this.querySnapshotToSongs(querySnapshot);
+        } catch (error) {
+            console.error(`[DataService] Failed to get all song IDs. ${error}`);
+            return {} as ISongsState;
+        }
     };
 
     public getAllSongIds = () => {
@@ -53,7 +65,7 @@ export class DataService {
     };
 
     public createSong = async () => {
-        const currentUser = FIREBASE_AUTH_SERVICE.authGetCurrentUser();
+        const currentUser = this.firebaseAuthService.authGetCurrentUser();
         if (currentUser == null) {
             throw new Error("Cannot create song if user is not logged in.");
         }
@@ -92,5 +104,13 @@ export class DataService {
             numberOfTriesDone++;
         }
         throw new Error("Failed to generate a song ID that doesn't yet exist.");
+    };
+
+    private querySnapshotToSongs = (querySnapshot: firebase.firestore.QuerySnapshot) => {
+        const songs: ISongsState = {};
+        querySnapshot.forEach(doc => {
+            songs[doc.id] = doc.data() as ISongApi;
+        });
+        return songs;
     };
 }

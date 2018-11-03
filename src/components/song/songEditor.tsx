@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { Editor, Plugin } from "slate-react";
-import { Value, Change } from "slate";
+import { Value, Change, KeyUtils } from "slate";
 import PlainSerializer from "slate-plain-serializer";
-import { DATA_SERVICE } from "../../services";
+import { GLOBAL_SERVICES } from "../../services";
 import { TabPlugin, ChordPlugin, ProcessOnPastePlugin } from "./plugins";
 import { MobileEditBlocker, ShadowedScrollBox } from "../common";
 import { IS_MOBILE } from "../../utils";
@@ -34,6 +34,7 @@ function contentToValue(content: string | undefined) {
         return undefined;
     }
     const contentWithDefault = content.trim() === "" ? INITIAL_CONTENT : content;
+    KeyUtils.resetGenerator();
     return PlainSerializer.deserialize(contentWithDefault);
 }
 
@@ -94,8 +95,11 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
     };
 
     private updateSongContent = (content: string) => {
+        if (GLOBAL_SERVICES === undefined) {
+            return;
+        }
         const { id } = this.props;
-        DATA_SERVICE.updateSong(id, { content });
+        GLOBAL_SERVICES.dataService.updateSong(id, { content });
     };
 }
 

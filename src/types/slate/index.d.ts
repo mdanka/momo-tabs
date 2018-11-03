@@ -1310,4 +1310,12 @@ declare module "slate" {
     }
     export interface Stack extends DeepImmutable<StackProperties> {}
     export class Stack extends Immutable.Record({}) {}
+
+    export interface IKeyUtils {
+        create: () => string;
+        resetGenerator: () => void;
+        setGenerator: (generator: Function) => void;
+    }
+
+    export const KeyUtils: IKeyUtils;
 }
