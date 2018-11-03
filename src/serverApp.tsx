@@ -27,7 +27,6 @@ const FIREBASE_SERVICES = initializeAndGetServerSideServices();
 
 function loadCss() {
     return fs.readFileSync("./app.css", { encoding: "utf8" });
-    // return "";
 }
 
 async function fetchInitialState() {
