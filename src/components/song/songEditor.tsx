@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IAppState, selectSong, selectCanEditSong } from "../../store";
 import { Dispatch } from "redux";
 import { Editor, Plugin } from "slate-react";
-import { Value, Change } from "slate";
+import { Value, Change, KeyUtils } from "slate";
 import PlainSerializer from "slate-plain-serializer";
 import { GLOBAL_SERVICES } from "../../services";
 import { TabPlugin, ChordPlugin, ProcessOnPastePlugin } from "./plugins";
@@ -34,6 +34,7 @@ function contentToValue(content: string | undefined) {
         return undefined;
     }
     const contentWithDefault = content.trim() === "" ? INITIAL_CONTENT : content;
+    KeyUtils.resetGenerator();
     return PlainSerializer.deserialize(contentWithDefault);
 }
 
