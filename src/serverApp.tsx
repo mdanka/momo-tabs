@@ -18,9 +18,10 @@ import { App } from "./app";
 import { initializeAndGetServerSideServices } from "./services";
 import { SheetsRegistry } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
-import { MuiThemeProvider, createMuiTheme, createGenerateClassName, Theme } from "@material-ui/core/styles";
+import { MuiThemeProvider, createMuiTheme, Theme } from "@material-ui/core/styles";
 import { StylesCreator } from "@material-ui/core/styles/withStyles";
 import { getHtml, IHtmlTemplateProperties } from "./indexHtml";
+import { getMuiJssProviderGenerateClassName } from "./utils";
 
 const FIREBASE_SERVICES = initializeAndGetServerSideServices();
 
@@ -46,7 +47,7 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
     const sheetsRegistry = new SheetsRegistry();
     const sheetsManager = new Map<StylesCreator, Map<Theme, any>>();
     const theme = createMuiTheme({});
-    const generateClassName = createGenerateClassName({ dangerouslyUseGlobalCSS: false, productionPrefix: "momotabs" });
+    const generateClassName = getMuiJssProviderGenerateClassName();
 
     const appContent = ReactDOMServer.renderToString(
         <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
