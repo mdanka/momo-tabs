@@ -16,6 +16,10 @@ import { Store } from "redoodle";
 import { StaticRouter, StaticRouterContext } from "react-router";
 import { App } from "./app";
 import { initializeAndGetServerSideServices } from "./services";
+import { SheetsRegistry } from "jss";
+import JssProvider from "react-jss/lib/JssProvider";
+import { MuiThemeProvider, createMuiTheme, createGenerateClassName, Theme } from "@material-ui/core/styles";
+import { StylesCreator } from "@material-ui/core/styles/withStyles";
 
 interface IHtmlTemplateProperties {
     TEMPLATE_VAR_APP_CONTENT: string;
@@ -55,12 +59,29 @@ async function fetchInitialState() {
 exports.app = functions.https.onRequest(async (req: functions.Request, res: functions.Response) => {
     const initialState: IAppState = await fetchInitialState();
     const store = createAppStore(initialState);
-    const appContent = ReactDOMServer.renderToString(<ServerApp url={req.url} store={store} context={{}} />);
+
+    // Styling
+    const sheetsRegistry = new SheetsRegistry();
+    const sheetsManager = new Map<StylesCreator, Map<Theme, any>>();
+    const theme = createMuiTheme({});
+    const generateClassName = createGenerateClassName();
+
+    const appContent = ReactDOMServer.renderToString(
+        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+            <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+                <ServerApp url={req.url} store={store} context={{}} />
+            </MuiThemeProvider>
+        </JssProvider>,
+    );
+
     const initialStateString = JSON.stringify(initialState);
+    const cssMaterialUi = sheetsRegistry.toString();
+    const cssMain = loadCss();
+    const cssContent = `${cssMain}\n${cssMaterialUi}`;
     const properties: IHtmlTemplateProperties = {
         TEMPLATE_VAR_APP_CONTENT: appContent,
         TEMPLATE_VAR_INITIAL_STATE: initialStateString,
-        TEMPLATE_VAR_STYLE_TAGS: loadCss(),
+        TEMPLATE_VAR_STYLE_TAGS: cssContent,
     };
     const indexHtml = templatizeHtml(properties);
     res.status(200).send(indexHtml);

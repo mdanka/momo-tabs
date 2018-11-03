@@ -99,8 +99,7 @@ module.exports = {
     // },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[name].css"
+            filename: "[name].css"
         })
     ]
 }

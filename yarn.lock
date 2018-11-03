@@ -536,6 +536,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/jss@*":
+  version "9.5.7"
+  resolved "https://registry.npmjs.org/@types/jss/-/jss-9.5.7.tgz#fa57a6d0b38a3abef8a425e3eb6a53495cb9d5a0"
+  integrity sha512-OZimStu2QdDMtZ0h72JXqvLVbWUjXd5ZLk8vxLmfuC/nM1AabRyyGoxSufnzixrbpEcVcyy/JV5qeQu2JnjVZw==
+  dependencies:
+    csstype "^2.0.0"
+    indefinite-observable "^1.0.1"
+
 "@types/jss@^9.5.3":
   version "9.5.4"
   resolved "https://registry.yarnpkg.com/@types/jss/-/jss-9.5.4.tgz#89a4ee32a14a8d2937187b1a7f443750e964a74d"
@@ -626,6 +634,16 @@
     "@types/node" "*"
     "@types/react" "*"
 
+"@types/react-jss@^8.6.0":
+  version "8.6.0"
+  resolved "https://registry.npmjs.org/@types/react-jss/-/react-jss-8.6.0.tgz#ce8009fb65e1986431cec372dff18d7087cf7a48"
+  integrity sha512-kZvjHPPHJMKZqCgQWxNnYrBAsMquqj6J2ncIgG/Eq9AxNJobbPlCc0h2GtHe8Ap3aXi8Lgzj5JSWO9X5S2g8NQ==
+  dependencies:
+    "@types/jss" "*"
+    "@types/react" "*"
+    "@types/theming" "*"
+    csstype "^2.0.0"
+
 "@types/react-redux@^6.0.6":
   version "6.0.6"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.6.tgz#87f1d0a6ea901b93fcaf95fa57641ff64079d277"
@@ -690,6 +708,13 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/theming@*":
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/@types/theming/-/theming-1.3.0.tgz#749099bf624756a4e8f8feb525da691715af32ac"
+  integrity sha512-8eN66FZiqnINj+aRNpu19BgIcIgpely4hOFyg89pu+hvt1/ZCisdTc0lvz1LrQ+FbvjhhpjaEHFnMvRswu/Icw==
+  dependencies:
+    "@types/react" "*"
 
 "@types/tough-cookie@*":
   version "2.3.3"
@@ -5311,6 +5336,15 @@ jss@^9.3.3, jss@^9.7.0:
     symbol-observable "^1.1.0"
     warning "^3.0.0"
 
+jss@^9.8.7:
+  version "9.8.7"
+  resolved "https://registry.npmjs.org/jss/-/jss-9.8.7.tgz#ed9763fc0f2f0260fc8260dac657af61e622ce05"
+  integrity sha512-awj3XRZYxbrmmrx9LUSj5pXSUfm12m8xzi/VKeqI1ZwWBtQ0kVPTs3vYs32t4rFw83CgFDukA8wKzOE9sMQnoQ==
+  dependencies:
+    is-in-browser "^1.1.3"
+    symbol-observable "^1.1.0"
+    warning "^3.0.0"
+
 jwa@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.1.6.tgz#87240e76c9808dbde18783cf2264ef4929ee50e6"
@@ -7421,7 +7455,7 @@ react-immutable-proptypes@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
   integrity sha1-Aj1vObsVyXwHHp5g0A0TbqxfoLQ=
 
-react-jss@^8.1.0:
+react-jss@^8.1.0, react-jss@^8.6.1:
   version "8.6.1"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.6.1.tgz#a06e2e1d2c4d91b4d11befda865e6c07fbd75252"
   integrity sha512-SH6XrJDJkAphp602J14JTy3puB2Zxz1FkM3bKVE8wON+va99jnUTKWnzGECb3NfIn9JPR5vHykge7K3/A747xQ==
