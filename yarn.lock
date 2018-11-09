@@ -8312,9 +8312,9 @@ slate-prop-types@^0.4.61:
   resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.4.61.tgz#141c109bed81b130dd03ab86dd7541b28d6d962a"
   integrity sha512-qhm4jbhQnVsxnizzXp6Hzb5d6zxFnAoYBnxKmE/tmv9QVkZs9ldur1YIROutTm418/9FpLe6bATrLhqeGHYalw==
 
-slate-react@^0.18.4:
+slate-react@0.18.4:
   version "0.18.4"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.18.4.tgz#1387cdbe93d2be94dd217a9d61996a6821ccfb64"
+  resolved "https://registry.npmjs.org/slate-react/-/slate-react-0.18.4.tgz#1387cdbe93d2be94dd217a9d61996a6821ccfb64"
   integrity sha512-b4F5H3tpBfbziYWhurkMmbx/LJ44vIhMhFzk8AXdCz3kVo2X+bil2itCb193bFck5+mYGn9Oloa8qdJITWym1w==
   dependencies:
     debug "^3.1.0"
@@ -8332,9 +8332,9 @@ slate-react@^0.18.4:
     slate-plain-serializer "^0.6.2"
     slate-prop-types "^0.4.61"
 
-slate@^0.40.2:
+slate@0.40.2:
   version "0.40.2"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.40.2.tgz#3adbd4bb66c16208b2dc3f0900b1857ea7912cb0"
+  resolved "https://registry.npmjs.org/slate/-/slate-0.40.2.tgz#3adbd4bb66c16208b2dc3f0900b1857ea7912cb0"
   integrity sha512-STxC+TGQMinfFoRZuT1/cdExkqCKwgYpdDNEK6tAxS8F/A6lYzgH0J3rtWQH1ePPtZSEIPcqsroFWXVUTAZG6w==
   dependencies:
     debug "^3.1.0"
