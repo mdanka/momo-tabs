@@ -43,7 +43,7 @@ export const GET_NAV_URL_MATCH = {
 };
 
 export const GET_NAV_URL_QUERY_PARAMS = {
-    [Page.SignIn]: (value: string) => queryString.parse(value) as ISignInRouteQueryParams,
+    [Page.SignIn]: (value: string) => (queryString.parse(value) as unknown) as ISignInRouteQueryParams,
 };
 
 export const SIGN_IN_AND_RETURN = (reactRouterProps: RouteComponentProps<any>) => {
