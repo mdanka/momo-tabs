@@ -18,6 +18,7 @@
         "createBuildDir:server": "mkdirp functions",
         "lint": "tslint -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "lint-fix": "tslint --fix -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
+        "serve": "./scripts/serve.sh",
         "watch": "npm-run-all watch:client -p watch:server",
         "watch:client": "npm-run-all createBuildDir:client -s webpack -d -w --config webpack.client.config.js",
         "watch:server": "npm-run-all createBuildDir:server -s webpack -d -w --config webpack.server.config.js",

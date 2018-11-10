@@ -3,19 +3,22 @@ export interface IHtmlTemplateProperties {
     materialUiStyle: string;
     appContent: string;
     initialState: string;
+    title: string;
+    description: string;
+    keywords: string[];
 }
 
 export function getHtml(template: IHtmlTemplateProperties) {
-    const { mainStyle, materialUiStyle, appContent, initialState } = template;
+    const { mainStyle, materialUiStyle, appContent, initialState, title, description, keywords } = template;
     return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <meta name="description" content="Easy and beautiful guitar tabs and chords">
-      <meta name="keywords" content="guitar, tab, tabs, chord, chords, music, score, sheet, gitár, gitárkotta, gitártab, akkordok, akkord">
+      <meta name="description" content="${description}">
+      <meta name="keywords" content="${keywords.join(",")}">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta property="og:description" content="Easy and beautiful guitar tabs and chords" />
+      <meta property="og:description" content="${description}" />
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62449435-4"></script>
       <script>
@@ -59,7 +62,7 @@ export function getHtml(template: IHtmlTemplateProperties) {
       </style>
       <link rel="icon" type="image/png" href="/assets/favicon-260x260.png" sizes="260x260">
       <link rel="icon" type="image/png" href="/assets/favicon-32x32.png" sizes="32x32">
-      <title>Momo Tabs - Guitar Tabs and Chord Sheets</title>
+      <title>${title}</title>
     </head>
     <body>
       <div id="app">${appContent}</div>

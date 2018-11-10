@@ -4,14 +4,7 @@ import { RouteComponentProps } from "react-router";
 import { Login } from "./login";
 import { AppHeader } from "./appHeader";
 import { AppFooter } from "./appFooter";
-import {
-    GET_NAV_URL,
-    GET_NAV_URL_TEMPLATE,
-    GET_NAV_URL_MATCH,
-    Page,
-    GET_NAV_URL_QUERY_PARAMS,
-    GET_PAGE_TITLE,
-} from "../utils";
+import { NavUtils, Page } from "../utils";
 import { Song } from "./song";
 import { HomeScreen } from "./homeScreen";
 import { StaticContent } from "./staticContent";
@@ -23,23 +16,23 @@ export interface IGuitarAppState {}
 export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     public render() {
         return (
-            <DocumentTitle title={GET_PAGE_TITLE()}>
+            <DocumentTitle title={NavUtils.getNavUrlSimpleTitle[Page.Home]}>
                 <ScrollToTop>
                     <div className="guitar-app">
                         <AppHeader />
                         <div className="app-content">
                             <Switch>
-                                <Route exact path={GET_NAV_URL_TEMPLATE[Page.Home]} render={this.renderHome} />
-                                <Route path={GET_NAV_URL_TEMPLATE[Page.SignIn]} render={this.renderRouteAuth} />
-                                <Route path={GET_NAV_URL_TEMPLATE[Page.Song]} render={this.renderSong} />
+                                <Route exact path={NavUtils.getNavUrlTemplate[Page.Home]} render={this.renderHome} />
+                                <Route path={NavUtils.getNavUrlTemplate[Page.SignIn]} render={this.renderRouteAuth} />
+                                <Route path={NavUtils.getNavUrlTemplate[Page.Song]} render={this.renderSong} />
                                 <Route
                                     exact
-                                    path={GET_NAV_URL_TEMPLATE[Page.TermsOfService]}
+                                    path={NavUtils.getNavUrlTemplate[Page.TermsOfService]}
                                     render={this.renderTermsOfService}
                                 />
                                 <Route
                                     exact
-                                    path={GET_NAV_URL_TEMPLATE[Page.PrivacyPolicy]}
+                                    path={NavUtils.getNavUrlTemplate[Page.PrivacyPolicy]}
                                     render={this.renderPrivacyPolicy}
                                 />
                                 <Route render={this.renderRedirectToHome} />
@@ -53,25 +46,41 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     }
 
     private renderHome = (_locationInfo: RouteComponentProps<any>) => {
-        return <HomeScreen />;
+        return (
+            <DocumentTitle title={NavUtils.getNavUrlSimpleTitle[Page.Home]}>
+                <HomeScreen />
+            </DocumentTitle>
+        );
     };
 
     private renderTermsOfService = (_locationInfo: RouteComponentProps<any>) => {
-        return <StaticContent type="terms of service" />;
+        return (
+            <DocumentTitle title={NavUtils.getNavUrlSimpleTitle[Page.TermsOfService]}>
+                <StaticContent type="terms of service" />
+            </DocumentTitle>
+        );
     };
 
     private renderPrivacyPolicy = (_locationInfo: RouteComponentProps<any>) => {
-        return <StaticContent type="privacy policy" />;
+        return (
+            <DocumentTitle title={NavUtils.getNavUrlSimpleTitle[Page.PrivacyPolicy]}>
+                <StaticContent type="privacy policy" />
+            </DocumentTitle>
+        );
     };
 
     private renderRouteAuth = (locationInfo: RouteComponentProps<any>) => {
-        const signInQueryParams = GET_NAV_URL_QUERY_PARAMS[Page.SignIn](locationInfo.location.search);
+        const signInQueryParams = NavUtils.getNavUrlQueryParams[Page.SignIn](locationInfo.location.search);
         const { redirectUrl } = signInQueryParams;
-        return <Login redirectUrl={redirectUrl} />;
+        return (
+            <DocumentTitle title={NavUtils.getNavUrlSimpleTitle[Page.SignIn]}>
+                <Login redirectUrl={redirectUrl} />
+            </DocumentTitle>
+        );
     };
 
     private renderSong = (locationInfo: RouteComponentProps<any>) => {
-        const match = GET_NAV_URL_MATCH[Page.Song](locationInfo.location.pathname);
+        const match = NavUtils.getNavUrlMatch[Page.Song](locationInfo.location.pathname);
         if (match == null) {
             return null;
         }
@@ -80,6 +89,6 @@ export class GuitarApp extends React.Component<{}, IGuitarAppState> {
     };
 
     private renderRedirectToHome = (_locationInfo: RouteComponentProps<any>) => {
-        return <Redirect to={GET_NAV_URL[Page.Home]()} />;
+        return <Redirect to={NavUtils.getNavUrl[Page.Home]()} />;
     };
 }

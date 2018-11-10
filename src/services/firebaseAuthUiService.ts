@@ -1,7 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import { SetCurrentUser, IAppState } from "../store";
-import { GET_NAV_URL, Page, isServer } from "../utils";
+import { NavUtils, Page, isServer } from "../utils";
 import { Store } from "redoodle";
 
 /**
@@ -14,7 +14,7 @@ export class FirebaseAuthUiService {
     private firebaseAuthUi: any;
 
     private defaultFirebaseAuthUiConfig = {
-        signInSuccessUrl: GET_NAV_URL[Page.Home](),
+        signInSuccessUrl: NavUtils.getNavUrl[Page.Home](),
         signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
         tosUrl: "/terms-of-service",
         privacyPolicyUrl: "/privacy-policy",

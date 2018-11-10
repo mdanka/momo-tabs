@@ -21,7 +21,7 @@ import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider, createMuiTheme, Theme } from "@material-ui/core/styles";
 import { StylesCreator } from "@material-ui/core/styles/withStyles";
 import { getHtml, IHtmlTemplateProperties } from "./indexHtml";
-import { getMuiJssProviderGenerateClassName } from "./utils";
+import { getMuiJssProviderGenerateClassName, getPageMetadata } from "./utils";
 
 const FIREBASE_SERVICES = initializeAndGetServerSideServices();
 
@@ -56,6 +56,9 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
         </JssProvider>,
     );
 
+    const { path } = req;
+    const metadata = getPageMetadata(path, initialState);
+
     const initialStateString = stateToString(initialState);
     const cssMaterialUi = sheetsRegistry.toString();
     const cssMain = loadCss();
@@ -64,6 +67,7 @@ exports.app = functions.https.onRequest(async (req: functions.Request, res: func
         initialState: initialStateString,
         mainStyle: cssMain,
         materialUiStyle: cssMaterialUi,
+        ...metadata,
     };
     const indexHtml = getHtml(properties);
     res.status(200).send(indexHtml);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { IAppState } from "../store";
 import { Dispatch } from "redux";
 import { Link } from "react-router-dom";
-import { Page, GET_NAV_URL } from "../utils";
+import { Page, NavUtils } from "../utils";
 import { MuiThemeProvider } from "@material-ui/core";
 import { DARK_THEME, CONTACT_HREF } from "../utils";
 
@@ -22,22 +22,14 @@ export class UnconnectedAppFooter extends React.Component<IAppFooterProps, IAppF
         return (
             <div className="app-footer">
                 <MuiThemeProvider theme={DARK_THEME}>
-                    {/* <span className="app-footer-item">
-                        <span className="app-footer-app-title">
-                            <Link className="underline" to={GET_NAV_URL[Page.Home]()}>
-                                Momo Tabs
-                            </Link>
-                        </span>
-                    </span>
-                    {this.renderSeparator()} */}
                     <span className="app-footer-item">
-                        <Link className="underline" to={GET_NAV_URL[Page.TermsOfService]()}>
+                        <Link className="underline" to={NavUtils.getNavUrl[Page.TermsOfService]()}>
                             Terms of Service
                         </Link>
                     </span>
                     {this.renderSeparator()}
                     <span className="app-footer-item">
-                        <Link className="underline" to={GET_NAV_URL[Page.PrivacyPolicy]()}>
+                        <Link className="underline" to={NavUtils.getNavUrl[Page.PrivacyPolicy]()}>
                             Privacy Policy
                         </Link>
                     </span>

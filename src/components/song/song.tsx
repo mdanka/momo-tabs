@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { SongHeader } from "./songHeader";
 import { SongEditor } from "./songEditor";
-import { getSongWithPlaceholders, GET_PAGE_TITLE } from "../../utils";
+import { NavUtils } from "../../utils";
 import DocumentTitle = require("react-document-title");
 
 export interface ISongOwnProps {
@@ -27,9 +27,8 @@ export class UnconnectedSong extends React.Component<ISongProps, {}> {
         if (song === undefined) {
             return null;
         }
-        const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
         return (
-            <DocumentTitle title={GET_PAGE_TITLE(`${fullTitle} - ${fullArtist}`)}>
+            <DocumentTitle title={NavUtils.getSongPageTitle(song)}>
                 <div className="song">
                     <SongHeader id={id} />
                     <div className="song-content-container">

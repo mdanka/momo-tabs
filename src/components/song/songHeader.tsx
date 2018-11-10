@@ -6,7 +6,7 @@ import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
 import { GLOBAL_SERVICES } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
-import { GET_NAV_URL, Page, getSongWithPlaceholders, IS_MOBILE } from "../../utils";
+import { NavUtils, Page, getSongWithPlaceholders, IS_MOBILE } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
 import { MobileEditBlocker } from "../common";
 
@@ -140,7 +140,7 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
         }
         const { id, history } = this.props;
         GLOBAL_SERVICES.dataService.deleteSong(id);
-        history.push(GET_NAV_URL[Page.Home]());
+        history.push(NavUtils.getNavUrl[Page.Home]());
     };
 
     private toggleDeletionDialog = () => {

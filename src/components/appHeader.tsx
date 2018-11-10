@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { GLOBAL_SERVICES } from "../services";
-import { Page, GET_NAV_URL, SIGN_IN_AND_RETURN } from "../utils";
+import { Page, NavUtils } from "../utils";
 import {
     Button,
     Icon,
@@ -57,7 +57,7 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
             <div className="app-header">
                 <MuiThemeProvider theme={DARK_THEME}>
                     <span className="app-title">
-                        <Link to={GET_NAV_URL[Page.Home]()}>Momo Tabs</Link>
+                        <Link to={NavUtils.getNavUrl[Page.Home]()}>Momo Tabs</Link>
                     </span>
                     {this.renderContactButton()}
                     {this.renderCreateButton()}
@@ -198,15 +198,15 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
         const { canCreateSong, history } = this.props;
         if (canCreateSong) {
             const id = await GLOBAL_SERVICES.dataService.createSong();
-            const newSongUrl = GET_NAV_URL[Page.Song](id);
+            const newSongUrl = NavUtils.getNavUrl[Page.Song](id);
             history.push(newSongUrl);
         } else {
-            SIGN_IN_AND_RETURN(this.props);
+            NavUtils.singInAndReturn(this.props);
         }
     };
 
     private handleSignInClick = () => {
-        SIGN_IN_AND_RETURN(this.props);
+        NavUtils.singInAndReturn(this.props);
     };
 }
 

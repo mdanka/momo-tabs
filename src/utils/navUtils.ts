@@ -1,6 +1,8 @@
 import { matchPath } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import * as queryString from "query-string";
+import { getSongWithPlaceholders } from "./songUtils";
+import { ISongApi } from "../commons";
 
 export enum Page {
     Home = "home",
@@ -10,54 +12,81 @@ export enum Page {
     PrivacyPolicy = "privacy-policy",
 }
 
-export const GET_NAV_URL = {
-    [Page.Home]: () => "/",
-    [Page.SignIn]: (redirectUrl?: string) => `/signin${redirectUrl === undefined ? "" : `?redirectUrl=${redirectUrl}`}`,
-    [Page.Song]: (id: string) => `/songs/${id}`,
-    [Page.TermsOfService]: () => `/terms-of-service`,
-    [Page.PrivacyPolicy]: () => `/privacy-policy`,
-};
+export namespace NavUtils {
+    export const getNavUrl = {
+        [Page.Home]: () => "/",
+        [Page.SignIn]: (redirectUrl?: string) =>
+            `/signin${redirectUrl === undefined ? "" : `?redirectUrl=${redirectUrl}`}`,
+        [Page.Song]: (id: string) => `/songs/${id}`,
+        [Page.TermsOfService]: () => `/terms-of-service`,
+        [Page.PrivacyPolicy]: () => `/privacy-policy`,
+    };
 
-export const GET_NAV_URL_TEMPLATE = {
-    [Page.Home]: GET_NAV_URL[Page.Home](),
-    [Page.SignIn]: GET_NAV_URL[Page.SignIn](),
-    [Page.Song]: `/songs/:id`,
-    [Page.TermsOfService]: GET_NAV_URL[Page.TermsOfService](),
-    [Page.PrivacyPolicy]: GET_NAV_URL[Page.PrivacyPolicy](),
-};
+    export const getNavUrlTemplate = {
+        [Page.Home]: getNavUrl[Page.Home](),
+        [Page.SignIn]: getNavUrl[Page.SignIn](),
+        [Page.Song]: `/songs/:id`,
+        [Page.TermsOfService]: getNavUrl[Page.TermsOfService](),
+        [Page.PrivacyPolicy]: getNavUrl[Page.PrivacyPolicy](),
+    };
 
-interface ISongRouteComponentParams {
-    id: string;
-}
-
-interface ISignInRouteQueryParams {
-    redirectUrl: string | undefined;
-}
-
-export const GET_NAV_URL_MATCH = {
-    [Page.Song]: (pathName: string) => {
-        return matchPath<ISongRouteComponentParams>(pathName, {
-            path: GET_NAV_URL_TEMPLATE[Page.Song],
-        });
-    },
-};
-
-export const GET_NAV_URL_QUERY_PARAMS = {
-    [Page.SignIn]: (value: string) => (queryString.parse(value) as unknown) as ISignInRouteQueryParams,
-};
-
-export const SIGN_IN_AND_RETURN = (reactRouterProps: RouteComponentProps<any>) => {
-    const { history } = reactRouterProps;
-    const currentPath = history.location.pathname;
-    history.push(GET_NAV_URL[Page.SignIn](currentPath));
-};
-
-const PAGE_TITLE_BASE = "Momo Tabs";
-const PAGE_TITLE_ENDING = " - Guitar Tabs and Chord Sheets";
-
-export function GET_PAGE_TITLE(title?: string) {
-    if (title === undefined) {
-        return `${PAGE_TITLE_BASE}${PAGE_TITLE_ENDING}`;
+    interface ISongRouteComponentParams {
+        id: string;
     }
-    return `${title}${PAGE_TITLE_ENDING}`;
+
+    interface ISignInRouteQueryParams {
+        redirectUrl: string | undefined;
+    }
+
+    export const getNavUrlMatch = {
+        [Page.Song]: (pathName: string) => {
+            return matchPath<ISongRouteComponentParams>(pathName, {
+                path: getNavUrlTemplate[Page.Song],
+            });
+        },
+    };
+
+    export const getNavUrlQueryParams = {
+        [Page.SignIn]: (value: string) => (queryString.parse(value) as unknown) as ISignInRouteQueryParams,
+    };
+
+    export const singInAndReturn = (reactRouterProps: RouteComponentProps<any>) => {
+        const { history } = reactRouterProps;
+        const currentPath = history.location.pathname;
+        history.push(getNavUrl[Page.SignIn](currentPath));
+    };
+
+    const pageTitleBase = "Momo Tabs";
+    const pageTitleEnding = " - Guitar Tabs and Chord Sheets";
+
+    function getPageTitle(title?: string) {
+        const titlePrefix = title === undefined ? "" : `${title} - `;
+        return `${titlePrefix}${pageTitleBase}${pageTitleEnding}`;
+    }
+
+    export function getSongPageTitle(song: ISongApi) {
+        const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
+        return getPageTitle(`${fullTitle} - ${fullArtist}`);
+    }
+
+    export function pathToPage(path: string) {
+        const pages = [Page.Home, Page.SignIn, Page.Song, Page.TermsOfService, Page.PrivacyPolicy];
+        return pages.find(page => pageToMatch(path, page) !== null);
+    }
+
+    function pageToMatch(path: string, page: Page) {
+        return matchPath(path, {
+            path: getNavUrlTemplate[page],
+            exact: true,
+            strict: false,
+        });
+    }
+
+    export const getNavUrlSimpleTitle = {
+        [Page.Home]: getPageTitle("Home"),
+        [Page.SignIn]: getPageTitle("Sign in"),
+        [Page.Song]: getPageTitle("Song"),
+        [Page.TermsOfService]: getPageTitle("Terms of Service"),
+        [Page.PrivacyPolicy]: getPageTitle("Privacy Policy"),
+    };
 }

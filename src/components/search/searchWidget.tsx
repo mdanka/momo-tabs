@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { List, ListItemText, ListItem } from "@material-ui/core";
 import { Page } from "../../utils";
 import { Link } from "react-router-dom";
-import { GET_NAV_URL, getSongWithPlaceholders } from "../../utils";
+import { NavUtils, getSongWithPlaceholders } from "../../utils";
 import { ISong } from "../../commons";
 
 export interface ISearchWidgetOwnProps {}
@@ -32,7 +32,7 @@ export class UnconnectedSearchWidget extends React.Component<ISearchWidgetProps,
         const { id } = song;
         const { title: fullTitle, artist: fullArtist } = getSongWithPlaceholders(song);
         return (
-            <Link key={id} to={GET_NAV_URL[Page.Song](id)}>
+            <Link key={id} to={NavUtils.getNavUrl[Page.Song](id)}>
                 <ListItem button divider={true}>
                     <ListItemText primary={fullTitle} secondary={fullArtist} />
                 </ListItem>
