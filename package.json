@@ -16,6 +16,7 @@
         "clean:server": "rimraf functions",
         "createBuildDir:client": "mkdirp dist",
         "createBuildDir:server": "mkdirp functions",
+        "deploy": "./scripts/deploy.sh",
         "lint": "tslint -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "lint-fix": "tslint --fix -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "serve": "./scripts/serve.sh",
