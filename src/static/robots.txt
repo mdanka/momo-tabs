@@ -1,1 +1,0 @@
-sitemap: https://momotabs.com/sitemaps/sitemap.xml

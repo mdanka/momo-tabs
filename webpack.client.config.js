@@ -24,7 +24,7 @@ module.exports = Object.assign({}, baseWebpackConfig, {
         new WebpackBuildNotifierPlugin({
             title: "Momo Tabs Build - Client",
         }),
-        new CopyWebpackPlugin([ { from: "src/static/generated/sitemaps", to: "sitemaps" }, { from: "src/assets", to: "assets" }, "src/static/robots.txt" ]),
+        new CopyWebpackPlugin([ { from: "src/assets", to: "assets" }, "src/static/robots.txt" ]),
         new webpack.DefinePlugin({
             __SERVER__: false
         })

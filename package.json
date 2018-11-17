@@ -22,7 +22,6 @@
         "watch": "npm-run-all watch:client -p watch:server",
         "watch:client": "npm-run-all createBuildDir:client -s webpack -d -w --config webpack.client.config.js",
         "watch:server": "npm-run-all createBuildDir:server -s webpack -d -w --config webpack.server.config.js",
-        "generateSitemap": "yarn run ts-node ./srcLocal/generateSitemap.ts",
         "verify": "yarn run es-check es5 './dist/bundle.js'"
     },
     "dependencies": {
