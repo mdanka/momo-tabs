@@ -20,8 +20,8 @@
         "lint-fix": "tslint --fix -c tslint.json `find src -name '*.ts' -o -name '*.tsx'`",
         "serve": "./scripts/serve.sh",
         "watch": "npm-run-all watch:client -p watch:server",
-        "watch:client": "npm-run-all createBuildDir:client -s webpack -d -w --config webpack.client.config.js",
-        "watch:server": "npm-run-all createBuildDir:server -s webpack -d -w --config webpack.server.config.js",
+        "watch:client": "yarn run createBuildDir:client && webpack -d -w --config webpack.client.config.js",
+        "watch:server": "yarn run createBuildDir:server && webpack -d -w --config webpack.server.config.js",
         "verify": "yarn run es-check es5 './dist/bundle.js'"
     },
     "dependencies": {
