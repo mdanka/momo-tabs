@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import { Editor, Plugin } from "slate-react";
 import { Value, Change, KeyUtils } from "slate";
 import PlainSerializer from "slate-plain-serializer";
-import { GLOBAL_SERVICES } from "../../services";
+import { getGlobalServices } from "../../services";
 import { TabPlugin, ChordPlugin, ProcessOnPastePlugin } from "./plugins";
 import { MobileEditBlocker, ShadowedScrollBox } from "../common";
 import { IS_MOBILE } from "../../utils";
@@ -95,11 +95,12 @@ export class UnconnectedSongEditor extends React.Component<ISongEditorProps, ISo
     };
 
     private updateSongContent = (content: string) => {
-        if (GLOBAL_SERVICES === undefined) {
+        const globalServices = getGlobalServices();
+        if (globalServices === undefined) {
             return;
         }
         const { id } = this.props;
-        GLOBAL_SERVICES.dataService.updateSong(id, { content });
+        globalServices.dataService.updateSong(id, { content });
     };
 }
 

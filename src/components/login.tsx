@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GLOBAL_SERVICES } from "../services";
+import { getGlobalServices } from "../services";
 
 export interface ILoginProps {
     redirectUrl: string | undefined;
@@ -18,14 +18,15 @@ export class Login extends React.Component<ILoginProps, {}> {
         if (this.ref.current == null) {
             return;
         }
-        if (GLOBAL_SERVICES !== undefined) {
-            GLOBAL_SERVICES.firebaseAuthUiService.authStart(this.ref.current, redirectUrl);
+        const globalServices = getGlobalServices();
+        if (globalServices !== undefined) {
+            globalServices.firebaseAuthUiService.authStart(this.ref.current, redirectUrl);
         }
     }
 
     public render() {
         return (
-            <div className="login-screen" ref={this.ref}>
+            <div className="login-screen">
                 <div className="login-widget" ref={this.ref} />
             </div>
         );
