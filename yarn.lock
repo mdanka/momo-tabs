@@ -3606,10 +3606,10 @@ firebase@^5.4.1:
     "@firebase/polyfill" "0.3.3"
     "@firebase/storage" "0.2.3"
 
-firebaseui@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-3.4.0.tgz#ca9ebc708aeab5bf2e6e060c4caf12674d9db186"
-  integrity sha512-kUrTa0pEI626AHZWKDjs8V1T9PFReA+RFMdh6bg/Zxs7BLbwPOMnCkmhfCYjbqHnH+ISX2HASO6XM0OXs/tKbg==
+firebaseui@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-3.5.2.tgz#21e7598d3f63ca27970d328de7503e27214ddebe"
+  integrity sha512-KFKvTlJ9N1dQ1SsKTitVQ9wUQX2XMyySG20SbBs+r/FriAsPTYJ/6Hzkh5ebEiUaOcHx4DYG78Jce5XSQ+Ssrw==
   dependencies:
     dialog-polyfill "^0.4.7"
 
