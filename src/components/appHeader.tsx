@@ -191,7 +191,6 @@ export class UnconnectedAppHeader extends React.Component<IAppHeaderProps, IAppH
 
     private handleCreateClick = async () => {
         const globalServices = getGlobalServices();
-
         if (globalServices === undefined) {
             return;
         }
