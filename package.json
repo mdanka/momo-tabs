@@ -36,7 +36,7 @@
         "firebase": "^5.4.1",
         "firebase-admin": "^6.1.0",
         "firebase-functions": "^2.1.0",
-        "firebaseui": "^3.4.0",
+        "firebaseui": "^3.5.2",
         "fs-extra": "^7.0.0",
         "immutable": "^3.8.2",
         "jss": "^9.8.7",

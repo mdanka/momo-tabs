@@ -4,7 +4,7 @@ import { IAppState, selectSong, selectCanEditSong, selectCanDeleteSong } from ".
 import { Dispatch } from "redux";
 import { ISongApi } from "../../commons";
 import { EditableText } from "@blueprintjs/core";
-import { GLOBAL_SERVICES } from "../../services";
+import { getGlobalServices } from "../../services";
 import { RouteComponentProps, withRouter } from "react-router";
 import { NavUtils, Page, getSongWithPlaceholders, IS_MOBILE } from "../../utils";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Icon } from "@material-ui/core";
@@ -111,19 +111,21 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     };
 
     private onArtistChange = (artist: string) => {
-        if (GLOBAL_SERVICES === undefined) {
+        const globalServices = getGlobalServices();
+        if (globalServices === undefined) {
             return;
         }
         const { id } = this.props;
-        GLOBAL_SERVICES.dataService.updateSong(id, { artist });
+        globalServices.dataService.updateSong(id, { artist });
     };
 
     private onTitleChange = (title: string) => {
-        if (GLOBAL_SERVICES === undefined) {
+        const globalServices = getGlobalServices();
+        if (globalServices === undefined) {
             return;
         }
         const { id } = this.props;
-        GLOBAL_SERVICES.dataService.updateSong(id, { title });
+        globalServices.dataService.updateSong(id, { title });
     };
 
     private handleDeleteClick = () => {
@@ -135,11 +137,12 @@ export class UnconnectedSongHeader extends React.Component<ISongHeaderProps, ISo
     };
 
     private handleDeleteConfirmed = async () => {
-        if (GLOBAL_SERVICES === undefined) {
+        const globalServices = getGlobalServices();
+        if (globalServices === undefined) {
             return;
         }
         const { id, history } = this.props;
-        GLOBAL_SERVICES.dataService.deleteSong(id);
+        globalServices.dataService.deleteSong(id);
         history.push(NavUtils.getNavUrl[Page.Home]());
     };
 
