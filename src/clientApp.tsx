@@ -1,13 +1,14 @@
 import "es6-shim";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createAppStore, IAppState, IWindowWithInitialState, deserializeAppState } from "./store";
-import { App } from "./app";
-import { BrowserRouter } from "react-router-dom";
-import { initializeAndGetClientSideServices } from "./services";
-import { Store } from "redoodle";
 import JssProvider from "react-jss/lib/JssProvider";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { BrowserRouter } from "react-router-dom";
+import { Store } from "redoodle";
+
+import { App } from "./app";
+import { initializeAndGetClientSideServices } from "./services";
+import { createAppStore, IAppState, IWindowWithInitialState, deserializeAppState } from "./store";
 import { getMuiJssProviderGenerateClassName } from "./utils";
 
 interface IClientAppProps {
